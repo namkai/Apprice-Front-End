@@ -1,0 +1,90 @@
+body {
+    background-image: url('./lemongs.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+li {
+    float: left;
+}
+
+li a {
+    text-align: right;
+    display: block;
+    color: black;
+    /*text-align: center;*/
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: green;
+    color: white;
+}
+
+hr {
+    width: 65%;
+    /*border-bottom: 1px solid rgba(0,0,0,0.2);*/
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+h1 {
+    margin-top: 150px;
+    text-align: center;
+}
+
+#home-btn {
+    background-color: #3dc26f;
+    color: white;
+    border: 0;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3)
+}
+
+#home-btn:hover {
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+}
+
+#logo {
+    font-size: 30px;
+    /*font-weight: bold;*/
+    margin-right: 800px;
+}
+
+#Welcome_Apprice {
+    font-size: 35px;
+}
+
+.container {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.welcome {
+    margin-top: 14%;
+    margin-right: 70%;
+    font-size: 25px;
+}
+
+nav {
+    -webkit-box-shadow: 0 5px 6px -6px #999;
+    -moz-box-shadow: 0 5px 6px -6px #999;
+    box-shadow: 0 5px 6px -6px #999;
+    /*text-shadow: 0px 1px 3px rgba(0,0,0,0.2),
+				 0px 2px 3px rgba(0,0,0,0.1),
+				 0px 2px 6px rgba(0,0,0,0.1);*/
+}

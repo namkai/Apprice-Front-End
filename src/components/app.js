@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import Nav from './Nav';
+import Home from './Home';
 
 export default class App extends Component {
   render() {
     return (
-      <div>React simple starter</div>
+      <div>
+        <Nav/>
+            <div className="container">
+                <Home/>
+            </div>
+      </div>
     );
   }
 }
