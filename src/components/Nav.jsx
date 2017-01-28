@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router';
+
 
 const Nav = (props) => {
     return (
@@ -10,16 +12,13 @@ const Nav = (props) => {
                     </div>
                 </li>
                 <li>
-                    <a href="default.asp">Recipes</a>
+                    <Link to={"/SignUp"}></Link>
                 </li>
                 <li>
-                    <a href="news.asp">Groceries</a>
+                    <a href="news.asp">Login</a>
                 </li>
                 <li>
-                    <a href="contact.asp">Sign Up</a>
-                </li>
-                <li>
-                    <a href="about.asp">Sign In</a>
+                    <a href="contact.asp">Help</a>
                 </li>
             </ul>
         </nav>

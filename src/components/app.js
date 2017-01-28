@@ -5,10 +5,10 @@ import Home from './Home';
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div id="zero">
         <Nav/>
             <div className="container">
-                <Home/>
+                {this.props.children}
             </div>
       </div>
     );
