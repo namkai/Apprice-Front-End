@@ -56,14 +56,18 @@ button:focus {outline:0;}
 
 #home-btn:hover {
     background-color: #70ae29;
-    /* Green */
     color: white;
 }
 
 #logo {
     font-size: 30px;
-    /*font-weight: bold;*/
-    margin-right: 800px;
+    border-bottom: 0;
+    margin-left: 5%;
+
+}
+#logo:hover {
+    border-bottom: 0;
+    /*background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));*/
 }
 
 /*#zero {
@@ -74,6 +78,10 @@ button:focus {outline:0;}
 }*/
 #Welcome_Apprice {
     font-size: 35px;
+}
+
+#links{
+    float: right;
 }
 
 .container {
