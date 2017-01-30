@@ -4,13 +4,16 @@ import {Route, IndexRoute} from 'react-router';
 import App from './components/app';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
+import Login from './components/Login';
+import Help from './components/Help';
 import List_Page from './components/Create_List/List_Page';
+
 export default(
     <Route path="/" component={App}>
-        <IndexRoute component={Home} />
-        <Route path="/SignUp" component={SignUp} />
-        <Route path="/List_Page" component={List_Page} />
-
-        {/* <Route path="posts/:id" component={PostsShow} /> */}
+        <IndexRoute component={Home}/>
+        <Route path="/signup" component={SignUp}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/List_Page" component={List_Page}/>
+        <Route path="/help" component={Help}/>
     </Route>
 );

@@ -19,6 +19,13 @@ nav {
     /*text-shadow: 0px 1px 3px rgba(0,0,0,0.2),
 				 0px 2px 3px rgba(0,0,0,0.1),
 				 0px 2px 6px rgba(0,0,0,0.1);*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(69,115,8,.1);
 }
 
 li {
@@ -91,10 +98,13 @@ button:focus {
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3)
 }
+
 #search-button:hover {
     background-color: #70ae29;
     color: white;
 }
+
+
 /*#zero {
     margin: 0;
     padding: 0;
@@ -113,6 +123,7 @@ button:focus {
 #imageContainer {
     margin-left: 50%;
 }
+
 #list-container {
     /*margin-top: 20*/
     width: 20%;
@@ -120,16 +131,18 @@ button:focus {
     border-radius: 5px;
     margin-top: 2%;
 }
-.home-container {
+
+/*.home-container {
     width: 100%;
     height: 100%;
     background-image: url();
-}
+}*/
+
 .grocery-search {
     width: 100px;
 }
 
-.card{
+.card {
     width: 80px;
     height: 80px;
     float: right;
@@ -139,12 +152,14 @@ button:focus {
     border: 1px solid black;
     /*margin-top: 15%;*/
 }
+
 .card-image {
     /*border: 1px solid black;*/
     width: 100%;
     height: 75%;
     /*border-radius: 10%;*/
 }
+
 .card-title {
     height: 20%;
     background-color: grey;
@@ -152,7 +167,7 @@ button:focus {
 }
 
 .container {
-    margin: 0 80px;
+    margin: 5% 80px;
     text-align: center;
 }
 

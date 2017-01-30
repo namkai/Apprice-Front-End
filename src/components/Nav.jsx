@@ -12,13 +12,13 @@ const Nav = (props) => {
                 </li>
                 <div id="links">
                     <li>
-                        <Link to={"/SignUp"}>Sign Up</Link>
+                        <Link to={"/signup"}>Sign Up</Link>
                     </li>
                     <li>
-                        <a href="news.asp">Login</a>
+                        <Link to={"/login"}>Log In</Link>
                     </li>
                     <li>
-                        <a href="contact.asp">Help</a>
+                        <Link to={"/help"}>Help</Link>
                     </li>
                 </div>
             </ul>
