@@ -16,9 +16,9 @@ module.exports = {
     connection: 'postgres://localhost/apprice'
   }
 
-  // production: {
-  //   client: 'postgresql',
-  //   connection: process.env.DATABASE_URL,
-  //
-  // }
+  production: {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL,
+
+  }
   };

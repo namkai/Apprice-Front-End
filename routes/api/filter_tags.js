@@ -13,5 +13,14 @@ router.route('/').get(function(req, res, next){
     });
 });
 
+// router.route('/:id').get(function(req, res, next){
+//     knex('filter_tags').where('id', req.id)
+//     .then(function(filter_tags){
+//         res.json(filter_tags);
+//     }).catch(function(err){
+//         next(new Error(err));
+//     });
+// });
+
 
 module.exports = router;
