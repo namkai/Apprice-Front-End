@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
+import {fetchFood} from '../../actions/index';
 
 let seededNames = [];
 let seededGroceries = [];
@@ -31,12 +32,14 @@ export default class List_Page extends Component {
         this.foodSearch = this.foodSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
-    foodSearch(term) {
+    async foodSearch(term) {
         let {names} = this.state;
+        let fetched = await fetchFood()
+        console.log('I am the fetched',fetched);
             this.setState({
                 names: [...names, {name: term}]
             });
-            console.log(names);
+            // console.log(names);
     }
     handleClick(food) {
         let {names} = this.state;
