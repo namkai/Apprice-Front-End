@@ -17,11 +17,11 @@ export default class Grocery_List extends Component {
     }
     render() {
         return (
-            <div id="list-container">
+            <div id="list" >
                 <ul>
                     {this.generateGroceryList()}
                 </ul>
-            </div>
+             </div>
         )
     }
 }

@@ -48,11 +48,14 @@ export default class List_Page extends Component {
     render() {
         let {groceries, names} = this.state;
         return (
-            <div className="container">
+            <div>
                 {/* <div>I'm the list page</div> */}
-                <SearchBar foodSearch={this.foodSearch}/>
                 <ImageList handleClick={this.handleClick} groceries={groceries}/>
+                <div id="list-container">
+                <h2>Lets pickout some groceries.</h2>
+                <SearchBar foodSearch={this.foodSearch}/>
                 <Grocery_List groceries={names}/>
+            </div>
             </div>
         )
     }

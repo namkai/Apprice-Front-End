@@ -8,7 +8,7 @@ export default class List extends Component {
         let {name} = this.props;
         return (
             <div>
-                <li>- {name}</li>
+                <li>{name}</li>
                 <br/>
             </div>
         )
