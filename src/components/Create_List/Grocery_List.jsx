@@ -8,9 +8,10 @@ export default class Grocery_List extends Component {
     }
     generateGroceryList() {
         let {groceries} = this.props;
+
         console.log(groceries);
         return groceries.map((food) => {
-            let {image, name} = food
+            let {product_image_url, name} = food
             return (<List name={name}/>)
 
         })
