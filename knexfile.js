@@ -14,7 +14,7 @@ module.exports = {
   development: {
     client: 'postgres',
     connection: 'postgres://localhost/apprice'
-  }
+},
 
   production: {
     client: 'postgresql',
