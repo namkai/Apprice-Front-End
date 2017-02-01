@@ -1,11 +1,11 @@
 'use strict';
-
+require('dotenv').config();
 var express = require ("express");
 var app = express ();
 const bodyParser = require ("body-parser");
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 var routes = require ("./routes/index");
 
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
-app.use(expressSession({secret:'thisisafuckinsecret'}));
+app.use(expressSession({secret:process.env.COOKIE_SECRET}));
 
 
     //routes for the api (database)
@@ -36,6 +36,26 @@ app.use("/api/users_filter_tags", routes.users_filter_tags);
 app.get('/', function(req, res){
     res.render("index", {req});
     // res.send('hello world')
+});
+
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 app.listen(PORT, function(){
