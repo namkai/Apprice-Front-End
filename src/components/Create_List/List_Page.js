@@ -11,18 +11,27 @@ export default class List_Page extends Component {
             genericGroceries: [],
             selectedFood: ['Strawberries']
         }
-        this.foodSearch = this.foodSearch.bind(this);
+        this.topFoodSearch = this.topFoodSearch.bind(this);
+        this.specificFoodSearch = this.specificFoodSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.foodSearch();
+        this.topFoodSearch();
         // this.generateImageList = this.generateImageList.bind(this);
     }
-    async foodSearch() {
+    async topFoodSearch() {
         let {groceries} = this.state;
         let food = await fetchGenericFood();
         console.log(`I'm the food`, food);
         this.setState({genericGroceries: food});
         console.log(`I'm the groceries`, groceries);
     }
+    async specificFoodSearch(term) {
+        let {selectedFood} = this.state;
+        let food = await fetchSpecificFood(term);
+        console.log(`I'm the food`, food);
+        this.setState({selectedFood: food});
+        console.log(`I'm the groceries`, groceries);
+    }
+
     handleClick(food) {
         let {selectedFood} = this.state;
         console.log(names);
@@ -56,7 +65,7 @@ export default class List_Page extends Component {
                 />
                 <h2>Lets pickout some groceries.</h2>
                 <div id="list-container">
-                    <SearchBar foodSearch={this.foodSearch}/>
+                    <SearchBar foodSearch={this.specificFoodSearch}/>
                     <Grocery_List groceries={selectedFood}/>
                 </div>
             </div>

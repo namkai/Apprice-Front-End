@@ -17,7 +17,7 @@ const SPECIFIC_URL = `https://appriceapi.herokuapp.com/api/products/search?name=
 export async function fetchGenericFood() {
     let url = `${ROOT_URL}`
     try {
-        let fetched = await fetch(url);
+        let fetched = await post(url);
         let data = await fetched.json();
         // console.log(data);
         return data;
@@ -27,7 +27,7 @@ export async function fetchGenericFood() {
     }
 }
 export async function fetchSpecificFood(food) {
-    let url = `SPECIFIC_URL${food}`
+    let url = `${SPECIFIC_URL}${food}`
     try {
         let fetched = await fetch(url);
         let data = await fetched.json();
