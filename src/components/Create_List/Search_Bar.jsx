@@ -16,7 +16,7 @@ class SearchBar extends Component {
         this.setState({term: event.target.value})
     }
 
-    onFormSubmit(event) {
+    async onFormSubmit(event) {
         event.preventDefault();
         if(this.state.term.length === 0) {
             return;

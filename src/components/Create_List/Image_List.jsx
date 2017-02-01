@@ -29,6 +29,7 @@ export default class ImageList extends Component {
     render() {
 
             let {groceries} = this.props
+            // console.log(groceries);
             let food = groceries.map((ele) => {
                 let {name, product_image_url} = ele;
                 return (

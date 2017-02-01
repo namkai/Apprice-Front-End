@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
-import {fetchGenericFood} from '../../actions/index';
+import {fetchGenericFood, fetchSpecificFood} from '../../actions/index';
 
 export default class List_Page extends Component {
     constructor(props) {
@@ -20,16 +20,15 @@ export default class List_Page extends Component {
     async topFoodSearch() {
         let {groceries} = this.state;
         let food = await fetchGenericFood();
-        console.log(`I'm the food`, food);
         this.setState({genericGroceries: food});
-        console.log(`I'm the groceries`, groceries);
     }
     async specificFoodSearch(term) {
+        console.log(term);
         let {selectedFood} = this.state;
         let food = await fetchSpecificFood(term);
         console.log(`I'm the food`, food);
         this.setState({selectedFood: food});
-        console.log(`I'm the groceries`, groceries);
+        console.log(`I'm the selectedFood`, this.state.selectedFood);
     }
 
     handleClick(food) {
@@ -57,12 +56,11 @@ export default class List_Page extends Component {
     // }
     render() {
         let {genericGroceries, selectedFood} = this.state;
+        console.log(`I'm the generic `,genericGroceries);
         return (
             <div>
 
-                <ImageList handleClick={this.handleClick} groceries={genericGroceries}
-                generateImageList={this.generateImageList}
-                />
+                <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
                 <h2>Lets pickout some groceries.</h2>
                 <div id="list-container">
                     <SearchBar foodSearch={this.specificFoodSearch}/>
