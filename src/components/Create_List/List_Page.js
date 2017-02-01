@@ -9,7 +9,7 @@ export default class List_Page extends Component {
         super(props);
         this.state = {
             genericGroceries: [],
-            selectedFood: ['Strawberries']
+            selectedFood: []
         }
         this.topFoodSearch = this.topFoodSearch.bind(this);
         this.specificFoodSearch = this.specificFoodSearch.bind(this);
@@ -23,21 +23,20 @@ export default class List_Page extends Component {
         this.setState({genericGroceries: food});
     }
     async specificFoodSearch(term) {
-        console.log(term);
         let {selectedFood} = this.state;
         let food = await fetchSpecificFood(term);
-        console.log(`I'm the food`, food);
         this.setState({selectedFood: food});
-        console.log(`I'm the selectedFood`, this.state.selectedFood);
     }
 
     handleClick(food) {
         let {selectedFood} = this.state;
-        console.log(names);
+        // console.log(`I'm the `, selectedFood);
+        // console.log(`I'm the food`, food);
+        console.log(`I'm the this`,this);
         this.setState({
             selectedFood: [
-                ...names, {
-                    name: food
+                ...selectedFood, {
+                    selectedFood: food
                 }
             ]
         })
@@ -56,7 +55,8 @@ export default class List_Page extends Component {
     // }
     render() {
         let {genericGroceries, selectedFood} = this.state;
-        console.log(`I'm the generic `,genericGroceries);
+        console.log('Im the selected food', selectedFood);
+        // console.log(`I'm the generic `,genericGroceries);
         return (
             <div>
 
