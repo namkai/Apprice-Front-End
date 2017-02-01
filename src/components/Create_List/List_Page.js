@@ -25,7 +25,8 @@ export default class List_Page extends Component {
     async specificFoodSearch(term) {
         let {selectedFood} = this.state;
         let food = await fetchSpecificFood(term);
-        this.setState({selectedFood: food});
+        console.log('Im the new selected food',food);
+        this.setState({genericGroceries: food});
     }
 
     handleClick(food) {
