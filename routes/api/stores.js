@@ -29,16 +29,23 @@ router.route('/').get(function(req, res, next){
     });
 });
 
-// router.route('/search').get(function(req, res, next){
-//     let lat = req.query.lat;
-//     let lng = req.query.lng;
-//     let filtered = [];
-//     knex('stores').then(function(storesData){
-//
-//     }).catch(function(err){
-//         next(new Error(err));
-//     });
-// });
+router.route('/search').get(function(req, res, next){
+    let lat = req.query.lat;
+    let long = req.query.long;
+    let radius = req.query.radius;
+    let filtered = [];
+    knex('stores').then(function(storesData){
+        storesData.forEach(function(curStore){
+            var distance = calcDistance(curStore.latitude, curStore.longitude, lat, long);
+            if(distance<= radius){
+                filtered.push(curStore)
+            }
+        })
+        res.json(filtered)
+    }).catch(function(err){
+        next(new Error(err));
+    });
+});
 
 router.route('/:id').get(function(req, res, next){
     var storesId =  Number(req.params.id);
