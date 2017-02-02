@@ -17,6 +17,11 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 4,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 6,
           filter_tag_id: 1
         }).returning('id'),
@@ -32,13 +37,18 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_filter_tags').insert({
-          product_id: 12,
+          product_id: 11,
           filter_tag_id: 1
         }).returning('id'),
 
         knex('products_filter_tags').insert({
           product_id: 11,
           filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 12,
+          filter_tag_id: 1
         }).returning('id'),
 
         knex('products_filter_tags').insert({
@@ -82,7 +92,47 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 23,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 27,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 28,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 31,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 36,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 45,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 48,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 62,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 67,
           filter_tag_id: 1
         }).returning('id'),
 
@@ -92,12 +142,32 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 74,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 79,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 82,
           filter_tag_id: 2
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 84,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 86,
+          filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 87,
           filter_tag_id: 1
         }).returning('id'),
 
@@ -109,6 +179,11 @@ exports.seed = function(knex, Promise) {
         knex('products_filter_tags').insert({
           product_id: 89,
           filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 90,
+          filter_tag_id: 1
         }).returning('id'),
 
         knex('products_filter_tags').insert({
