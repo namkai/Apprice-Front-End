@@ -2,63 +2,71 @@ import React, {Component} from 'react';
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
-import {fetchFood} from '../../actions/index';
+import SearchBarMap from './Search_Bar_Map'
+import Map from './Map';
+import {fetchGenericFood, fetchSpecificFood} from '../../actions/index';
 
-let seededNames = [];
-let seededGroceries = [];
-// let seededList = [];
-let seedGroceries = () => {
-    for (var i = 0; i < 20; i++) {
-        seededGroceries.push({image: 'http://i.imgur.com/NMLpcKj.jpg', name: 'Strawberries'})
-    }
-}
 
-let seedList = () => new Promise(function(resolve, reject) {
-    for(var i = 0; i < 5; i++) {
-        seededNames.push({name: 'Strawberries'})
-    }
-});
-
-seedGroceries();
-seedList();
-// seedList();
 export default class List_Page extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            groceries: seededGroceries,
-            names: seededNames
+            genericGroceries: [],
+            selectedFood: [],
+            selectedCity: ''
         }
-        this.foodSearch = this.foodSearch.bind(this);
+        this.topFoodSearch = this.topFoodSearch.bind(this);
+        this.specificFoodSearch = this.specificFoodSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.selectCity = this.selectCity.bind(this);
+        this.topFoodSearch();
+        // this.generateImageList = this.generateImageList.bind(this);
     }
-    async foodSearch(term) {
-        let {names} = this.state;
-        let fetched = await fetchFood()
-        console.log('I am the fetched',fetched);
-            this.setState({
-                names: [...names, {name: term}]
-            });
-            // console.log(names);
+    async topFoodSearch() {
+        let {groceries} = this.state;
+        let food = await fetchGenericFood();
+        this.setState({genericGroceries: food});
     }
+    async specificFoodSearch(term) {
+        let {selectedFood} = this.state;
+        let food = await fetchSpecificFood(term);
+        // console.log('Im the new selected food',food);
+        this.setState({genericGroceries: food});
+    }
+
     handleClick(food) {
-        let {names} = this.state;
-        console.log(names);
+        let {selectedFood} = this.state;
+        // console.log(`I'm the `, selectedFood);
+        // console.log(`I'm the food`, food);
+        // console.log(`I'm the this`,this);
         this.setState({
-            names:[...names, {name: food}]
+            selectedFood: [
+                ...selectedFood, {
+                    selectedFood: food
+                }
+            ]
         })
     }
+    selectCity(city) {
+        this.setState({selectedCity: city})
+    }
     render() {
-        let {groceries, names} = this.state;
+        let {genericGroceries, selectedFood, selectedCity} = this.state;
+        console.log('Im the selected food', selectedFood);
+        // console.log(`I'm the generic `,genericGroceries);
         return (
             <div>
-                {/* <div>I'm the list page</div> */}
-                <ImageList handleClick={this.handleClick} groceries={groceries}/>
-                <div id="list-container">
                 <h2>Lets pickout some groceries.</h2>
-                <SearchBar foodSearch={this.foodSearch}/>
-                <Grocery_List groceries={names}/>
-            </div>
+                <SearchBarMap selectCity={this.selectCity}/>
+                <div id="list-container">
+
+                    <Map selectedCity={selectedCity}/>
+                    <div id="search-and-list">
+                        <SearchBar foodSearch={this.specificFoodSearch}/>
+                        <Grocery_List groceries={selectedFood}/>
+                    </div>
+                </div>
+                <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
             </div>
         )
     }
