@@ -12,6 +12,26 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_type_tags').insert({
+          product_id: 6,
+          type_tag_id: 1
+        }).returning('id'),
+
+        knex('products_type_tags').insert({
+          product_id: 81,
+          type_tag_id: 1
+        }).returning('id'),
+
+        knex('products_type_tags').insert({
+          product_id: 82,
+          type_tag_id: 1
+        }).returning('id'),
+
+        knex('products_type_tags').insert({
+          product_id: 83,
+          type_tag_id: 1
+        }).returning('id'),
+
+        knex('products_type_tags').insert({
           product_id: 88,
           type_tag_id: 2
         }).returning('id'),

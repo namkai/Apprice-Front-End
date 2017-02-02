@@ -13,6 +13,34 @@ router.route('/').get(function(req, res, next){
     });
 });
 
+router.route('/search').get(function(req, res, next) {
+    let tagName =  req.query.name.toLowerCase();
+    let filtered = [];
+    let taggedProducts = [];
+
+    knex("type_tags")
+    .orderBy('id').then(function(allTags){
+
+        allTags.forEach(function(curTag){
+            var curName = curTag.name.toLowerCase()
+            if(curName === tagName){
+                filtered.push(curTag.id)
+            }
+        })
+        return knex("products_type_tags").whereIn('type_tag_id', filtered)
+    }).then(function(filteredProducts){
+
+        filteredProducts.forEach(function(curProduct){
+            taggedProducts.push(curProduct.product_id)
+        })
+        return knex('products').whereIn('id', taggedProducts)
+    }).then(function(output){
+        res.json(output)
+    }).catch(function (err) {
+        next(new Error(err));
+      });
+});
+
 router.route('/:id').get(function(req, res, next){
     var typeTagsId =  Number(req.params.id);
     knex('type_tags').where('id', typeTagsId)
@@ -52,6 +80,8 @@ router.route("/:id").patch(function (req, res, next) {
       next(new Error(err));
     });
 });
+
+
 
 router.route("/:id").delete(function (req, res, next) {
   let typeTagsId = Number(req.params.id);

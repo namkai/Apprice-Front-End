@@ -7,15 +7,19 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
 
         knex('filter_tags').insert({
+          name: "most_popular"
+        }).returning('id'),
+
+        knex('filter_tags').insert({
           name: "organic"
         }).returning('id'),
 
         knex('filter_tags').insert({
-          name: 'vegetarian'
+          name: "vegetarian"
         }).returning('id'),
 
         knex('filter_tags').insert({
-          name: 'vegan'
+          name: "vegan"
         }).returning('id')
 
       ]);
