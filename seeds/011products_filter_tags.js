@@ -107,6 +107,11 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 29,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 31,
           filter_tag_id: 1
         }).returning('id'),
@@ -117,13 +122,43 @@ exports.seed = function(knex, Promise) {
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 38,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 43,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 44,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 45,
           filter_tag_id: 1
         }).returning('id'),
 
         knex('products_filter_tags').insert({
+          product_id: 46,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 47,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
           product_id: 48,
           filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 51,
+          filter_tag_id: 2
         }).returning('id'),
 
         knex('products_filter_tags').insert({
@@ -144,6 +179,16 @@ exports.seed = function(knex, Promise) {
         knex('products_filter_tags').insert({
           product_id: 74,
           filter_tag_id: 1
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 75,
+          filter_tag_id: 2
+        }).returning('id'),
+
+        knex('products_filter_tags').insert({
+          product_id: 76,
+          filter_tag_id: 2
         }).returning('id'),
 
         knex('products_filter_tags').insert({
