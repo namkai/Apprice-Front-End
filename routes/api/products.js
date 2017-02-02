@@ -12,6 +12,7 @@ router.route('/').get(function(req, res, next){
         next(new Error(err));
     });
 });
+
 router.route('/search').get(function(req, res, next) {
     let productName =  req.query.name.toLowerCase();
     var filtered = [];
@@ -30,7 +31,21 @@ router.route('/search').get(function(req, res, next) {
     }).catch(function (err) {
         next(new Error(err));
       });
-})
+});
+
+router.route('/popular').get(function(req, res, next){
+    let popular = [];
+    knex('products_filter_tags').where('filter_tag_id', 1).then(function(data){
+        data.forEach(function(current){
+            popular.push(current.product_id)
+        })
+        return knex('products').whereIn('id', popular)
+    }).then(function(popularProducts){
+        res.json(popularProducts)
+    }).catch(function (err) {
+        next(new Error(err));
+      });
+});
 
 router.route('/:id').get(function(req, res, next){
     var productsId =  Number(req.params.id);
