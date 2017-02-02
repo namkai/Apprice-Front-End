@@ -12,6 +12,7 @@ router.route('/').get(function(req, res, next){
         next(new Error(err));
     });
 });
+
 router.route('/search').get(function(req, res, next) {
     let productName =  req.query.name.toLowerCase();
     var filtered = [];
