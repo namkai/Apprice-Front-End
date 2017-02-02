@@ -9,25 +9,25 @@ const app = require("../app");
 
 
 suite("search routes", () => {
-  before((done) => {
-    knex.migrate.latest()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  beforeEach((done) => {
-    knex.seed.run()
-      .then(() => {
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
+  // before((done) => {
+  //   knex.migrate.latest()
+  //     .then(() => {
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
+  //
+  // beforeEach((done) => {
+  //   knex.seed.run()
+  //     .then(() => {
+  //       done();
+  //     })
+  //     .catch((err) => {
+  //       done(err);
+  //     });
+  // });
 
   test("GET /api/stores/search", (done) => {
     request(app)
