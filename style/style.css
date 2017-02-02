@@ -65,6 +65,10 @@ h1 {
 button:focus {
     outline: 0;
 }
+iframe {
+    border: 0;
+    float: right;
+}
 
 #home-btn {
     background-color: #457308;
@@ -92,6 +96,10 @@ button:focus {
     /*background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));*/
 }
 
+#second-page {
+    width: 90%;
+    float: right;
+}
 #search-button {
     background-color: #457308;
     color: white;
@@ -128,17 +136,17 @@ button:focus {
     margin: 0 2%;
     overflow: auto;
     width: 46%;
-    float: right;
-    height: 600px;
+    float: left;
+    height: 550px;
     background-color: grey;
     /*position: fixed;*/
 }
 
 #list-container {
     /*margin-top: 20*/
-    float: right;
+    float: left;
     /*position: fixed;*/
-    width: 300px;
+    width: 550px;
     height: 300px;
     /*background-color: white;*/
     border-radius: 5px;
@@ -159,17 +167,18 @@ button:focus {
 }*/
 
 .grocery-search {
-    width: 100px;
+    /*width: 100px;*/
 }
 
 .card {
+    border-radius: 5px;
     width: 120px;
-    height: 120px;
+    height: 150px;
     float: right;
     font-size: 12px;
     background-color: #70ae29;
-    margin: 15px 5px;
-    border: 1px solid black;
+    margin: 5px 5px;
+    /*border: 1px solid black;*/
     display: inline-block;
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
@@ -190,6 +199,7 @@ button:focus {
     /*border: 1px solid black;*/
     width: 100%;
     height: 65%;
+    border-radius: 5px;
     /*border-radius: 10%;*/
 }
 
@@ -211,4 +221,17 @@ button:focus {
     margin-top: 14%;
     margin-right: 70%;
     font-size: 25px;
+}
+
+.container:after,#list-container:after {
+    display: table;
+    content: " ";
+    clear: both;
+}
+#google-map {
+    float:left;
+}
+
+#search-and-list {
+    float: left;
 }

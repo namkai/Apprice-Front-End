@@ -2,18 +2,23 @@ import React, {Component} from 'react';
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
+import SearchBarMap from './Search_Bar_Map'
+import Map from './Map';
 import {fetchGenericFood, fetchSpecificFood} from '../../actions/index';
+
 
 export default class List_Page extends Component {
     constructor(props) {
         super(props);
         this.state = {
             genericGroceries: [],
-            selectedFood: []
+            selectedFood: [],
+            selectedCity: ''
         }
         this.topFoodSearch = this.topFoodSearch.bind(this);
         this.specificFoodSearch = this.specificFoodSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.selectCity = this.selectCity.bind(this);
         this.topFoodSearch();
         // this.generateImageList = this.generateImageList.bind(this);
     }
@@ -25,7 +30,7 @@ export default class List_Page extends Component {
     async specificFoodSearch(term) {
         let {selectedFood} = this.state;
         let food = await fetchSpecificFood(term);
-        console.log('Im the new selected food',food);
+        // console.log('Im the new selected food',food);
         this.setState({genericGroceries: food});
     }
 
@@ -33,7 +38,7 @@ export default class List_Page extends Component {
         let {selectedFood} = this.state;
         // console.log(`I'm the `, selectedFood);
         // console.log(`I'm the food`, food);
-        console.log(`I'm the this`,this);
+        // console.log(`I'm the this`,this);
         this.setState({
             selectedFood: [
                 ...selectedFood, {
@@ -42,31 +47,26 @@ export default class List_Page extends Component {
             ]
         })
     }
-    // generateImageList(food) {
-    //     console.log(food);
-    //     food = [food]
-    //     return food.map((food) => {
-    //         // console.log(this.props);
-    //         let {image, name} = food
-    //         return (
-    //                 <Image handleClick={this.props.handleClick} image={image} name={name}/>
-    //         )
-    //
-    //     })
-    // }
+    selectCity(city) {
+        this.setState({selectedCity: city})
+    }
     render() {
-        let {genericGroceries, selectedFood} = this.state;
+        let {genericGroceries, selectedFood, selectedCity} = this.state;
         console.log('Im the selected food', selectedFood);
         // console.log(`I'm the generic `,genericGroceries);
         return (
             <div>
-
-                <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
                 <h2>Lets pickout some groceries.</h2>
+                <SearchBarMap selectCity={this.selectCity}/>
                 <div id="list-container">
-                    <SearchBar foodSearch={this.specificFoodSearch}/>
-                    <Grocery_List groceries={selectedFood}/>
+
+                    <Map selectedCity={selectedCity}/>
+                    <div id="search-and-list">
+                        <SearchBar foodSearch={this.specificFoodSearch}/>
+                        <Grocery_List groceries={selectedFood}/>
+                    </div>
                 </div>
+                <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
             </div>
         )
     }

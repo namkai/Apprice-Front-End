@@ -1,8 +1,10 @@
 import axios from 'axios';
 // import {parser} from 'xml2json'
 // const API_KEY = ' b2f93db72b'
-const ROOT_URL = `https://appriceapi.herokuapp.com/api/products`
+const ROOT_URL = `https://appriceapi.herokuapp.com/api/products/popular`
 const SPECIFIC_URL = `https://appriceapi.herokuapp.com/api/products/search?name=`
+const GOOGLE_MAPS_GEOCODE_API = `AIzaSyDQV4GvK7esSdX_ExL9vj0lP84-22hnFAc`
+const GOOGLE_MAPS_EMBED_API = `AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38`
 // export function fetchFood() {
 //     // let encodedLocation = encodeURIComponent(location);
 //     let requestUrl = `${ROOT_URL}`;
