@@ -7,6 +7,7 @@ const knex = require('../../knex');
 router.route('/').get(function(req, res, next){
     knex('filter_tags')
     .orderBy('id').then(function(filter_tags){
+        console.log(filter_tags, "I AM THE FILTER TAGZZZZZ");
         res.json(filter_tags);
     }).catch(function(err){
         next(new Error(err));
