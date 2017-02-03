@@ -29,8 +29,8 @@ nav {
     left: 0;
     z-index: 9999;
     width: 100%;
-    height: 60px;
-    background-color: rgba(69, 115, 8, .1);
+    height: 64px;
+    background-color: rgba(69, 115, 8, .0);
 }
 
 li {
@@ -152,11 +152,11 @@ input {
     color: white;
 }
 #store-radius{
-    width: 250px;
+    width: 230px;
 }
 
 .store-button-inactive {
-    width: 90px;
+    width: 102px;
     float: left;
     color: black;
     background-color: white;
@@ -166,7 +166,7 @@ input {
     margin-bottom: 10px;
 }
 .store-button-active {
-    width: 90px;
+    width: 102px;
     float: left;
     color: black;
     background-color: #64a2f8;
@@ -251,16 +251,29 @@ input {
 #list-searchbar {
     width: 470px;
     float: left;
+    margin-bottom: 5px;
     margin-left: 20px;
     border-radius: 10px;
 }
 #map-searchbar {
     float: left;
-    width: 230px;
+    width: 300px;
     /*margin-left: 20px;*/
     border-radius: 10px;
 }
+#display-radius {
+    font-size: 20px;
+    /*font-weight: bold;*/
+    /*margin-left: 5px;*/
+    float: left;
+}
 
+#Apprice-me {
+    background: green;
+    padding: 5px;
+    color: white;
+    margin-top: 100px;
+}
 .grocery-search {
     /*width: 100px;*/
 }

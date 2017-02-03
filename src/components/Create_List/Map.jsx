@@ -71,7 +71,7 @@ export default class Map extends Component {
                     <button className={button2} onClick={this.buttonTwo}>Two</button>
                     <button className={button3} onClick={this.buttonThree}>Three</button><br/>
                     <h4>What's your search radius?</h4>
-                    <Range id="store-radius" onChange={this.handleChange} type='range' value={radius} min={1} max={10}/><span>{radius} mile</span><br/>
+                    <Range id="store-radius" onChange={this.handleChange} type='range' value={radius} min={1} max={10}/><span id="display-radius">{radius} mile</span><br/>
                     <iframe id="google-map" width="300" height="300" frameBorder="0" src={yourLocation} allowFullScreen></iframe>
                 </div>
             )
@@ -87,7 +87,7 @@ export default class Map extends Component {
                     <button className={button3} onClick={this.buttonThree}>Three</button><br/>
                     <h4>What's your search radius?</h4>
                     <Range id="store-radius" onChange={this.handleChange} type='range' value={radius} min={1} max={10}/><span>{radius} mile</span><br/>
-                    <iframe id="google-map" width="300" height="300" frameBorder="0" src={selectedLocation} allowFullScreen></iframe>
+                    <iframe id="google-map" width="350" height="300" frameBorder="0" src={selectedLocation} allowFullScreen></iframe>
                 </div>
             )
         }

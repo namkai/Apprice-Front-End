@@ -3,6 +3,7 @@ import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
 import Map from './Map';
+import {Link} from 'react-router'
 import {fetchGenericFood, fetchSpecificFood, sendData} from '../../actions/index';
 
 export default class List_Page extends Component {
@@ -80,7 +81,7 @@ export default class List_Page extends Component {
                 </div>
                 <div id="map-container">
                     <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} selectedCity={selectedCity} radius={radius} getRadius={this.getRadius}/>
-                    <button onClick={this.submitData}>Apprice Me</button>
+                    <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
                 </div>
 
             </div>
