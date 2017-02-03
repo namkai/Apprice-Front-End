@@ -117,7 +117,13 @@ router.route('/test').get(function(req, res, next){
 
 });
 router.route('/').post(function(req, res, next){
-    console.log(req.body);
+    // console.log(req.body);
+    // console.log(req.body.products)
+    for (var key in req.body.products) {
+        if(!req.body.products[key].isArray()){
+            console.log(req.body.products[key].name)
+        }
+    }
     res.send('it workzzzz')
 });
 
