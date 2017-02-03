@@ -2,10 +2,8 @@ import React, {Component} from 'react';
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
-import SearchBarMap from './Search_Bar_Map'
 import Map from './Map';
 import {fetchGenericFood, fetchSpecificFood} from '../../actions/index';
-
 
 export default class List_Page extends Component {
     constructor(props) {
@@ -13,14 +11,15 @@ export default class List_Page extends Component {
         this.state = {
             genericGroceries: [],
             selectedFood: [],
-            selectedCity: ''
+            selectedCity: '',
+            numOfStores: 2
         }
         this.topFoodSearch = this.topFoodSearch.bind(this);
         this.specificFoodSearch = this.specificFoodSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.selectCity = this.selectCity.bind(this);
+        this.numberOfStores = this.numberOfStores.bind(this);
         this.topFoodSearch();
-        // this.generateImageList = this.generateImageList.bind(this);
     }
     async topFoodSearch() {
         let {groceries} = this.state;
@@ -30,15 +29,12 @@ export default class List_Page extends Component {
     async specificFoodSearch(term) {
         let {selectedFood} = this.state;
         let food = await fetchSpecificFood(term);
-        // console.log('Im the new selected food',food);
         this.setState({genericGroceries: food});
     }
 
     handleClick(food) {
         let {selectedFood} = this.state;
-        // console.log(`I'm the `, selectedFood);
-        // console.log(`I'm the food`, food);
-        // console.log(`I'm the this`,this);
+
         this.setState({
             selectedFood: [
                 ...selectedFood, {
@@ -50,23 +46,27 @@ export default class List_Page extends Component {
     selectCity(city) {
         this.setState({selectedCity: city})
     }
+    numberOfStores(num) {
+        this.setState({numOfStores: num})
+        console.log(this.state.numOfStores);
+    }
     render() {
         let {genericGroceries, selectedFood, selectedCity} = this.state;
-        console.log('Im the selected food', selectedFood);
+        // console.log(`I'm the number of stores`,this.state.numberOfStores);
+        // console.log('Im the selected food', selectedFood);
         // console.log(`I'm the generic `,genericGroceries);
         return (
             <div>
-                <h2>Lets pickout some groceries.</h2>
-                <SearchBarMap selectCity={this.selectCity}/>
                 <div id="list-container">
-
-                    <Map selectedCity={selectedCity}/>
-                    <div id="search-and-list">
-                        <SearchBar foodSearch={this.specificFoodSearch}/>
-                        <Grocery_List groceries={selectedFood}/>
-                    </div>
+                    <h2>Choose your groceries</h2>
+                    <SearchBar foodSearch={this.specificFoodSearch}/>
+                    <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
+                    <Grocery_List groceries={selectedFood}/>
                 </div>
-                <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
+                <div id="map-container">
+                    <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} selectedCity={selectedCity}/>
+                </div>
+
             </div>
         )
     }

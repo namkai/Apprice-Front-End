@@ -31,7 +31,7 @@ export default class SearchBarMap extends Component {
         return (
             <div className="search-bar">
                 <form onSubmit={this.onFormSubmit} className="grocery-search">
-                    <input placeholder="Search for city" className="form-control" value={this.state.term} onChange={this.onInputChange}/>
+                    <input id="map-searchbar" placeholder="Search for address" className="form-control" value={this.state.term} onChange={this.onInputChange}/>
                     <button id="search-button" type="submit">Submit</button>
                 </form>
             </div>

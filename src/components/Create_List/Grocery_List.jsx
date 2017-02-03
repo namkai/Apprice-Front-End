@@ -30,10 +30,13 @@ export default class Grocery_List extends Component {
         //     )
         // })
         return (
+            <div>
+                <h3 id="shopping-title" >Shopping List</h3>
             <div id="list" >
                 <ul>
                     {this.generateGroceryList()}
                 </ul>
+             </div>
              </div>
         )
     }

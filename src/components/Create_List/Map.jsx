@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import SearchBarMap from './Search_Bar_Map'
 const GOOGLE_MAPS_EMBED_API = `AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38`
 
 export default class Map extends Component {
@@ -9,15 +9,19 @@ export default class Map extends Component {
             location: '',
             lat: '',
             lon: '',
-            term: ''
+            term: '',
+            numOfStores: 3,
+            button1: 'store-button-inactive',
+            button2: 'store-button-active',
+            button3: 'store-button-inactive'
 
         }
         this.getLocation = this.getLocation.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
-        // this.onInputChange = this.onInputChange.bind(this);
-        // this.getLatLon = this.getLatLon.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
+        this.buttonOne = this.buttonOne.bind(this)
+        this.buttonTwo = this.buttonTwo.bind(this)
+        this.buttonThree = this.buttonThree.bind(this)
         this.getLocation();
-        // this.getLatLon();
     }
     async getLocation() {
         let {location} = this.state;
@@ -25,16 +29,38 @@ export default class Map extends Component {
             console.log(`I'm the position.`, position);
             this.setState({location: position, lat: position.coords.latitude, lon: position.coords.longitude})
         })
-        // let {latitude, longitude} = mylocation.coords;
-        // console.log(latitude);
-        // this.setState({
-        //     location: mylocation
-        // })
+    }
+    buttonOne() {
+        this.props.numOfStores(1);
+        this.setState({
+            button1: 'store-button-active',
+            button2: 'store-button-inactive',
+            button3: 'store-button-inactive'
+        })
+        // console.log(`I was clicked!`);
+    }
+    buttonTwo() {
+        this.props.numOfStores(2);
+        this.setState({
+            button1: 'store-button-inactive',
+            button2: 'store-button-active',
+            button3: 'store-button-inactive'
+        })
+        // console.log(`I was clicked!`);
+    }
+    buttonThree() {
+        this.props.numOfStores(3);
+        this.setState({
+            button1: 'store-button-inactive',
+            button2: 'store-button-inactive',
+            button3: 'store-button-active'
+        })
+        // console.log(`I was clicked!`);
     }
 
     render() {
-        let {lat, lon} = this.state;
-        let {selectedCity} = this.props;
+        let {lat, lon, button1, button2, button3} = this.state;
+        let {selectCity, selectedCity} = this.props;
         console.log(this.props.selectedCity);
         console.log(lat);
         let yourLocation = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lon}`
@@ -43,12 +69,30 @@ export default class Map extends Component {
         if (this.props.selectedCity === '') {
             return (
                 <div>
+                    <h3>Choose your search preferences</h3><br/>
+                    <h4>Whats your location?</h4>
+                    <SearchBarMap selectCity={this.props.selectCity}/><br/>
+                    <h4>How many stores will you visit?</h4>
+                    <button className={button1} onClick={this.buttonOne}>One</button>
+                    <button className={button2} onClick={this.buttonTwo}>Two</button>
+                    <button className={button3} onClick={this.buttonThree}>Three</button><br/>
+                    <h4>What's your search radius?</h4><br/>
+                    <input type="range"/><br/>
                     <iframe id="google-map" width="300" height="300" frameBorder="0" src={yourLocation} allowFullScreen></iframe>
                 </div>
             )
         } else {
             return (
                 <div>
+                    <h3>Choose your search preferences</h3><br/>
+                    <h4>Whats your location?</h4><br/>
+                    <SearchBarMap selectCity={this.props.selectCity}/><br/>
+                    <h4>How many stores will you visit?</h4><br/>
+                    <button className={button1} onClick={this.buttonOne}>One</button>
+                    <button className={button2} onClick={this.buttonTwo}>Two</button>
+                    <button className={button3} onClick={this.buttonThree}>Three</button><br/>
+                    <h4>What's your search radius?</h4>
+                    <input type="range"/><br/>
                     <iframe id="google-map" width="300" height="300" frameBorder="0" src={selectedLocation} allowFullScreen></iframe>
                 </div>
             )
