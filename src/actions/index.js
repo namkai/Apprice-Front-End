@@ -37,3 +37,15 @@ export function sendData(props) {
 
     return request;
 }
+
+export async function getData() {
+    let url = `${ROOT_URL}`
+    try {
+        let fetched = await fetch(url);
+        let data = await fetched.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log(`I'm the GETDATA error`,error);
+    }
+}

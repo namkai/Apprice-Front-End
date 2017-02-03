@@ -60,17 +60,12 @@ export default class List_Page extends Component {
     }
     submitData() {
         let {selectedFood, selectedCity, numOfStores} = this.state;
+        console.log(`I'm the end state`,this.state);
             sendData(this.state)
-            .then(() => {
-                this.context.router.push('/result');
-            });
 
     }
     render() {
         let {genericGroceries, selectedFood, selectedCity, radius} = this.state;
-        // console.log(`I'm the number of stores`,this.state.numberOfStores);
-        // console.log('Im the selected food', selectedFood);
-        // console.log(`I'm the generic `,genericGroceries);
         return (
             <div>
                 <div id="list-container">
