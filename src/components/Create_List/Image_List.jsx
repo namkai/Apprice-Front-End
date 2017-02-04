@@ -16,7 +16,7 @@ export default class ImageList extends Component {
             let food = groceries.map((ele) => {
                 let {name, product_image_url, id} = ele;
                 return (
-                     <Image id={id} handleClick={this.props.handleClick} image={product_image_url} name={name}/>
+                     <Image id={id} handleClick={this.props.handleClick} image={product_image_url} name={name} product={ele}/>
                 )
             })
 

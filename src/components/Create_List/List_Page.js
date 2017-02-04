@@ -4,7 +4,8 @@ import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
 import Map from './Map';
 import {Link} from 'react-router'
-import {fetchGenericFood, fetchSpecificFood, sendData} from '../../actions/index';
+import {fetchGenericFood, fetchSpecificFood, sendData, getMapData} from '../../actions/index';
+import axios from 'axios';
 
 export default class List_Page extends Component {
     constructor(props) {
@@ -12,9 +13,10 @@ export default class List_Page extends Component {
         this.state = {
             genericGroceries: [],
             selectedFood: [],
+            products: [],
             selectedCity: '',
             numOfStores: 2,
-            radius: 1
+            radius: 5
         }
         this.topFoodSearch = this.topFoodSearch.bind(this);
         this.specificFoodSearch = this.specificFoodSearch.bind(this);
@@ -36,13 +38,18 @@ export default class List_Page extends Component {
         this.setState({genericGroceries: food});
     }
 
-    handleClick(food) {
-        let {selectedFood} = this.state;
+    handleClick(product, food) {
+        let {selectedFood, products} = this.state;
 
         this.setState({
             selectedFood: [
                 ...selectedFood, {
                     selectedFood: food
+                }
+            ],
+            products: [
+                ...products, {
+                    products: product
                 }
             ]
         })
@@ -52,16 +59,27 @@ export default class List_Page extends Component {
     }
     numberOfStores(num) {
         this.setState({numOfStores: num})
-        console.log(this.state.numOfStores);
     }
     getRadius(num) {
         this.setState({radius: num})
-        console.log(`I worked!`, this.state.radius);
     }
-    submitData() {
-        let {selectedFood, selectedCity, numOfStores} = this.state;
-        console.log(`I'm the end state`,this.state);
-            sendData(this.state)
+    async submitData() {
+        let {selectedFood, selectedCity, numOfStores, radius, products} = this.state;
+        let city = await getMapData(selectedCity)
+        let {lat, lng} = await city.results[0].geometry.location;
+        let {radius: radius_poop} = this.state;
+        let url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${lng}&radius=${radius_poop}`;
+        let stores = await axios.get(url);
+
+        let data = {
+            products: products,
+            filteredStores: stores,
+            numOfStores: numOfStores,
+            radius: radius
+        }
+        let resultData = await sendData(data)
+
+        return resultData;
 
     }
     render() {
