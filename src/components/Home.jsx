@@ -17,7 +17,6 @@ class Home extends Component{
                 <p id="intro"><span id="Welcome_Apprice">Welcome to Apprice. </span><br/> Save money. Save time. <br/>Make grocery shopping easier.</p>
                 <hr/>
                 <br/>
-                {/* <button  id="home-btn" className="btn btn-center">Get Started</button> */}
                 <Link id="home-btn" className="btn btn-center" to="/List_Page">Get Started</Link>
             </div>
         </div>
