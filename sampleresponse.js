@@ -1,0 +1,30 @@
+{ products:
+      { products: [Object] },
+    [ { products: [Object] },
+      { products: [Object] },
+      { products: [Object] } ],
+   filteredStores:
+    { data:
+       [ [Object],
+         [Object],
+         [Object],
+         [Object],
+         [Object],
+         [Object],
+         [Object] ],
+      statusText: 'OK',
+      status: 200,
+      headers: { 'content-type': 'application/json; charset=utf-8' },
+      config:
+       { transformRequest: {},
+         transformResponse: {},
+         timeout: 0,
+         xsrfCookieName: 'XSRF-TOKEN',
+         xsrfHeaderName: 'X-XSRF-TOKEN',
+         maxContentLength: -1,
+         headers: [Object],
+         method: 'get',
+         url: 'http://appriceapi.herokuapp.com/api/stores/search?lat=37.7876012&long=-122.3966428&radius=5' },
+      request: {} },
+   numOfStores: 2,
+   radius: 5 }
