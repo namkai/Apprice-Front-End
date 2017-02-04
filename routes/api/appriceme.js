@@ -117,7 +117,12 @@ router.route('/test').get(function(req, res, next){
 
 });
 router.route('/').post(function(req, res, next){
-    console.log(req.body);
+    // console.log(req.body);
+    for (var key in req.body) {
+        if (req.body.hasOwnProperty(key)) {
+            console.log(req.body[key])
+        }
+    }
     res.send('it workzzzz')
 });
 
