@@ -22,7 +22,7 @@ export default class SearchBarMap extends Component {
             return;
         }
 
-        this.props.selectCity(this.state.term);
+        this.props.search(this.state.term);
         this.setState({term: ''});
     }
 
@@ -30,7 +30,7 @@ export default class SearchBarMap extends Component {
         return (
             <div className="search-bar">
                 <form onSubmit={this.onFormSubmit} className="grocery-search">
-                    <input id="map-searchbar" placeholder="Search for address" className="form-control" value={this.state.term} onChange={this.onInputChange}/>
+                    <input placeholder="Search for city" className="form-control" value={this.state.term} onChange={this.onInputChange}/>
                     <button id="search-button" type="submit">Submit</button>
                 </form>
             </div>

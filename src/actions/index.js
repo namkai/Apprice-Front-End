@@ -13,7 +13,6 @@ export async function fetchGenericFood() {
     try {
         let fetched = await fetch(url);
         let data = await fetched.json();
-        console.log(data);
         return data;
     } catch (error) {
         console.log(error);

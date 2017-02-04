@@ -6,6 +6,7 @@ export default class List extends Component {
     }
     render() {
         let {name} = this.props;
+        console.log(`I'm the list name`,name);
         return (
             <div>
                 <li>{name}</li>
