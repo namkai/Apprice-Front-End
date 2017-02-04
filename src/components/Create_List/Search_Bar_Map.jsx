@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class SearchBar extends Component {
+export default class SearchBarMap extends Component {
     constructor(props) {
         super(props);
 
@@ -22,20 +22,19 @@ class SearchBar extends Component {
             return;
         }
 
-        this.props.foodSearch(this.state.term);
+        this.props.selectCity(this.state.term);
         this.setState({term: ''});
     }
 
     render() {
+        // var autocomplete = new google.maps.places.Autocomplete(input);
         return (
             <div className="search-bar">
                 <form onSubmit={this.onFormSubmit} className="grocery-search">
-                    <input id="list-searchbar" placeholder="Search for groceries" className="form-control" value={this.state.term} onChange={this.onInputChange}/>
+                    <input id="map-searchbar" placeholder="Search for address" className="form-control" value={this.state.term} onChange={this.onInputChange}/>
                     <button id="search-button" type="submit">Submit</button>
                 </form>
             </div>
         )
     }
 }
-
-export default SearchBar;

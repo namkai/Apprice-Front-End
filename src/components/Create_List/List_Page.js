@@ -2,63 +2,101 @@ import React, {Component} from 'react';
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
-import {fetchFood} from '../../actions/index';
+import Map from './Map';
+import {Link} from 'react-router'
+import {fetchGenericFood, fetchSpecificFood, sendData, getMapData} from '../../actions/index';
+import axios from 'axios';
 
-let seededNames = [];
-let seededGroceries = [];
-// let seededList = [];
-let seedGroceries = () => {
-    for (var i = 0; i < 20; i++) {
-        seededGroceries.push({image: 'http://i.imgur.com/NMLpcKj.jpg', name: 'Strawberries'})
-    }
-}
-
-let seedList = () => new Promise(function(resolve, reject) {
-    for(var i = 0; i < 5; i++) {
-        seededNames.push({name: 'Strawberries'})
-    }
-});
-
-seedGroceries();
-seedList();
-// seedList();
 export default class List_Page extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            groceries: seededGroceries,
-            names: seededNames
+            genericGroceries: [],
+            selectedFood: [],
+            products: [],
+            selectedCity: '',
+            numOfStores: 2,
+            radius: 5
         }
-        this.foodSearch = this.foodSearch.bind(this);
+        this.topFoodSearch = this.topFoodSearch.bind(this);
+        this.specificFoodSearch = this.specificFoodSearch.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.selectCity = this.selectCity.bind(this);
+        this.numberOfStores = this.numberOfStores.bind(this);
+        this.submitData = this.submitData.bind(this);
+        this.getRadius = this.getRadius.bind(this);
+        this.topFoodSearch();
     }
-    async foodSearch(term) {
-        let {names} = this.state;
-        let fetched = await fetchFood()
-        console.log('I am the fetched',fetched);
-            this.setState({
-                names: [...names, {name: term}]
-            });
-            // console.log(names);
+    async topFoodSearch() {
+        let {groceries} = this.state;
+        let food = await fetchGenericFood();
+        this.setState({genericGroceries: food});
     }
-    handleClick(food) {
-        let {names} = this.state;
-        console.log(names);
+    async specificFoodSearch(term) {
+        let {selectedFood} = this.state;
+        let food = await fetchSpecificFood(term);
+        this.setState({genericGroceries: food});
+    }
+
+    handleClick(product, food) {
+        let {selectedFood, products} = this.state;
+
         this.setState({
-            names:[...names, {name: food}]
+            selectedFood: [
+                ...selectedFood, {
+                    selectedFood: food
+                }
+            ],
+            products: [
+                ...products, {
+                    products: product
+                }
+            ]
         })
     }
+    selectCity(city) {
+        this.setState({selectedCity: city})
+    }
+    numberOfStores(num) {
+        this.setState({numOfStores: num})
+    }
+    getRadius(num) {
+        this.setState({radius: num})
+    }
+    async submitData() {
+        let {selectedFood, selectedCity, numOfStores, radius, products} = this.state;
+        let city = await getMapData(selectedCity)
+        let {lat, lng} = await city.results[0].geometry.location;
+        let {radius: radius_poop} = this.state;
+        let url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${lng}&radius=${radius_poop}`;
+        let stores = await axios.get(url);
+
+        let data = {
+            products: products,
+            filteredStores: stores,
+            numOfStores: numOfStores,
+            radius: radius
+        }
+        let resultData = await sendData(data)
+
+        return resultData;
+
+    }
     render() {
-        let {groceries, names} = this.state;
+        let {genericGroceries, selectedFood, selectedCity, radius} = this.state;
         return (
             <div>
-                {/* <div>I'm the list page</div> */}
-                <ImageList handleClick={this.handleClick} groceries={groceries}/>
                 <div id="list-container">
-                <h2>Lets pickout some groceries.</h2>
-                <SearchBar foodSearch={this.foodSearch}/>
-                <Grocery_List groceries={names}/>
-            </div>
+                    <h2>Choose your groceries</h2>
+                    <SearchBar foodSearch={this.specificFoodSearch}/>
+                    <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
+                    <Grocery_List groceries={selectedFood}/>
+                </div>
+                <div id="map-container">
+                    <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} selectedCity={selectedCity} radius={radius} getRadius={this.getRadius}/>
+                    <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
+                </div>
+
             </div>
         )
     }

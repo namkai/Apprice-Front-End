@@ -4,6 +4,10 @@ body {
     background-position: center;
 }
 
+html, body {
+    /*height:100%;*/
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -25,8 +29,8 @@ nav {
     left: 0;
     z-index: 9999;
     width: 100%;
-    height: 60px;
-    background-color: rgba(69, 115, 8, .1);
+    height: 64px;
+    background-color: rgba(69, 115, 8, .0);
 }
 
 li {
@@ -60,8 +64,51 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    margin-top: 0;
+    width: 300px;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 15px;
+}
+
+h3 {
+    /*float: left;*/
+    text-align: left;
+    margin: 0;
+}
+
+h4 {
+    text-align: left;
+    margin: 0;
+    /*float: left*/f
+}
+
+h5 {
+    text-align: left;
+    margin: 0;
+}
+
+br {
+    margin: 0;
+}
+
 button:focus {
     outline: 0;
+}
+
+iframe {
+    border: 0;
+    float: left;
+    /*width: 450px;*/
+    /*float: left;*/
+}
+
+input {
+    border: 0;
+    height: 20px;
+    border: 2px solid black;
+    outline: none;
 }
 
 #home-btn {
@@ -90,19 +137,55 @@ button:focus {
     /*background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));*/
 }
 
+#second-page {
+    width: 90%;
+    float: right;
+}
+
 #search-button {
-    background-color: #457308;
+    /*background-color: #457308;
+    float: left;
     color: white;
     border: 0;
-    padding: 5px;
-    font-size: 15px;
+    margin-left: -60px;
+    padding: 3px;
+    font-size: 14px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3)
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3)*/
+    background: transparent;
+    border: none !important;
+    font-size: 0;
 }
 
 #search-button:hover {
     background-color: #70ae29;
     color: white;
+}
+
+#store-radius {
+    width: 230px;
+}
+
+.store-button-inactive {
+    width: 102px;
+    float: left;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.store-button-active {
+    width: 102px;
+    float: left;
+    color: black;
+    background-color: #64a2f8;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 15px;
+    margin-bottom: 10px;
 }
 
 
@@ -125,47 +208,102 @@ button:focus {
     /*margin-left: 44%;*/
     margin: 0 2%;
     overflow: auto;
-    width: 38%;
-    float: right;
-    height: 400px;
-    background-color: white;
+    width: 60%;
+    float: left;
+    height: 500px;
+    background-color: grey;
+    border: 1px solid black;
     /*position: fixed;*/
 }
 
 #list-container {
     /*margin-top: 20*/
-    float: right;
+    float: left;
     /*position: fixed;*/
-    width: 300px;
-    height: 300px;
+    width: 800px;
+    /*height: 300px;*/
     /*background-color: white;*/
     border-radius: 5px;
-    margin-top: 2%;
+    /*margin-top: 2%;*/
+    /*border: 2px solid #f7df3b;*/
+}
+
+#map-container {
+    margin-top: 3%;
+    /*margin: 0 auto;*/
+    /*padding: 5px;*/
+    float: left;
+    margin-left: 5px;
+    /*border: 2px solid black;*/
+    height: 560px;
 }
 
 #list {
     background-color: white;
     overflow: auto;
-    height: 400px;
-    width: 150px;
+    height: 475px;
+    width: 220px;
+    list-style-type: disc;
+    border: 1px solid black;
+    /*margin-top: 45px;*/
+    float: left;
+    /*margin-right: 3px;*/
 }
+
+
 /*.home-container {
     width: 100%;
     height: 100%;
     background-image: url();
 }*/
 
+#shopping-title {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+#list-searchbar {
+    width: 470px;
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+#map-searchbar {
+    float: left;
+    width: 300px;
+    /*margin-left: 20px;*/
+    border-radius: 10px;
+}
+
+#display-radius {
+    font-size: 20px;
+    /*font-weight: bold;*/
+    /*margin-left: 5px;*/
+    float: left;
+}
+
+#Apprice-me {
+    background: green;
+    padding: 5px;
+    color: white;
+    margin-top: 100px;
+}
+
 .grocery-search {
-    width: 100px;
+    /*width: 100px;*/
 }
 
 .card {
-    width: 80px;
-    height: 80px;
-    float: right;
+    border-radius: 5px;
+    width: 110px;
+    height: 150px;
+    float: left;
+    font-size: 12px;
     background-color: #70ae29;
-    margin: 10px;
-    border: 1px solid black;
+    margin: 5px 5px;
+    /*border: 1px solid black;*/
     display: inline-block;
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
@@ -185,21 +323,24 @@ button:focus {
 .card-image {
     /*border: 1px solid black;*/
     width: 100%;
-    height: 75%;
+    height: 65%;
+    border-radius: 5px;
     /*border-radius: 10%;*/
 }
 
 .card-title {
-    height: 20%;
+    height: 30%;
     background-color: #70ae29;
     border-radius: 5px;
 }
 
 .container {
-    margin: 5% 80px;
+    /*margin-top: 5%;*/
     text-align: center;
-    /*width: 100%;*/
-    /*height: 100%;*/
+    background-color: white;
+    /*width: 90%;*/
+    height: 100%;
+    margin: 5% auto;
     /*background-color:  rgba(0,0,0,.2);*/
 }
 
@@ -207,4 +348,10 @@ button:focus {
     margin-top: 14%;
     margin-right: 70%;
     font-size: 25px;
+}
+
+.container:after, #list-container:after {
+    display: table;
+    content: " ";
+    clear: both;
 }
