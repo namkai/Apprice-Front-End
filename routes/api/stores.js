@@ -37,7 +37,7 @@ router.route('/search').get(function(req, res, next){
     knex('stores').then(function(storesData){
         storesData.forEach(function(curStore){
             var distance = calcDistance(curStore.latitude, curStore.longitude, lat, long);
-            if(distance<= radius){
+            if(distance <= radius){
                 filtered.push(curStore)
             }
         })

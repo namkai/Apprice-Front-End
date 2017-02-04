@@ -51,6 +51,7 @@ app.use("/api/stores_products", routes.stores_products);
 app.use("/api/products_type_tags", routes.products_type_tags);
 app.use("/api/products_filter_tags", routes.products_filter_tags);
 app.use("/api/users_filter_tags", routes.users_filter_tags);
+app.use("/api/appriceme", routes.appriceme)
 
 app.get('/', function(req, res){
     res.render("index", {req});
