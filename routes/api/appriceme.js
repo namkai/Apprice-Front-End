@@ -230,7 +230,7 @@ router.route('/').post(function(req, res, next){
 
             var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
-
+            console.log(returnData)
             res.json(returnData)
         })
 });
