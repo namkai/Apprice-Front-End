@@ -69,7 +69,7 @@ router.route('/test').get(function(req, res, next){
           }
     ];
 
-    var numOfStores = 2;
+    var numOfStores = 3;
     var selectedProducts = [{
         id: 6,
         upc: "015141503495",
@@ -169,29 +169,11 @@ router.route('/test').get(function(req, res, next){
 
                 })
             })
-            console.log("IM  AM  THE OPT MST", result)
-            var resultArr = Array.from(result)
-            storesProductsData = storesProductsData.filter(function (currentStoreProduct) {
-                var include = false;
-                resultArr.forEach(function(currentEdge){
-                    if(currentEdge.storeId === currentStoreProduct.store_id && currentEdge.productId === currentStoreProduct.product_id) {
-                        include = true
-                    }
-                })
-                return include
-            })
-            // storesProductsData = storesProductsData.filter(function (currentStoreProduct) {
-            //     var include = false;
-            //     resultArr.forEach(function(currentEdge){
-            //         if(currentEdge.productId === currentStoreProduct.product_id) {
-            //             include = true
-            //         }
-            //     })
-            //     return include
-            // })
+
+            var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
 
-            res.json(storesProductsData)
+            res.json(returnData)
     })
 
 
