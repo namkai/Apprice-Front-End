@@ -199,36 +199,40 @@ router.route('/').post(function(req, res, next){
         storesInRadiusIds.push(curStore.id);
     })
 
-
-    knex('stores_products').whereIn('product_id', selectedProductsIds).andWhere(function(){
-        this.whereIn('store_id', storesInRadiusIds)
-    })
-        .then(function(storesProductsData){
-            storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
-            let optimalStores = [];
-
-            if(numOfStores === 1){
-                result = storesProductsGraph.oneStopSearch(selectedProductsIds)
-                optimalStores.push(result[0])
-            }else {
-                result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
-
-            }
-            var output = [];
-            storesProductsData.forEach(function(currentStoreProduct){
-                optimalStores.forEach(function(curStore){
-                    if(currentStoreProduct.store_id === curStore) {
-                        output.push(currentStoreProduct);
-                    }
-
-                })
-            })
-
-            var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
-
-
-            res.json(returnData)
-        })
+    console.log("~~~~~~~~~~store ids~~~~~~~~~~", storesInRadiusIds, "~~~~~~~~~~product ids~~~~~~~~~~", selectedProducts)
+    console.log(req.body.filteredStores.data, "These are the filteredStores")
+    console.log(req.body.products, "These are the selectedProducts")
+    console.log(numOfStores, "This is the number of stores")
+    res.send('made it')
+    // knex('stores_products').whereIn('product_id', selectedProductsIds).andWhere(function(){
+    //     this.whereIn('store_id', storesInRadiusIds)
+    // })
+    //     .then(function(storesProductsData){
+    //         storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
+    //         let optimalStores = [];
+    //
+    //         if(numOfStores === 1){
+    //             result = storesProductsGraph.oneStopSearch(selectedProductsIds)
+    //             optimalStores.push(result[0])
+    //         }else {
+    //             result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
+    //
+    //         }
+    //         var output = [];
+    //         storesProductsData.forEach(function(currentStoreProduct){
+    //             optimalStores.forEach(function(curStore){
+    //                 if(currentStoreProduct.store_id === curStore) {
+    //                     output.push(currentStoreProduct);
+    //                 }
+    //
+    //             })
+    //         })
+    //
+    //         var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
+    //
+    //
+    //         res.json(returnData)
+    //     })
 });
 
 
