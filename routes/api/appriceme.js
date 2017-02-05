@@ -117,7 +117,8 @@ router.route('/test').get(function(req, res, next){
 
 });
 router.route('/').post(function(req, res, next){
-    // console.log(req.body);
+    console.log(req.body);
+    console.log("  REQ.BODY IS ABOVE, THE LOOP IS BELOW")
     for (var key in req.body) {
         console.log(key, ': ');
         console.log(req.body[key])
