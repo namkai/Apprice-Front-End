@@ -200,15 +200,15 @@ router.route('/').post(function(req, res, next){
     })
 
     console.log("~~~~~~~~~~store ids~~~~~~~~~~", storesInRadiusIds, "~~~~~~~~~~product ids~~~~~~~~~~", selectedProductsIds)
-    console.log(req.body.filteredStores.data, "These are the filteredStores")
-    console.log(req.body.products, "These are the selectedProducts")
-    console.log(numOfStores, "This is the number of stores")
+
 
     knex('stores_products').whereIn('product_id', selectedProductsIds).andWhere(function(){
         this.whereIn('store_id', storesInRadiusIds)
     })
         .then(function(storesProductsData){
+            console.log(storesProductsData, "IM AM THE STORES PRODUCTS DATA")
             storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
+            console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             let optimalStores = [];
 
             if(numOfStores === 1){
