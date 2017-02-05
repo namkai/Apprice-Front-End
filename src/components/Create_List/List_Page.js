@@ -78,7 +78,8 @@ export default class List_Page extends Component {
             radius: radius
         }
         let resultData = await sendData(data)
-
+        // resultData = resultData.json()
+        console.log(`I"M the result data`, resultData);
         return resultData;
 
     }
