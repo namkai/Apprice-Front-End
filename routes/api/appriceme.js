@@ -122,7 +122,7 @@ router.route('/').post(function(req, res, next){
         console.log(key, ': ');
         console.log(req.body[key])
     }
-    res.send('it workzzzz')
+    res.json(req.body)
 });
 
 
