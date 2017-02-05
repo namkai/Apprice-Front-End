@@ -44,6 +44,7 @@
     "react-redux": "^4.0.0",
     "react-router": "^2.8.1",
     "redux": "^3.0.4",
+    "redux-promise": "^0.5.3",
     "supertest": "^3.0.0"
   }
 }
