@@ -182,11 +182,52 @@ router.route('/test').get(function(req, res, next){
 
 });
 router.route('/').post(function(req, res, next){
-    let selectedProducts = req.body.products;
     let storesInRadius = req.body.filteredStores.data;
-    let output = [];
+    let selectedProducts = req.body.products;
     let numOfStores = req.body.numOfStores
-    res.json(req.body)
+    var result;
+
+    var storesProductsGraph = new Graph();
+    //grab all id's from the selected products and filter the stores_products table
+    //then pass in the json from that into the below func as the 3rd param.
+    var selectedProductsIds = [];
+    selectedProducts.forEach(function(curProduct){
+        selectedProductsIds.push(curProduct.id);
+    })
+    var storesInRadiusIds = [];
+    storesInRadius.forEach(function(curStore){
+        storesInRadiusIds.push(curStore.id);
+    })
+
+
+    knex('stores_products').whereIn('product_id', selectedProductsIds).andWhere(function(){
+        this.whereIn('store_id', storesInRadiusIds)
+    })
+        .then(function(storesProductsData){
+            storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
+            let optimalStores = [];
+
+            if(numOfStores === 1){
+                result = storesProductsGraph.oneStopSearch(selectedProductsIds)
+                optimalStores.push(result[0])
+            }else {
+                result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
+
+            }
+            var output = [];
+            storesProductsData.forEach(function(currentStoreProduct){
+                optimalStores.forEach(function(curStore){
+                    if(currentStoreProduct.store_id === curStore) {
+                        output.push(currentStoreProduct);
+                    }
+
+                })
+            })
+
+            var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
+
+
+            res.json(returnData)
 });
 
 
