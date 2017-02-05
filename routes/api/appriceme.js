@@ -211,7 +211,7 @@ router.route('/').post(function(req, res, next){
             console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             let optimalStores = [];
 
-            if(numOfStores === 1){
+            if(numOfStores == 1){
                 result = storesProductsGraph.oneStopSearch(selectedProductsIds)
                 optimalStores.push(result[0])
             }else {
@@ -227,7 +227,7 @@ router.route('/').post(function(req, res, next){
 
                 })
             })
-
+            console.log(returnData, "I AM THE returnData!!!!!!~~~~~~~")
             var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
             console.log(returnData, "That is the resultssssss")
