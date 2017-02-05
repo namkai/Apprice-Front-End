@@ -107,8 +107,23 @@ router.route('/test').get(function(req, res, next){
         .then(function(storesProductsData){
             storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
             console.log('STARTING NOW', storesProductsGraph.oneStopSearch(selectedProductsIds), 'IN A WORLD WHERE PRODUCTS ARE SOMETHING ');
+            let optimalStores = [];
 
-            res.send('sup world')
+            if(numOfStores === 1){
+                let result = storesProductsGraph.oneStopSearch(selectedProductsIds)
+                optimalStores.push(result[0])
+            }
+            var output = [];
+            storesProductsData.forEach(function(currentStoreProduct){
+                optimalStores.forEach(function(curStore){
+                    if(currentStoreProduct.store_id === curStore) {
+                        output.push(currentStoreProduct);
+                    }
+
+                })
+            })
+            console.log(output)
+            res.send(output)
     })
 
 
@@ -117,12 +132,10 @@ router.route('/test').get(function(req, res, next){
 
 });
 router.route('/').post(function(req, res, next){
-    console.log(req.body);
-    console.log("  REQ.BODY IS ABOVE, THE LOOP IS BELOW")
-    for (var key in req.body) {
-        console.log(key, ': ');
-        console.log(req.body[key])
-    }
+    let selectedProducts = req.body.products;
+    let storesInRadius = req.body.filteredStores.data;
+    let output = [];
+    let numOfStores = req.body.numOfStores
     res.json(req.body)
 });
 
