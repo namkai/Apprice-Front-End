@@ -7,7 +7,7 @@ const Nav = (props) => {
             <ul>
                 <li>
                     <div id="logo">
-                        <Link to={"/"}><i className="fa fa-lemon-o" aria-hidden="true"></i>Apprice</Link>
+                        <Link to={"/"}>Apprice</Link>
                     </div>
                 </li>
                 <div id="links">

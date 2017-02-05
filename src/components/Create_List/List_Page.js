@@ -91,7 +91,8 @@ class List_Page extends Component {
 
     }
     render() {
-        let {genericGroceries, selectedFood, selectedCity, radius} = this.state;
+        let {genericGroceries, selectedFood, selectedCity, radius, products} = this.state;
+        console.log(products, `i'm all the products`);
         console.log(this.props, `I'm the list page component props`);
         return (
             <div>
