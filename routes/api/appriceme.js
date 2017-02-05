@@ -160,15 +160,7 @@ router.route('/test').get(function(req, res, next){
                 result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
 
             }
-            var output = [];
-            storesProductsData.forEach(function(currentStoreProduct){
-                optimalStores.forEach(function(curStore){
-                    if(currentStoreProduct.store_id === curStore) {
-                        output.push(currentStoreProduct);
-                    }
 
-                })
-            })
 
             var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
@@ -207,7 +199,6 @@ router.route('/').post(function(req, res, next){
     })
         .then(function(storesProductsData){
             console.log(storesProductsData, "IM AM THE STORES PRODUCTS DATA")
-            console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             let optimalStores = [];
 
             if(numOfStores == 1){
@@ -215,20 +206,13 @@ router.route('/').post(function(req, res, next){
                 result = storesProductsGraph.oneStopSearch(selectedProductsIds)
                 optimalStores.push(result[0])
             }else {
-                storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
+                storesProductsGraph.initializeForMultiple(storesInRadius, selectedProducts, storesProductsData)
 
                 result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
 
             }
-            var output = [];
-            storesProductsData.forEach(function(currentStoreProduct){
-                optimalStores.forEach(function(curStore){
-                    if(currentStoreProduct.store_id === curStore) {
-                        output.push(currentStoreProduct);
-                    }
 
-                })
-            })
+            console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             console.log(result, "I AM THE resultssssss")
             var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
