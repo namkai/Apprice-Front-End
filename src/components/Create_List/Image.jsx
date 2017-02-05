@@ -7,7 +7,6 @@ export default class Image extends Component {
     }
     clickedImage() {
         let {handleClick, name, product} = this.props;
-        // console.log('handleClick', handleClick);
         handleClick(product, name);
     }
     render() {

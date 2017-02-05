@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import axios from 'axios';
+import {Link} from 'react-router'
+// import {storeData} from '../../actions/index';
+
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
 import Map from './Map';
-import {Link} from 'react-router'
-import {fetchGenericFood, fetchSpecificFood, sendData, getMapData} from '../../actions/index';
-import axios from 'axios';
 
-export default class List_Page extends Component {
+import {fetchGenericFood, fetchSpecificFood, sendData, getMapData, storeData} from '../../actions/index';
+
+class List_Page extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -78,12 +83,17 @@ export default class List_Page extends Component {
             radius: radius
         }
         let resultData = await sendData(data)
-
+        console.log(this.props.storeData);
+        this.props.storeData(resultData)
+        console.log(this.props, `I'm the store data`);
+        console.log(`I"M the result data`, resultData);
         return resultData;
 
     }
     render() {
-        let {genericGroceries, selectedFood, selectedCity, radius} = this.state;
+        let {genericGroceries, selectedFood, selectedCity, radius, products} = this.state;
+        console.log(products, `i'm all the products`);
+        console.log(this.props, `I'm the list page component props`);
         return (
             <div>
                 <div id="list-container">
@@ -101,3 +111,14 @@ export default class List_Page extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    console.log(state, `I'm the map State to PROPS state`);
+    return {data: state.data}
+}
+
+// Which action creators does it want to receive by props?
+function mapDispatchToProps(dispatch) {
+    return  bindActionCreators({ storeData: storeData }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List_Page)

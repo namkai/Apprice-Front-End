@@ -27,7 +27,6 @@ export default class SearchBarMap extends Component {
     }
 
     render() {
-        // var autocomplete = new google.maps.places.Autocomplete(input);
         return (
             <div className="search-bar">
                 <form onSubmit={this.onFormSubmit} className="grocery-search">
