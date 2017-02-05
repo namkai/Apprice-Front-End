@@ -227,10 +227,10 @@ router.route('/').post(function(req, res, next){
 
                 })
             })
-            console.log(returnData, "I AM THE returnData!!!!!!~~~~~~~")
+            console.log(result, "I AM THE resultssssss")
             var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
-            console.log(returnData, "That is the resultssssss")
+            console.log(returnData, "That is the returnData!!!!!!~~~~~~~")
             res.json(returnData)
         })
 });
