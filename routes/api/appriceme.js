@@ -216,13 +216,93 @@ router.route('/').post(function(req, res, next){
 
             }
 
-            console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             console.log(result, "I AM THE resultssssss")
 
             console.log(returnData, "That is the returnData!!!!!!~~~~~~~")
             res.json(returnData)
         })
 });
+
+router.route('/convert').post(function (req, res, next) {
+    let storesProducts = req.body.data;
+    var results;
+    var optimalStores = [];
+    var selectedProducts = [];
+    storesProducts.forEach(function(currentStoreProduct){
+        if(optimalStores.indexOf(currentStoreProduct.store_id) === -1) {
+            optimalStores.push(currentStoreProduct.store_id)
+        }
+        if(selectedProducts.indexOf(currentStoreProduct.product_id) === -1) {
+            selectedProducts.push(currentStoreProduct.product_id)
+        }
+    })
+    knex('stores').whereIn('id', optimalStores).then(function (storeData) {
+        results = storeData;
+        return knex('products').whereIn('id', selectedProducts).then(function (productData) {
+            results.forEach(function(currentStore){
+                currentStore.products = [];
+                productData.forEach(function (currentProduct) {
+                    storesProducts.forEach(function(currentStoreProduct){
+                        if (currentStoreProduct.store_id === currentStore.id && currentStoreProduct.product_id === currentProduct.id){
+                            currentStore.products.push(currentProduct)
+                        }
+                    })
+                })
+            })
+            res.json(results)
+        })
+    })
+})
+router.route('/convert/test').get(function (req, res, next) {
+    let storesProducts = [{
+      product_id: 6,
+      store_id: 3,
+      availability: true,
+      price: 3.99
+  }, {
+    product_id: 8,
+    store_id: 4,
+    availability: true,
+    price: 9.49
+}, {
+  product_id: 15,
+  store_id: 3,
+  availability: true,
+  price: 7.49
+}, {
+  product_id: 47,
+  store_id: 7,
+  availability: true,
+  price: 0.99
+}]
+    var results;
+    var optimalStores = [];
+    var selectedProducts = [];
+    storesProducts.forEach(function(currentStoreProduct){
+        if(optimalStores.indexOf(currentStoreProduct.store_id) === -1) {
+            optimalStores.push(currentStoreProduct.store_id)
+        }
+        if(selectedProducts.indexOf(currentStoreProduct.product_id) === -1) {
+            selectedProducts.push(currentStoreProduct.product_id)
+        }
+    })
+    knex('stores').whereIn('id', optimalStores).then(function (storeData) {
+        results = storeData;
+        return knex('products').whereIn('id', selectedProducts).then(function (productData) {
+            results.forEach(function(currentStore){
+                currentStore.products = [];
+                productData.forEach(function (currentProduct) {
+                    storesProducts.forEach(function(currentStoreProduct){
+                        if (currentStoreProduct.store_id === currentStore.id && currentStoreProduct.product_id === currentProduct.id){
+                            currentStore.products.push(currentProduct)
+                        }
+                    })
+                })
+            })
+            res.json(results)
+        })
+    })
+})
 
 
 module.exports = router;
