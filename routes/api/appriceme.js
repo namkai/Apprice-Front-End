@@ -207,14 +207,16 @@ router.route('/').post(function(req, res, next){
     })
         .then(function(storesProductsData){
             console.log(storesProductsData, "IM AM THE STORES PRODUCTS DATA")
-            storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
             console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             let optimalStores = [];
 
             if(numOfStores == 1){
+                storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
                 result = storesProductsGraph.oneStopSearch(selectedProductsIds)
                 optimalStores.push(result[0])
             }else {
+                storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
+
                 result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
 
             }
