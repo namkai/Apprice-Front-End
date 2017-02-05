@@ -6,6 +6,7 @@ const knex = require('../../knex');
 const Graph = require('../../lib/graph.js').Graph
 
 router.route('/test').get(function(req, res, next){
+    var result;
     var storesInRadius = [
         {
             "id":1,
@@ -53,12 +54,22 @@ router.route('/test').get(function(req, res, next){
             ,"longitude":"-122.394109000000"
             ,"created_at":"2016-11-14T20:26:16.000Z"
             ,"updated_at":"2016-11-14T20:26:16.000Z"
-        }
+        },
+        {
+            id: 7,
+            name: "Trader Joe's",
+            address: "555 9th St, San Francisco, CA 94103",
+            phone_number: "(415) 863-1292",
+            store_url: "http://www.traderjoes.com/",
+            store_image_url: "http://www.traderjoes.com/images/announcement/778-Davie-Store.jpg",
+            latitude: 37.7707200,
+            longitude: -122.4075760,
+            created_at: new Date('2016-11-14 20:26:16 UTC'),
+            updated_at: new Date('2016-11-14 20:26:16 UTC')
+          }
     ];
-    var lat = '37.786734';
-    var long = '-122.397807';
-    var radius = '1'
-    var url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${long}&radius=${radius}`;
+
+    var numOfStores = 3;
     var selectedProducts = [{
         id: 6,
         upc: "015141503495",
@@ -86,7 +97,41 @@ router.route('/test').get(function(req, res, next){
         brand_type: "1% Lowfat Milk",
         size: "Gallon",
         product_image_url: "http://scene7.targetimg1.com/is/image/Target/14937615?wid=1000&hei=1000"
-    }];
+    }, {
+      id: 47,
+      upc: null,
+      plu: "94050",
+      name: "Cantaloupe (large) [organic]",
+      brand_name: null,
+      brand_type: null,
+      size: "large",
+      product_image_url: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQzAZEG33Tn3FOuGvmwlzg6IUxrUpdgOX26xMrI5gAZU3SQ1MmAWQ",
+      created_at: new Date('2016-11-14 20:26:16 UTC'),
+      updated_at: new Date('2016-11-14 20:26:16 UTC')
+  }, {
+    id: 84,
+    upc: "492310012048",
+    plu: null,
+    name: "Post Fruity Pebbles (11 oz.)",
+    brand_name: "Post",
+    brand_type: "Fruity Pebbles (11 oz.)",
+    size: "11 oz.",
+    product_image_url: "http://target.scene7.com/is/image/Target/14775577?wid=450&hei=450&fmt=pjpeg",
+    created_at: new Date('2016-11-16 20:26:16 UTC'),
+    updated_at: new Date('2016-11-16 20:26:16 UTC')
+    }, {
+      id: 91,
+      upc: "073435093305",
+      plu: null,
+      name: "King's Hawaiian Sweet Sliced Bread (16 oz.)",
+      brand_name: "King's Hawaiian",
+      brand_type: "Sweet Sliced Bread (16 oz.)",
+      size: "16 oz.",
+      product_image_url: "http://target.scene7.com/is/image/Target/16229584?wid=450&hei=450&fmt=pjpeg",
+      created_at: new Date('2016-11-16 20:26:16 UTC'),
+      updated_at: new Date('2016-11-16 20:26:16 UTC')
+    }
+];
 
     var storesProductsGraph = new Graph();
     //grab all id's from the selected products and filter the stores_products table
@@ -106,9 +151,21 @@ router.route('/test').get(function(req, res, next){
     })
         .then(function(storesProductsData){
             storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
-            console.log('STARTING NOW', storesProductsGraph.oneStopSearch(selectedProductsIds), 'IN A WORLD WHERE PRODUCTS ARE SOMETHING ');
+            let optimalStores = [];
 
-            res.send('sup world')
+            if(numOfStores === 1){
+                result = storesProductsGraph.oneStopSearch(selectedProductsIds)
+                optimalStores.push(result[0])
+            }else {
+                result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
+
+            }
+
+
+            var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
+
+
+            res.json(returnData)
     })
 
 
@@ -117,13 +174,135 @@ router.route('/test').get(function(req, res, next){
 
 });
 router.route('/').post(function(req, res, next){
-    // console.log(req.body);
-    for (var key in req.body) {
-        console.log(key, ': ');
-        console.log(req.body[key])
-    }
-    res.send('it workzzzz')
+    let storesInRadius = req.body.filteredStores.data;
+    let selectedProducts = req.body.products;
+    let numOfStores = req.body.numOfStores
+    var result;
+
+    var storesProductsGraph = new Graph();
+    //grab all id's from the selected products and filter the stores_products table
+    //then pass in the json from that into the below func as the 3rd param.
+    var selectedProductsIds = [];
+    selectedProducts.forEach(function(curProduct){
+        selectedProductsIds.push(curProduct.products.id);
+    })
+    var storesInRadiusIds = [];
+    storesInRadius.forEach(function(curStore){
+        storesInRadiusIds.push(curStore.id);
+    })
+
+    console.log("~~~~~~~~~~store ids~~~~~~~~~~", storesInRadiusIds, "~~~~~~~~~~product ids~~~~~~~~~~", selectedProductsIds)
+
+
+    knex('stores_products').whereIn('product_id', selectedProductsIds).andWhere(function(){
+        this.whereIn('store_id', storesInRadiusIds)
+    })
+        .then(function(storesProductsData){
+            console.log(storesProductsData, "IM AM THE STORES PRODUCTS DATA")
+            let optimalStores = [];
+            var returnData;
+
+            if(numOfStores == 1){
+                storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
+                result = storesProductsGraph.oneStopSearch(selectedProductsIds)
+                optimalStores.push(result[0])
+                returnData = storesProductsGraph.convertOneStoptoJSON(result, storesProductsData)
+
+            }else {
+                storesProductsGraph.initializeForMultiple(storesInRadius, selectedProducts, storesProductsData)
+
+                result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
+                returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
+
+            }
+
+            console.log(result, "I AM THE resultssssss")
+
+            console.log(returnData, "That is the returnData!!!!!!~~~~~~~")
+            res.json(returnData)
+        })
 });
+
+router.route('/convert').post(function (req, res, next) {
+    let storesProducts = req.body.data;
+    var results;
+    var optimalStores = [];
+    var selectedProducts = [];
+    storesProducts.forEach(function(currentStoreProduct){
+        if(optimalStores.indexOf(currentStoreProduct.store_id) === -1) {
+            optimalStores.push(currentStoreProduct.store_id)
+        }
+        if(selectedProducts.indexOf(currentStoreProduct.product_id) === -1) {
+            selectedProducts.push(currentStoreProduct.product_id)
+        }
+    })
+    knex('stores').whereIn('id', optimalStores).then(function (storeData) {
+        results = storeData;
+        return knex('products').whereIn('id', selectedProducts).then(function (productData) {
+            results.forEach(function(currentStore){
+                currentStore.products = [];
+                productData.forEach(function (currentProduct) {
+                    storesProducts.forEach(function(currentStoreProduct){
+                        if (currentStoreProduct.store_id === currentStore.id && currentStoreProduct.product_id === currentProduct.id){
+                            currentStore.products.push(currentProduct)
+                        }
+                    })
+                })
+            })
+            res.json(results)
+        })
+    })
+})
+router.route('/convert/test').get(function (req, res, next) {
+    let storesProducts = [{
+      product_id: 6,
+      store_id: 3,
+      availability: true,
+      price: 3.99
+  }, {
+    product_id: 8,
+    store_id: 4,
+    availability: true,
+    price: 9.49
+}, {
+  product_id: 15,
+  store_id: 3,
+  availability: true,
+  price: 7.49
+}, {
+  product_id: 47,
+  store_id: 7,
+  availability: true,
+  price: 0.99
+}]
+    var results;
+    var optimalStores = [];
+    var selectedProducts = [];
+    storesProducts.forEach(function(currentStoreProduct){
+        if(optimalStores.indexOf(currentStoreProduct.store_id) === -1) {
+            optimalStores.push(currentStoreProduct.store_id)
+        }
+        if(selectedProducts.indexOf(currentStoreProduct.product_id) === -1) {
+            selectedProducts.push(currentStoreProduct.product_id)
+        }
+    })
+    knex('stores').whereIn('id', optimalStores).then(function (storeData) {
+        results = storeData;
+        return knex('products').whereIn('id', selectedProducts).then(function (productData) {
+            results.forEach(function(currentStore){
+                currentStore.products = [];
+                productData.forEach(function (currentProduct) {
+                    storesProducts.forEach(function(currentStoreProduct){
+                        if (currentStoreProduct.store_id === currentStore.id && currentStoreProduct.product_id === currentProduct.id){
+                            currentStore.products.push(currentProduct)
+                        }
+                    })
+                })
+            })
+            res.json(results)
+        })
+    })
+})
 
 
 module.exports = router;
