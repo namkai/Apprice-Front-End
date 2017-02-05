@@ -6,6 +6,7 @@ const knex = require('../../knex');
 const Graph = require('../../lib/graph.js').Graph
 
 router.route('/test').get(function(req, res, next){
+    var result;
     var storesInRadius = [
         {
             "id":1,
@@ -53,12 +54,22 @@ router.route('/test').get(function(req, res, next){
             ,"longitude":"-122.394109000000"
             ,"created_at":"2016-11-14T20:26:16.000Z"
             ,"updated_at":"2016-11-14T20:26:16.000Z"
-        }
+        },
+        {
+            id: 7,
+            name: "Trader Joe's",
+            address: "555 9th St, San Francisco, CA 94103",
+            phone_number: "(415) 863-1292",
+            store_url: "http://www.traderjoes.com/",
+            store_image_url: "http://www.traderjoes.com/images/announcement/778-Davie-Store.jpg",
+            latitude: 37.7707200,
+            longitude: -122.4075760,
+            created_at: new Date('2016-11-14 20:26:16 UTC'),
+            updated_at: new Date('2016-11-14 20:26:16 UTC')
+          }
     ];
-    var lat = '37.786734';
-    var long = '-122.397807';
-    var radius = '1'
-    var url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${long}&radius=${radius}`;
+
+    var numOfStores = 2;
     var selectedProducts = [{
         id: 6,
         upc: "015141503495",
@@ -86,7 +97,41 @@ router.route('/test').get(function(req, res, next){
         brand_type: "1% Lowfat Milk",
         size: "Gallon",
         product_image_url: "http://scene7.targetimg1.com/is/image/Target/14937615?wid=1000&hei=1000"
-    }];
+    }, {
+      id: 47,
+      upc: null,
+      plu: "94050",
+      name: "Cantaloupe (large) [organic]",
+      brand_name: null,
+      brand_type: null,
+      size: "large",
+      product_image_url: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQzAZEG33Tn3FOuGvmwlzg6IUxrUpdgOX26xMrI5gAZU3SQ1MmAWQ",
+      created_at: new Date('2016-11-14 20:26:16 UTC'),
+      updated_at: new Date('2016-11-14 20:26:16 UTC')
+  }, {
+    id: 84,
+    upc: "492310012048",
+    plu: null,
+    name: "Post Fruity Pebbles (11 oz.)",
+    brand_name: "Post",
+    brand_type: "Fruity Pebbles (11 oz.)",
+    size: "11 oz.",
+    product_image_url: "http://target.scene7.com/is/image/Target/14775577?wid=450&hei=450&fmt=pjpeg",
+    created_at: new Date('2016-11-16 20:26:16 UTC'),
+    updated_at: new Date('2016-11-16 20:26:16 UTC')
+    }, {
+      id: 91,
+      upc: "073435093305",
+      plu: null,
+      name: "King's Hawaiian Sweet Sliced Bread (16 oz.)",
+      brand_name: "King's Hawaiian",
+      brand_type: "Sweet Sliced Bread (16 oz.)",
+      size: "16 oz.",
+      product_image_url: "http://target.scene7.com/is/image/Target/16229584?wid=450&hei=450&fmt=pjpeg",
+      created_at: new Date('2016-11-16 20:26:16 UTC'),
+      updated_at: new Date('2016-11-16 20:26:16 UTC')
+    }
+];
 
     var storesProductsGraph = new Graph();
     //grab all id's from the selected products and filter the stores_products table
@@ -106,12 +151,14 @@ router.route('/test').get(function(req, res, next){
     })
         .then(function(storesProductsData){
             storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
-            console.log('STARTING NOW', storesProductsGraph.oneStopSearch(selectedProductsIds), 'IN A WORLD WHERE PRODUCTS ARE SOMETHING ');
             let optimalStores = [];
 
             if(numOfStores === 1){
-                let result = storesProductsGraph.oneStopSearch(selectedProductsIds)
+                result = storesProductsGraph.oneStopSearch(selectedProductsIds)
                 optimalStores.push(result[0])
+            }else {
+                result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
+
             }
             var output = [];
             storesProductsData.forEach(function(currentStoreProduct){
@@ -122,8 +169,29 @@ router.route('/test').get(function(req, res, next){
 
                 })
             })
-            console.log(output)
-            res.send(output)
+            console.log("IM  AM  THE OPT MST", result)
+            var resultArr = Array.from(result)
+            storesProductsData = storesProductsData.filter(function (currentStoreProduct) {
+                var include = false;
+                resultArr.forEach(function(currentEdge){
+                    if(currentEdge.storeId === currentStoreProduct.store_id && currentEdge.productId === currentStoreProduct.product_id) {
+                        include = true
+                    }
+                })
+                return include
+            })
+            // storesProductsData = storesProductsData.filter(function (currentStoreProduct) {
+            //     var include = false;
+            //     resultArr.forEach(function(currentEdge){
+            //         if(currentEdge.productId === currentStoreProduct.product_id) {
+            //             include = true
+            //         }
+            //     })
+            //     return include
+            // })
+
+
+            res.json(storesProductsData)
     })
 
 
