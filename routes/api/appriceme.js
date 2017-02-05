@@ -200,21 +200,24 @@ router.route('/').post(function(req, res, next){
         .then(function(storesProductsData){
             console.log(storesProductsData, "IM AM THE STORES PRODUCTS DATA")
             let optimalStores = [];
+            var returnData;
 
             if(numOfStores == 1){
                 storesProductsGraph.initialize(storesInRadius, selectedProducts, storesProductsData)
                 result = storesProductsGraph.oneStopSearch(selectedProductsIds)
                 optimalStores.push(result[0])
+                returnData = storesProductsGraph.convertOneStoptoJSON(result, storesProductsData)
+
             }else {
                 storesProductsGraph.initializeForMultiple(storesInRadius, selectedProducts, storesProductsData)
 
                 result = storesProductsGraph.MultipleStopSearch(numOfStores, storesInRadius, selectedProductsIds)
+                returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
             }
 
             console.log(storesProductsGraph, "I AM THE FUCKIN GRAPH");
             console.log(result, "I AM THE resultssssss")
-            var returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
 
             console.log(returnData, "That is the returnData!!!!!!~~~~~~~")
             res.json(returnData)
