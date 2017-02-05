@@ -192,14 +192,14 @@ router.route('/').post(function(req, res, next){
     //then pass in the json from that into the below func as the 3rd param.
     var selectedProductsIds = [];
     selectedProducts.forEach(function(curProduct){
-        selectedProductsIds.push(curProduct.id);
+        selectedProductsIds.push(curProduct.products.id);
     })
     var storesInRadiusIds = [];
     storesInRadius.forEach(function(curStore){
         storesInRadiusIds.push(curStore.id);
     })
 
-    console.log("~~~~~~~~~~store ids~~~~~~~~~~", storesInRadiusIds, "~~~~~~~~~~product ids~~~~~~~~~~", selectedProducts)
+    console.log("~~~~~~~~~~store ids~~~~~~~~~~", storesInRadiusIds, "~~~~~~~~~~product ids~~~~~~~~~~", selectedProductsIds)
     console.log(req.body.filteredStores.data, "These are the filteredStores")
     console.log(req.body.products, "These are the selectedProducts")
     console.log(numOfStores, "This is the number of stores")
