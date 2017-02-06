@@ -14,6 +14,7 @@ const products_type_tags = require ("./api/products_type_tags");
 const products_filter_tags = require ("./api/products_filter_tags");
 const users_filter_tags = require ("./api/users_filter_tags");
 const appriceme = require ("./api/appriceme")
+const test = require ("./api/test")
 
 
 module.exports = {
@@ -29,5 +30,6 @@ module.exports = {
   products_type_tags,
   products_filter_tags,
   users_filter_tags,
-  appriceme
+  appriceme,
+  test
 };
