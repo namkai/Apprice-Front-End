@@ -63,7 +63,8 @@ router.route('/convert').post(function (req, res, next) {
                 productData.forEach(function (currentProduct) {
                     storesProducts.forEach(function(currentStoreProduct){
                         if (currentStoreProduct.store_id === currentStore.id && currentStoreProduct.product_id === currentProduct.id){
-                            currentStore.products.push(currentProduct)
+                            currentProduct.price = currentStoreProduct.price;
+                            currentStore.products.push(currentProduct);
                         }
                     });
                 });
