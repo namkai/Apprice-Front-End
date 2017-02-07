@@ -3,64 +3,71 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../../knex');
+const bcrypt = require("bcrypt-as-promised");
 
-router.route('/').get(function(req, res, next){
-    knex('users')
-    .orderBy('id').then(function(users){
-        res.json(users);
-    }).catch(function(err){
-        next(new Error(err));
-    });
+
+router.route("/register").post(function (req, res, next) {
+    console.log(req.body)
+    bcrypt.hash(req.body.password, 3).then(function(hash){
+        knex("users")
+        .insert({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            hashed_password: hash
+        })
+        .returning(["first_name", "last_name", "email"])
+        .then(function (userData) {
+            res.json(userData)
+        })
+        .catch(function (err) {
+            next(new Error(err));
+        })
+    })
 });
 
-router.route('/:id').get(function(req, res, next){
-    var usersId =  Number(req.params.id);
-    knex('users').where('id', usersId)
-    .then(function(specificFilterTag){
-        res.json(specificFilterTag);
-    }).catch(function(err){
-        next(new Error(err));
-    });
+router.route("/login").post(function (req, res, next) {
+    var usersEmail = req.body.email;
+        knex("users").select("*").where("users.email", "=", usersEmail)
+        .then(function(userInfo){
+            var hashed = userInfo[0].hashed_password
+            var firstname = userInfo[0].first_name
+            bcrypt.compare(req.body.password, hashed).then(function(){
+                req.session.firstname = firstname
+                res.json(userInfo)
+            }).catch(bcrypt.MISMATCH_ERROR, function(){
+                res.send("That was an invalid login!")
+            }).catch(function (err) {
+                next(new Error(err));
+            })
+        })
+        .catch(function (err) {
+            next(new Error(err));
+        })
 });
 
-router.route("/").post(function (req, res, next) {
+router.route("/:email").patch(function (req, res, next) {
+    var usersEmail = req.params.email;
   knex("users")
-  .insert({
-    name: req.body.name
-  })
-  .returning(["name", "id"])
-  .then(function (users) {
-    res.json(users[0]);
-  })
-  .catch(function (err) {
-      next(new Error(err));
-    });
-});
-
-router.route("/:id").patch(function (req, res, next) {
-    var usersId =  Number(req.params.id);
-  knex("users")
-  .where('id', usersId)
-  .update({
-    name: req.body.name
-  })
+  .where('email', usersEmail)
+  .update(req.body)
   .returning("*")
   .then(function (users) {
-    res.json(users[0]);
+    res.json(users);
   })
   .catch(function (err) {
       next(new Error(err));
     });
 });
 
-router.route("/:id").delete(function (req, res, next) {
-  let usersId = Number(req.params.id);
+router.route("/:email").delete(function (req, res, next) {
+  let usersEmail = req.params.email;
   knex("users")
-  .where("id", "=", usersId)
+  .where("email", "=", usersEmail)
   .del()
-  .returning(["name"])
+  .returning(["first_name", "last_name", "email", "id"])
   .then(function (users) {
-    res.json(users[0]);
+    res.json(users);
   })
   .catch(function (err) {
       next(new Error(err));
