@@ -65,7 +65,7 @@ router.route("/").post(function (req, res, next) {
                 // res.json(newTagId)
                 return knex('products_type_tags').insert({
                     product_id: productId,
-                    type_tag_id: newTagId[0]
+                    type_tag_id: newTagId[0].id
                 }).then(function(inserted){
                     res.json(inserted)
                 }).catch(function (err) {
