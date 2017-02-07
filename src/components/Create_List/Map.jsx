@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import SearchBarMap from './Search_Bar_Map'
 import Range from 'react-range';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {storeLocation} from '../../actions/index'
 
 const GOOGLE_MAPS_EMBED_API = `AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38`
 
-export default class Map extends Component {
+class Map extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,6 +31,7 @@ export default class Map extends Component {
     async getLocation() {
         let {location} = this.state;
         await navigator.geolocation.getCurrentPosition((position) => {
+            this.props.storeLocation(position)
             console.log(`I'm the position.`, position);
             this.setState({location: position, lat: position.coords.latitude, lon: position.coords.longitude})
         })
@@ -72,7 +76,7 @@ export default class Map extends Component {
                     <button className={button3} onClick={this.buttonThree}>Three</button><br/>
                     <h4>What's your search radius?</h4>
                     <Range id="store-radius" onChange={this.handleChange} type='range' value={radius} min={1} max={10}/><span id="display-radius">{radius} mi</span><br/>
-                    <iframe id="google-map" width="300" height="300" frameBorder="0" src={yourLocation} allowFullScreen></iframe>
+                    <iframe id="google-map" width="350" height="300" frameBorder="0" src={yourLocation} allowFullScreen></iframe>
                 </div>
             )
         } else {
@@ -92,5 +96,14 @@ export default class Map extends Component {
             )
         }
     }
-
 }
+function mapStateToProps(state) {
+    return {
+        data: state.data,
+        location: state.data.location
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return  bindActionCreators({ storeLocation: storeLocation}, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Map)

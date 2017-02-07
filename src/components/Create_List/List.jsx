@@ -5,13 +5,15 @@ export default class List extends Component {
         super(props);
     }
     render() {
-        let {name} = this.props;
+        let {name, key, onToggle, id} = this.props;
         return (
             <div>
-                <li>{name}</li>
-                <br/>
-
+                <input type="checkbox" key={key} onChange={function() {
+                    onToggle(id);
+                }}/>
+                <label htmlFor={key}>{name}</label>
             </div>
+
         )
     }
 }

@@ -37,6 +37,7 @@
     "express-session": "^1.15.0",
     "knex": "^0.12.6",
     "lodash": "^3.10.1",
+    "node-uuid": "^1.4.7",
     "pg": "^6.1.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

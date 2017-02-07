@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import List from './List';
+import uuid from 'node-uuid';
 
 export default class Grocery_List extends Component {
     constructor(props) {
@@ -11,8 +12,10 @@ export default class Grocery_List extends Component {
         let {groceries} = this.props;
 
         return groceries.map((food) => {
-            let {selectedFood, id} = food
-            return (<List id={id} name={selectedFood}/>)
+            let {name, id} = food.products;
+            let key = uuid();
+
+            return (<List key={key} id={id} {...food} name={name} onToggle={this.props.onToggle}/>)
 
         })
     }
@@ -21,7 +24,7 @@ export default class Grocery_List extends Component {
             <div>
                 <h3 id="shopping-title" >Shopping List</h3>
             <div id="list" >
-                <ul>
+                <ul id="list-ul">
                     {this.generateGroceryList()}
                 </ul>
              </div>
