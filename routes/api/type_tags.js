@@ -52,17 +52,44 @@ router.route('/:id').get(function(req, res, next){
 });
 
 router.route("/").post(function (req, res, next) {
-  knex("type_tags")
-  .insert({
-    name: req.body.name
-  })
-  .returning(["name", "id"])
-  .then(function (type_tags) {
-    res.json(type_tags[0]);
-  })
-  .catch(function (err) {
-      next(new Error(err));
-    });
+    var tagName = req.body.tagName
+    var productId = req.body.productId
+    console.log(tagName, "i am the tagname")
+    knex('type_tags').select('id').where('name', tagName)
+    .then(function(tag){
+        if(tag.length === 0) {
+            return knex('type_tags').insert({
+                name: tagName
+            }).returning(['id'])
+            .then(function(newTagId){
+                // res.json(newTagId)
+                return knex('products_type_tags').insert({
+                    product_id: productId,
+                    type_tag_id: newTagId[0].id
+                }).then(function(inserted){
+                    res.json(inserted)
+                }).catch(function (err) {
+                    next(new Error(err));
+                  })
+            })
+        } else {
+            return knex('products_type_tags').select('*')
+            .where('product_id', productId)
+            .andWhere('type_tag_id', tag[0].id)
+            .then(function(existingAssociation){
+                if(existingAssociation.length === 0) {
+                    return knex('products_type_tags').insert({
+                        product_id: productId,
+                        type_tag_id: tag[0].id
+                    }).then(function(inserted){
+                        res.json(inserted)
+                    }).catch(function (err) {
+                        next(new Error(err));
+                      })
+                }
+            })
+        }
+    })
 });
 
 router.route("/:id").patch(function (req, res, next) {

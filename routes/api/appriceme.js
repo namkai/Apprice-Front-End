@@ -7,6 +7,8 @@ const Graph = require('../../lib/graph.js').Graph;
 
 
 router.route('/').post(function(req, res, next){
+    console.log(req.body)
+    
     let storesInRadius = req.body.filteredStores.data;
     let selectedProducts = req.body.products;
     let numOfStores = req.body.numOfStores;
@@ -38,7 +40,7 @@ router.route('/').post(function(req, res, next){
                 returnData = storesProductsGraph.convertOptMSTtoJSON(result, storesProductsData)
             }
 
-            res.json(returnData)
+            res.json(returnData);
         })
 });
 
@@ -63,7 +65,8 @@ router.route('/convert').post(function (req, res, next) {
                 productData.forEach(function (currentProduct) {
                     storesProducts.forEach(function(currentStoreProduct){
                         if (currentStoreProduct.store_id === currentStore.id && currentStoreProduct.product_id === currentProduct.id){
-                            currentStore.products.push(currentProduct)
+                            currentProduct.price = currentStoreProduct.price;
+                            currentStore.products.push(currentProduct);
                         }
                     });
                 });
