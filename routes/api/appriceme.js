@@ -7,6 +7,7 @@ const Graph = require('../../lib/graph.js').Graph;
 
 
 router.route('/').post(function(req, res, next){
+    console.log(req.body)
     let storesInRadius = req.body.filteredStores.data;
     let selectedProducts = req.body.products;
     let numOfStores = req.body.numOfStores;
