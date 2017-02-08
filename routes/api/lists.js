@@ -26,7 +26,7 @@ router.route('/:id').get(function(req, res, next){
 
 router.route("/").post(function (req, res, next) {
     console.log(req.body)
-    var userID = req.body.userId
+    var userId = req.body.userId
     var listName = req.body.listName
     knex("lists")
     .insert({
