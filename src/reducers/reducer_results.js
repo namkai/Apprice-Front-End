@@ -1,8 +1,9 @@
-import {STORE_DATA, STORE_LOCATION} from '../actions/index';
+import {STORE_DATA, STORE_LOCATION, STORE_USER} from '../actions/index';
 
 const INITIAL_STATE = {
     data: {},
-    location: ''
+    location: '',
+    user: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -15,6 +16,10 @@ export default function(state = INITIAL_STATE, action) {
         case STORE_LOCATION:
             return {
                 location: action.payload
+            }
+        case STORE_USER:
+            return {
+                user: action.payload
             }
         default:
             return state;

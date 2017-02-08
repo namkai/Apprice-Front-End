@@ -8,7 +8,8 @@ const GOOGLE_MAPS_EMBED_API = `AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38`;
 const ADDRESS_TO_LAT_LONG = `https://maps.googleapis.com/maps/api/geocode/json?address=`
 export const STORE_DATA = 'STORE_DATA';
 export const SEND_DATA = 'SEND_DATA';
-export const STORE_LOCATION = 'STORE_LOCATION'
+export const STORE_LOCATION = 'STORE_LOCATION';
+export const STORE_USER = 'STORE_USER'
 
 export async function fetchGenericFood() {
     let url = `${ROOT_URL}`
@@ -64,7 +65,6 @@ export async function getMapData(selectCity) {
 
 export function storeData(data) {
     console.log(`i'm the data getting passed to the action`, data.data);
-    // const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, data)
     let resultData = data.data;
     return {
         type: STORE_DATA,
@@ -72,11 +72,24 @@ export function storeData(data) {
     }
 }
 export function storeLocation(location) {
-    // console.log(`i'm the data getting passed to the action`, \);
-    // const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, data)
-    // let resultData = data.data;
+
     return {
         type: STORE_LOCATION,
         payload: location
+    }
+}
+export function signUp(props) {
+    console.log(`I was hit! and here are the`, props);
+    const request = axios.post(`https://appriceapi.herokuapp.com/api/users/register`, props)
+    console.log(request);
+    return request;
+}
+export function login(props) {
+    console.log(props);
+    const request = axios.post('https://appriceapi.herokuapp.com/api/users/login', props)
+    console.log(request);
+    return {
+        type: STORE_USER,
+        payload: request
     }
 }

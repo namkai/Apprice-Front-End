@@ -39,13 +39,18 @@
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.7",
     "pg": "^6.1.2",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
+    "react": "^15.4.2",
+    "react-addons-css-transition-group": "^15.4.2",
+    "react-addons-shallow-compare": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-range": "0.0.7",
     "react-redux": "^4.0.0",
     "react-router": "^2.8.1",
+    "react-selectize": "^2.1.0",
     "redux": "^3.0.4",
     "redux-promise": "^0.5.3",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "underscore": "^1.8.3"
   }
 }

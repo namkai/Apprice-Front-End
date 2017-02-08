@@ -321,7 +321,7 @@ input {
     height: 150px;
     float: left;
     font-size: 12px;
-    background-color: #70ae29;
+    background-color: #323c5c;
     margin: 5px 5px;
     /*border: 1px solid black;*/
     display: inline-block;
@@ -352,7 +352,8 @@ input {
 
 .card-title {
     height: 30%;
-    background-color: #70ae29;
+    color: white;
+    background-color: rgba(0,0,0,0);
     /*border-radius: 5px;*/
 }
 

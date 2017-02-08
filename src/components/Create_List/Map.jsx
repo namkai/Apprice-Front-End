@@ -29,6 +29,7 @@ class Map extends Component {
         this.getLocation();
     }
     async getLocation() {
+        console.log(`i'm the get location function and I'm working!`);
         let {location} = this.state;
         await navigator.geolocation.getCurrentPosition((position) => {
             this.props.storeLocation(position)
@@ -39,17 +40,14 @@ class Map extends Component {
     buttonOne() {
         this.props.numOfStores(1);
         this.setState({button1: 'store-button-active', button2: 'store-button-inactive', button3: 'store-button-inactive'})
-        // console.log(`I was clicked!`);
     }
     buttonTwo() {
         this.props.numOfStores(2);
         this.setState({button1: 'store-button-inactive', button2: 'store-button-active', button3: 'store-button-inactive'})
-        // console.log(`I was clicked!`);
     }
     buttonThree() {
         this.props.numOfStores(3);
         this.setState({button1: 'store-button-inactive', button2: 'store-button-inactive', button3: 'store-button-active'})
-        // console.log(`I was clicked!`);
     }
     handleChange(event) {
         let {value} = event.target;
@@ -90,7 +88,7 @@ class Map extends Component {
                     <button className={button2} onClick={this.buttonTwo}>Two</button>
                     <button className={button3} onClick={this.buttonThree}>Three</button><br/>
                     <h4>What's your search radius?</h4>
-                    <Range id="store-radius" onChange={this.handleChange} type='range' value={radius} min={1} max={10}/><span>{radius} mile</span><br/>
+                    <Range id="store-radius" onChange={this.handleChange} type='range' value={radius} min={1} max={10}/><span>{radius} mi</span><br/>
                     <iframe id="google-map" width="350" height="300" frameBorder="0" src={selectedLocation} allowFullScreen></iframe>
                 </div>
             )

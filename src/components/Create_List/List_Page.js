@@ -46,6 +46,13 @@ class List_Page extends Component {
 
     handleClick(product, food) {
         let {selectedFood, products} = this.state;
+        selectedFood.forEach((ele) => {
+            console.log(ele, `I'm the element`);
+            console.log(product, `I'm the product`);
+            if(ele.selectedFood === product.name) {
+                throw new Error;
+            }
+        })
 
         this.setState({
             selectedFood: [

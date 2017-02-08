@@ -18,7 +18,7 @@ class ResultsPage extends Component {
     }
     async getUserData() {
         let log = await console.log(this.props, `I'm the result page props`);
-        this.setState({
+        await this.setState({
             data: this.props.data.data
         })
     }
@@ -26,11 +26,13 @@ class ResultsPage extends Component {
         console.log(this.props.data.data, `I"M LOOKING FOR THIS` );
         let {data} = this.state;
         console.log(data, `I'm the data`);
+
         return (
             <div id="result-container">
-                <OneStore userData={data}/>
-                <TwoStore userData={data}/>
-                <ThreeStore userData={data}/>
+                {/* <h3>{...this.props.data.data}</h3> */}
+                <OneStore userData={this.props.data.data}/>
+                <TwoStore userData={this.props.data.data}/>
+                <ThreeStore userData={this.props.data.data}/>
             </div>
         )
     }
@@ -38,7 +40,9 @@ class ResultsPage extends Component {
 
 function mapStateToProps(state) {
     console.log(state, `I'm the mapStateToProps state on the result page`);
-    return {data: state.data};
+    return {data: state.data,
+            location: state.location
+    };
 
 }
 
