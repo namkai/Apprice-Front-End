@@ -24,6 +24,7 @@ router.route('/:id').get(function(req, res, next){
 });
 
 router.route("/").post(function (req, res, next) {
+    console.log(req.body)
     var listId = req.body.listId;
     var products = req.body.products;
     var rows = products.map(function(currentProduct){
