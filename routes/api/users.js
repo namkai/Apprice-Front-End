@@ -28,7 +28,8 @@ router.route("/register").post(function (req, res, next) {
 
 router.route("/login").post(function (req, res, next) {
     var usersEmail = req.body.email;
-        knex("users").select("*").where("users.email", "=", usersEmail)
+    console.log(req.body);
+        knex("users").where("email", usersEmail)
         .then(function(userInfo){
             var hashed = userInfo[0].hashed_password;
             var firstname = userInfo[0].first_name;

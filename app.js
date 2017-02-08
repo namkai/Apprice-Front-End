@@ -6,11 +6,11 @@ const bodyParser = require ("body-parser");
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const PORT = process.env.PORT || 8000;
-
+const engines = require('consolidate')
 
 var routes = require ("./routes/index");
-
-// app.set("view engine", "ejs");
+app.engine('html', engines.mustache)
+app.set("view engine", "html");
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -76,7 +76,7 @@ app.use(function(err, req, res, next) {
   console.log(err);
   // render the error page
   res.status(err.status || 500);
-  res.send('error');
+  res.render('./404');
 });
 
 app.listen(PORT, function(){
