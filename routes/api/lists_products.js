@@ -25,8 +25,8 @@ router.route('/:id').get(function(req, res, next){
 
 router.route("/").post(function (req, res, next) {
     console.log(req.body)
-    var listId = req.body.listId;
-    var products = req.body.products;
+    var listId = parseInt(req.body.listId);
+    var products = JSON.parse(req.body.products);
     var rows = products.map(function(currentProduct){
         return {list_id: listId, product_id: currentProduct.products.id}
     })
