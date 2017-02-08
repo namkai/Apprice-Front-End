@@ -10,8 +10,8 @@ import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
 import Map from './Map';
 
-import {fetchGenericFood, fetchSpecificFood, sendData, getMapData, storeData, storeLocation} from '../../actions/index';
-
+import {fetchGenericFood, fetchSpecificFood, sendData, getMapData, storeData, storeLocation, numOfStores} from '../../actions/index';
+// 📑
 class List_Page extends Component {
     constructor(props) {
         super(props);
@@ -47,8 +47,8 @@ class List_Page extends Component {
     handleClick(product, food) {
         let {selectedFood, products} = this.state;
         selectedFood.forEach((ele) => {
-            console.log(ele, `I'm the element`);
-            console.log(product, `I'm the product`);
+            // console.log(ele, `I'm the element`);
+            // console.log(product, `I'm the product`);
             if(ele.selectedFood === product.name) {
                 throw new Error;
             }
@@ -71,6 +71,7 @@ class List_Page extends Component {
         this.setState({selectedCity: city})
     }
     numberOfStores(num) {
+        this.props.numOfStores(num)
         this.setState({numOfStores: num})
     }
     getRadius(num) {
@@ -114,10 +115,10 @@ class List_Page extends Component {
     }
     render() {
         let {genericGroceries, selectedFood, selectedCity, radius, products} = this.state;
-        console.log(this.props.data.location, `I'm the props location`);
-        console.log(this.state.selectedCity, 'Im the selectedCity');
-        console.log(products, `i'm all the products`);
-        console.log(this.props, `I'm the list page component props`);
+        // console.log(this.props.data.location, `I'm the props location`);
+        // console.log(this.state.selectedCity, 'Im the selectedCity');
+        // console.log(products, `i'm all the products`);
+        // console.log(this.props, `I'm the list page component props`);
         return (
             <div className="container">
                 <div id="list-container">
@@ -138,16 +139,15 @@ class List_Page extends Component {
     }
 }
 function mapStateToProps(state) {
-    // console.log(state, `I'm the map State to PROPS state`);
+    console.log(state, `I'm the map State to PROPS state on the list page!`);
     return {
-        data: state.data,
-        location: state.data.location
+        data: state.data
     }
 }
 
 // Which action creators does it want to receive by props?
 function mapDispatchToProps(dispatch) {
-    return  bindActionCreators({ storeData: storeData }, dispatch)
+    return  bindActionCreators({ storeData: storeData, numOfStores: numOfStores}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(List_Page)

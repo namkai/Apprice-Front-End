@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {login} from '../actions/index';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
+// import cookie from 'react-cookie';
+// 🔐
 export default class Login extends Component {
     constructor(props) {
         super(props);

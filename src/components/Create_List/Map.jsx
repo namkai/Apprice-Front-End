@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import {storeLocation} from '../../actions/index'
 
 const GOOGLE_MAPS_EMBED_API = `AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38`
-
+// 🗺
 class Map extends Component {
     constructor(props) {
         super(props)

@@ -1,6 +1,4 @@
 import axios from 'axios';
-// import {parser} from 'xml2json'
-// const API_KEY = ' b2f93db72b'
 const ROOT_URL = `https://appriceapi.herokuapp.com/api/products/popular`;
 const SPECIFIC_URL = `https://appriceapi.herokuapp.com/api/products/search?name=`;
 const GOOGLE_MAPS_GEOCODE_API = `AIzaSyDQV4GvK7esSdX_ExL9vj0lP84-22hnFAc`;
@@ -9,7 +7,8 @@ const ADDRESS_TO_LAT_LONG = `https://maps.googleapis.com/maps/api/geocode/json?a
 export const STORE_DATA = 'STORE_DATA';
 export const SEND_DATA = 'SEND_DATA';
 export const STORE_LOCATION = 'STORE_LOCATION';
-export const STORE_USER = 'STORE_USER'
+export const STORE_USER = 'STORE_USER';
+export const NUMBER_STORES = 'NUMBER_STORES';
 
 export async function fetchGenericFood() {
     let url = `${ROOT_URL}`
@@ -23,7 +22,7 @@ export async function fetchGenericFood() {
 }
 
 export async function fetchSpecificFood(food) {
-    let url = `${SPECIFIC_URL}${food}`
+    let nameUrl = `${SPECIFIC_URL}${food}`
     console.log(url);
     try {
         let fetched = await fetch(url);
@@ -64,7 +63,7 @@ export async function getMapData(selectCity) {
 }
 
 export function storeData(data) {
-    console.log(`i'm the data getting passed to the action`, data.data);
+    // console.log(`i'm the data getting passed to the action`, data.data);
     let resultData = data.data;
     return {
         type: STORE_DATA,
@@ -79,17 +78,25 @@ export function storeLocation(location) {
     }
 }
 export function signUp(props) {
-    console.log(`I was hit! and here are the`, props);
+    // console.log(`I was hit! and here are the`, props);
     const request = axios.post(`https://appriceapi.herokuapp.com/api/users/register`, props)
-    console.log(request);
+    // console.log(request);
     return request;
 }
 export function login(props) {
-    console.log(props);
+    // console.log(props);
     const request = axios.post('https://appriceapi.herokuapp.com/api/users/login', props)
-    console.log(request);
+    // console.log(request);
     return {
         type: STORE_USER,
         payload: request
+    }
+}
+
+export function numOfStores(stores) {
+    console.log(stores, `I'm the stores action!`);
+    return {
+        type: NUMBER_STORES,
+        payload: stores
     }
 }

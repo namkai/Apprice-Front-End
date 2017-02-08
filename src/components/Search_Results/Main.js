@@ -10,39 +10,64 @@ class ResultsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            storeOne: null,
+            storeTwo: null,
+            storeThree: null
         }
 
-        this.getUserData = this.getUserData.bind(this);
-        this.getUserData();
+        // this.seperateStores = this.seperateStores.bind(this);
+        // this.seperateStores();
     }
-    async getUserData() {
-        let log = await console.log(this.props, `I'm the result page props`);
-        await this.setState({
-            data: this.props.data.data
-        })
-    }
+    // componentWillMount() {
+    //     // this.setState({data: this.props.data})
+    // }
+    // seperateStores(storeData = []) {
+    //     let storeOne = [];
+    //     let storeTwo = [];
+    //     let storeThree = [];
+    //     storeData = this.props.data.data;
+    //     console.log(storeData, `I'm the props store data`);
+    //      sortedData = storeData.sort((a, b) => {
+    //         let objA = a.id;
+    //         let objB = b.id;
+    //         return objA - objB;
+    //     })
+    //     console.log(sortedData, `I'm the sortedData YO!`);
+    // }
     render() {
-        console.log(this.props.data.data, `I"M LOOKING FOR THIS` );
-        let {data} = this.state;
-        console.log(data, `I'm the data`);
-
-        return (
-            <div id="result-container">
-                {/* <h3>{...this.props.data.data}</h3> */}
-                <OneStore userData={this.props.data.data}/>
-                <TwoStore userData={this.props.data.data}/>
-                <ThreeStore userData={this.props.data.data}/>
-            </div>
-        )
+        console.log(this.state.data, `I'm the state data yo!`);
+        const {data} = this.props;
+        if (!data) {
+            return <div>Loading...</div>
+        }
+        if(data.stores === 1) {
+            return (
+                <div className="container">
+                    <OneStore />
+                </div>
+            )
+        }
+        if(data.stores === 2) {
+            return (
+                <div className="container">
+                    <TwoStore />
+                </div>
+            )
+        }
+        if(data.stores === 3) {
+            return (
+                <div className="container">
+                    <ThreeStore/>
+                </div>
+            )
+        }
     }
 }
 
 function mapStateToProps(state) {
     console.log(state, `I'm the mapStateToProps state on the result page`);
-    return {data: state.data,
-            location: state.location
-    };
+    return {data: state.data};
 
 }
 

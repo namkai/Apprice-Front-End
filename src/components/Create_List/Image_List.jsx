@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Image from './Image';
 import {fetchFood} from '../../actions/index'
 
-
+// 📟
 export default class ImageList extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +10,6 @@ export default class ImageList extends Component {
     }
 
     render() {
-
             let {groceries} = this.props
             let food = groceries.map((ele) => {
                 let {name, product_image_url, id} = ele;

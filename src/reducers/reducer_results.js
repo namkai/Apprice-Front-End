@@ -1,9 +1,10 @@
-import {STORE_DATA, STORE_LOCATION, STORE_USER} from '../actions/index';
+import {STORE_DATA, STORE_LOCATION, STORE_USER, NUMBER_STORES} from '../actions/index';
 
 const INITIAL_STATE = {
-    data: {},
+    products: {},
     location: '',
-    user: {}
+    user: {},
+    stores: 2
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -11,15 +12,23 @@ export default function(state = INITIAL_STATE, action) {
     switch (action.type) {
         case STORE_DATA:
             return {
-                data: action.payload
+                ...state,
+                products: action.payload
             };
         case STORE_LOCATION:
             return {
+                ...state,
                 location: action.payload
             }
         case STORE_USER:
             return {
+                ...state,
                 user: action.payload
+            }
+        case NUMBER_STORES:
+            return {
+                ...state,
+                stores: action.payload
             }
         default:
             return state;

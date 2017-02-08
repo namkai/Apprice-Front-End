@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import List from './List';
 import uuid from 'node-uuid';
 
+// 📜🍋
 export default class Grocery_List extends Component {
     constructor(props) {
         super(props);
