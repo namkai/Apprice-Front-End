@@ -28,6 +28,7 @@ router.route("/register").post(function (req, res, next) {
 
 router.route("/login").post(function (req, res, next) {
     var usersEmail = req.body.email;
+    console.log(req.body);
         knex("users").select("*").where("email", usersEmail)
         .then(function(userInfo){
             var hashed = userInfo[0].hashed_password;
