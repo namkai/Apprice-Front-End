@@ -36,7 +36,7 @@ router.route("/").post(function (req, res, next) {
     .then(function (listData) {
         return knex('users_lists')
         .insert({list_id:listData[0].id, user_id: userId})
-        .returning([list_id])
+        .returning(['list_id'])
     }).then(function(usersListsData){
         res.json(usersListsData)
     }).catch(function (err) {
