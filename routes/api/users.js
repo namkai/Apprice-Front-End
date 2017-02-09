@@ -28,14 +28,16 @@ router.route("/register").post(function (req, res, next) {
 
 router.route("/login").post(function (req, res, next) {
     var usersEmail = req.body.email;
-        knex("users").select("*").where("users.email", "=", usersEmail)
+    console.log(req.body);
+        knex("users").where("email", usersEmail)
         .then(function(userInfo){
             var hashed = userInfo[0].hashed_password;
             var firstname = userInfo[0].first_name;
             bcrypt.compare(req.body.password, hashed).then(function(){
-                req.session.firstname = firstname;
-                req.session.userId = userInfo[0].id;
-                req.session.email = userInfo[0].email;
+
+                // req.session.firstname = firstname;
+                // req.session.userId = userInfo[0].id;
+                // req.session.email = userInfo[0].email;
                 delete userInfo[0].hashed_password;
                 delete userInfo[0].created_at;
                 delete userInfo[0].updated_at;
@@ -51,28 +53,45 @@ router.route("/login").post(function (req, res, next) {
         })
 });
 
-router.route("/:email").patch(function (req, res, next) {
-    var usersEmail = req.params.email;
-  knex("users")
-  .where('email', usersEmail)
-  .update(req.body)
-  .returning("*")
-  .then(function (users) {
-    res.json(users);
-  })
+router.route("/").patch(function (req, res, next) {
+    var usersEmail = req.body.email;
+    req.body.hashed_password = req.body.password
+    delete req.body.password
+    knex("users").where("email", usersEmail)
+    .then(function(userInfo){
+        var hashed = userInfo[0].hashed_password;
+        bcrypt.compare(req.body.hashed_password, hashed).then(function(){
+            delete req.body.hashed_password
+            return knex('users').where('email', usersEmail).update(req.body).returning('email', 'first_name', 'last_name', 'id')
+        }).then(function(updatedUser){
+            delete updatedUser.hashed_password;
+            delete updatedUser.created_at;
+            delete updatedUser.updated_at;
+            res.json(updatedUser)
+        }).catch(bcrypt.MISMATCH_ERROR, function(){
+            res.send("That was an invalid login!");
+        })
+    })
   .catch(function (err) {
       next(new Error(err));
     });
 });
 
-router.route("/:email").delete(function (req, res, next) {
-  let usersEmail = req.params.email;
-  knex("users")
-  .where("email", "=", usersEmail)
-  .del()
-  .returning(["first_name", "last_name", "email", "id"])
-  .then(function (users) {
-    res.json(users);
+router.route("/").delete(function (req, res, next) {
+  let usersEmail = req.body.email;
+  knex("users").where("email", usersEmail)
+  .then(function(userInfo){
+      var hashed = userInfo[0].hashed_password;
+      bcrypt.compare(req.body.password, hashed).then(function(){
+          return knex('users').where('email', usersEmail).del()
+      }).then(function(deletedUser){
+          delete deletedUser.hashed_password;
+          delete deletedUser.created_at;
+          delete deletedUser.updated_at;
+          res.json(updatedUser)
+      }).catch(bcrypt.MISMATCH_ERROR, function(){
+          res.send("That was an invalid login!");
+      })
   })
   .catch(function (err) {
       next(new Error(err));
