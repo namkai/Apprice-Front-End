@@ -9,9 +9,9 @@ const Graph = require('../../lib/graph.js').Graph;
 router.route('/').post(function(req, res, next){
     console.log(req.body)
 
-    let storesInRadius = JSON.parse(req.body.filteredStores).data;
-    let selectedProducts = JSON.parse(req.body.products);
-    let numOfStores = parseInt(req.body.numOfStores);
+    let storesInRadius = req.body.filteredStores.data;
+    let selectedProducts = req.body.products;
+    let numOfStores = req.body.numOfStores;
     var result;
 
     var storesProductsGraph = new Graph();
