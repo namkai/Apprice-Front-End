@@ -39,6 +39,8 @@ router.route('/search').get(function(req, res, next){
             var distance = calcDistance(curStore.latitude, curStore.longitude, lat, long);
             if(distance <= radius){
                 filtered.push(curStore)
+                delete curStore.created_at;
+                delete curStore.updated_at;
             }
         })
         res.json(filtered)
