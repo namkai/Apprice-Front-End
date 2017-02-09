@@ -42,6 +42,7 @@ class TwoStore extends Component {
         let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng}`
         let store1 = this.props.data.products[0];
         let store2 = this.props.data.products[1];
+        let oneStop = this.props.data.oneStore[0];
         return (
             // <div className="container">
                 <div className="row">
@@ -82,20 +83,31 @@ class TwoStore extends Component {
                         </div>
                         <div className="column column-4">
                             <div className="row">
-                                <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url} allowFullScreen></iframe>
+                                <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url}></iframe>
                             </div>
                             <div className="row">
                                 <div className="total">
                                     <h3>Apprice Total: {this.subPrice(store1) + this.subPrice(store2)}
                                     </h3><br/>
-                                    <h4>You Save: vs</h4><br/>
+                                    <h4>You Save: {this.subPrice(oneStop) - (this.subPrice(store1) + this.subPrice(store2))}vs</h4><br/>
                                     <tr>
                                         <Link onClick={this.oneStopSwitch} to="/OneStore">One Store</Link> <p>option</p>
                                         </tr>
                                 </div>
                                 <div className="row">
                                     <div className="One-Stop-Option">
-                                        <h3>One stop option</h3>
+                                        <div className="store">
+                                            <div className="store-info">
+                                                <h2>{oneStop.name}</h2>
+                                                <ul>
+                                                    <li><strong>Address:</strong> {oneStop.address}</li>
+                                                    <li><strong>Contact:</strong> {oneStop.phone_number}</li>
+                                                </ul>
+                                            </div>
+                                            <img className="store-image" src={oneStop.store_image_url} alt=""/>
+                                            <h3>{this.subPrice(oneStop)}</h3>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
