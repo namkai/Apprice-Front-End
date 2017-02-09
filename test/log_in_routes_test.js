@@ -97,12 +97,14 @@ describe ("log in routes", () => {
   });
 
 
-  it ("PATCH /api/users/:id", (done) => {
+  it ("PATCH /api/users", (done) => {
     request(app)
-      .patch("/api/users/2")
+      .patch("/api/users")
       .set("Accept", "application/json")
       .send({
-        first_name: "Eleanor"
+        first_name: "Eleanor",
+        email: "ellie@gmail.com",
+        password: "meow"
       })
       .expect("Content-Type", /json/)
       .expect((res) => {
@@ -111,21 +113,28 @@ describe ("log in routes", () => {
       })
       .expect(200, {
         id: 1,
-        first_name: "Eleanor"
+        first_name: "Eleanor",
+        last_name: "Howard",
+        email: "ellie@gmail.com"
       }, done);
   });
 
 
-  it ("DELETE /api/users/:id", (done) => {
+  it ("DELETE /api/users", (done) => {
     request(app)
-      .del("/api/users/2")
+      .del("/api/users")
       .set("Accept", "application/json")
+      .send({
+        email: "ellie@gmail.com",
+        password: "meow"
+      })
       .expect("Content-Type", /json/)
       .expect((res) => {
         delete res.body.created_at;
         delete res.body.updated_at;
       })
       .expect(200, {
+        id: 1,
         first_name: "Eleanor",
         last_name: "Howard",
         email: "ellie@gmail.com"

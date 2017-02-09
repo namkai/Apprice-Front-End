@@ -34,7 +34,7 @@ router.route('/search').get(function(req, res, next){
     let long = req.query.long;
     let radius = req.query.radius;
     let filtered = [];
-    knex('stores').then(function(storesData){
+    knex('stores').orderBy('id').then(function(storesData){
         storesData.forEach(function(curStore){
             var distance = calcDistance(curStore.latitude, curStore.longitude, lat, long);
             if(distance <= radius){

@@ -8,7 +8,6 @@ const Graph = require('../../lib/graph.js').Graph;
 
 router.route('/').post(function(req, res, next){
     console.log(req.body)
-
     let storesInRadius = req.body.filteredStores.data;
     let selectedProducts = req.body.products;
     let numOfStores = req.body.numOfStores;
@@ -23,9 +22,9 @@ router.route('/').post(function(req, res, next){
     storesInRadius.forEach(function(curStore){
         storesInRadiusIds.push(curStore.id);
     });
-    knex('stores_products').whereIn('product_id', selectedProductsIds).andWhere(function(){
+    knex('stores_products').select('id', 'store_id', 'product_id', 'availability', 'price').whereIn('product_id', selectedProductsIds).andWhere(function(){
         this.whereIn('store_id', storesInRadiusIds)
-    })
+    }).orderBy('id')
         .then(function(storesProductsData){
             var returnData;
             if(numOfStores == 1){
@@ -41,6 +40,8 @@ router.route('/').post(function(req, res, next){
                 delete currentStoreProduct.created_at;
                 delete currentStoreProduct.updated_at;
             })
+
+            console.log("return dada", returnData);
             res.json(returnData);
         })
 });

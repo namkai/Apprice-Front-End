@@ -150,7 +150,7 @@ describe ("search routes", function() {
               product_image_url: "http://target.scene7.com/is/image/Target/16229584?wid=450&hei=450&fmt=pjpeg"
             }
         }],
-        number_of_stores: 2,
+        numOfStores: 2,
         filteredStores: {
           data: [{
             id: 1,
@@ -202,8 +202,7 @@ describe ("search routes", function() {
       })
       .expect("Content-Type", /json/)
       .expect((res) => {
-        delete res.body.created_at;
-        delete res.body.updated_at;
+        console.log("I am the res.body:", res.body);
       })
       .expect(200, [{
         id: 23,
@@ -223,18 +222,19 @@ describe ("search routes", function() {
         product_id: 15,
         availability: true,
         price: 7.49,
+        },
+        {
+        id: 220,
+        store_id: 7,
+        product_id: 47,
+        availability: true,
+        price: 0.99,
         }, {
         id: 389,
         store_id: 3,
         product_id: 84,
         availability: true,
         price: 2.19,
-        }, {
-        id: 220,
-        store_id: 7,
-        product_id: 47,
-        availability: true,
-        price: 0.99,
         }, {
         id: 418,
         store_id: 3,
