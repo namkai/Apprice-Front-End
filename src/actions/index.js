@@ -9,6 +9,8 @@ export const SEND_DATA = 'SEND_DATA';
 export const STORE_LOCATION = 'STORE_LOCATION';
 export const STORE_USER = 'STORE_USER';
 export const NUMBER_STORES = 'NUMBER_STORES';
+export const SAVE_LIST = 'SAVE_LIST';
+export const ONE_STORE = 'SWITCH_STORE';
 
 export async function fetchGenericFood() {
     let url = `${ROOT_URL}`
@@ -41,6 +43,13 @@ export async function sendData(props) {
     const convertedRequest = await axios.post('https://appriceapi.herokuapp.com/api/appriceme/convert', request)
     return convertedRequest;
 }
+export function oneStore(oneStore) {
+    console.log(`I was hit and i'mt he onestore action`, oneStore);
+    return {
+        type: ONE_STORE,
+        payload: oneStore
+    }
+}
 
 export async function getData() {
     let url = `${ROOT_URL}`
@@ -70,6 +79,7 @@ export function storeData(data) {
         payload: resultData
     }
 }
+
 export function storeLocation(location) {
     console.log(`I was hit! Here's the lcoation`, location);
     return {
@@ -98,5 +108,12 @@ export function numOfStores(stores) {
     return {
         type: NUMBER_STORES,
         payload: stores
+    }
+}
+
+export function saveList(props) {
+    return {
+        type: SAVE_LIST,
+        payload: props
     }
 }

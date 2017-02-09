@@ -1,10 +1,20 @@
-import {STORE_DATA, STORE_LOCATION, STORE_USER, NUMBER_STORES} from '../actions/index';
+import {
+    STORE_DATA,
+    STORE_LOCATION,
+    STORE_USER,
+    NUMBER_STORES,
+    SAVE_LIST,
+    SWITCH_STORE,
+    ONE_STORE
+} from '../actions/index';
 
 const INITIAL_STATE = {
     products: [],
+    list: {},
     location: '',
     user: {},
-    stores: 2
+    stores: 2,
+    oneStore: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -29,6 +39,16 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 stores: action.payload
+            }
+        case SAVE_LIST:
+            return {
+                ...state,
+                list: action.payload
+            }
+        case ONE_STORE:
+            return {
+                ...state,
+                oneStore: action.payload.data
             }
         default:
             return state;

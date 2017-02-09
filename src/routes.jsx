@@ -7,7 +7,9 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Help from './components/Help';
 import List_Page from './components/Create_List/List_Page';
-import ResultsPage from './components/Search_Results/Main'
+import ResultsPage from './components/Search_Results/Main';
+import OneStore from './components/Search_Results/OneStore';
+
 
 export default(
     <Route path="/" component={App}>
@@ -17,5 +19,6 @@ export default(
         <Route path="/List_Page" component={List_Page}/>
         <Route path="/help" component={Help}/>
         <Route path="/result" component={ResultsPage}/>
+        <Route path="/OneStore" component={OneStore}/>
     </Route>
 );

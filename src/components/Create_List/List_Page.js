@@ -16,7 +16,9 @@ import {
     getMapData,
     storeData,
     storeLocation,
-    numOfStores
+    numOfStores,
+    saveList,
+    oneStore
 } from '../../actions/index';
 
 // 📑
@@ -100,7 +102,16 @@ class List_Page extends Component {
             numOfStores: numOfStores,
             radius: radius
         }
-        let resultData = await sendData(data)
+        let oneStoreData = {
+            products: products,
+            filteredStores: stores,
+            numOfStores: 1,
+            radius: radius
+        }
+        this.props.saveList(data)
+        let resultData = await sendData(data);
+        let oneStore = await sendData(oneStoreData);
+        this.props.oneStore(oneStore)
         console.log(this.props.storeData);
         this.props.storeData(resultData)
         console.log(this.props, `I'm the store data`);
@@ -160,7 +171,9 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         storeData: storeData,
         numOfStores: numOfStores,
-        storeLocation: storeLocation
+        storeLocation: storeLocation,
+        saveList: saveList,
+        oneStore: oneStore
     }, dispatch)
 }
 

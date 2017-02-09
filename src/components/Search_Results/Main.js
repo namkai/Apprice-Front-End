@@ -45,28 +45,22 @@ class ResultsPage extends Component {
         if (data.stores === 1) {
             return (
                 <div className="container">
-                    {/* <div className="column column-12"> */}
-                        <OneStore data={data}/>
-                    {/* </div> */}
+                    <OneStore/>
                 </div>
             )
         }
         if (data.stores === 2) {
             return (
                 <div className="container">
-                    {/* <div className="column column-12"> */}
-                        <TwoStore data={data}/>
-                    </div>
-                // </div>
+                    <TwoStore data={data}/>
+                </div>
             )
         }
         if (data.stores === 3) {
             return (
                 <div className="container">
-                    {/* <div className="column column-12"> */}
-                        <ThreeStore data={data}/>
-                    </div>
-                // </div>
+                    <ThreeStore data={data}/>
+                </div>
             )
         }
     }
