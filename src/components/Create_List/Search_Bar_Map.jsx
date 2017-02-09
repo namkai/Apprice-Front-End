@@ -21,7 +21,7 @@ class SearchBarMap extends Component {
 
     async onFormSubmit(event) {
         event.preventDefault();
-        if(this.state.term.length === 0) {
+        if (this.state.term.length === 0) {
             return;
         }
         this.props.selectCity(this.state.term);
@@ -42,6 +42,9 @@ class SearchBarMap extends Component {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return  bindActionCreators({ storeLocation: storeLocation, getMapData: getMapData}, dispatch)
+    return bindActionCreators({
+        storeLocation: storeLocation,
+        getMapData: getMapData
+    }, dispatch)
 }
 export default connect(null, mapDispatchToProps)(SearchBarMap)

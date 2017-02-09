@@ -10,15 +10,13 @@ export default class ImageList extends Component {
     }
 
     render() {
-            let {groceries} = this.props
-            let food = groceries.map((ele) => {
-                let {name, product_image_url, id} = ele;
-                return (
-                     <Image key={id} handleClick={this.props.handleClick} image={product_image_url} name={name} product={ele}/>
-                )
-            })
+        let {groceries} = this.props
+        let food = groceries.map((ele) => {
+            let {name, product_image_url, id} = ele;
+            return (<Image key={id} handleClick={this.props.handleClick} image={product_image_url} name={name} product={ele}/>)
+        })
 
-            return (
+        return (
             <div id="imageContainer">
                 {food}
             </div>

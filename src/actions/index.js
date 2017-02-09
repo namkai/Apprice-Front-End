@@ -44,10 +44,7 @@ export async function sendData(props) {
 }
 export function oneStore(oneStore) {
 
-    return {
-        type: ONE_STORE,
-        payload: oneStore
-    }
+    return {type: ONE_STORE, payload: oneStore}
 }
 
 export async function getData() {
@@ -72,11 +69,11 @@ export async function getMapData(selectCity) {
 export async function storeLocation(location) {
     let lat;
     let lng;
-    if(location.coords) {
+    if (location.coords) {
         lat = location.coords.latitude;
         lng = location.coords.longitude;
     }
-    if(location.location) {
+    if (location.location) {
         lat = location.location.lat;
         lng = location.location.lng;
     }
@@ -86,17 +83,11 @@ export async function storeLocation(location) {
             lng: lng
         }
     }
-    return {
-        type: STORE_LOCATION,
-        payload: data
-    }
+    return {type: STORE_LOCATION, payload: data}
 }
 export function storeData(data) {
     let resultData = data.data;
-    return {
-        type: STORE_DATA,
-        payload: resultData
-    }
+    return {type: STORE_DATA, payload: resultData}
 }
 
 export function signUp(props) {
@@ -106,23 +97,14 @@ export function signUp(props) {
 }
 export function login(props) {
     const request = axios.post('https://appriceapi.herokuapp.com/api/users/login', props)
-    return {
-        type: STORE_USER,
-        payload: request
-    }
+    return {type: STORE_USER, payload: request}
 }
 
 export function numOfStores(stores) {
-    
-    return {
-        type: NUMBER_STORES,
-        payload: stores
-    }
+
+    return {type: NUMBER_STORES, payload: stores}
 }
 
 export function saveList(props) {
-    return {
-        type: SAVE_LIST,
-        payload: props
-    }
+    return {type: SAVE_LIST, payload: props}
 }

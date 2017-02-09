@@ -95,10 +95,7 @@ class List_Page extends Component {
         let {radius: radius_poop} = this.state;
         let url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${lng}&radius=${radius_poop}`;
         let stores = await axios.get(url);
-        this.setState({
-            lat: lat,
-            lng: lng
-        })
+        this.setState({lat: lat, lng: lng})
         let data = {
             products: products,
             filteredStores: stores,
@@ -134,7 +131,14 @@ class List_Page extends Component {
         this.setState({products: filteredList})
     }
     render() {
-        let {genericGroceries, selectedFood, lat, lng, radius, products} = this.state;
+        let {
+            genericGroceries,
+            selectedFood,
+            lat,
+            lng,
+            radius,
+            products
+        } = this.state;
 
         return (
             <div className="container">

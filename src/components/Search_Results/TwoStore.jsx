@@ -15,7 +15,7 @@ class TwoStore extends Component {
     subPrice(list) {
 
         let total = 0;
-        list.products.forEach((item)=> {
+        list.products.forEach((item) => {
             total += item.price;
         })
         return total;
@@ -36,77 +36,88 @@ class TwoStore extends Component {
         let store2 = this.props.data.products[1];
         let oneStop = this.props.data.oneStore[0];
         return (
-            // <div className="container">
-                <div className="row">
-                    <div className="column column-12">
-                        <div className="column column-4">
-                            <div className="row">
-                                <div className="store">
-                                    <div className="store-info">
-                                        <h2>{store1.name}</h2>
-                                        <ul>
-                                            <li><strong>Address:</strong> {store1.address}</li>
-                                            <li><strong>Contact:</strong> {store1.phone_number}</li>
-                                        </ul>
-                                    </div>
-                                    <img className="store-image" src={store1.store_image_url} alt=""/>
+            <div className="row">
+                <div className="column column-12">
+                    <div className="column column-4">
+                        <div className="row">
+                            <div className="store">
+                                <div className="store-info">
+                                    <h2>{store1.name}</h2>
+                                    <ul>
+                                        <li>
+                                            <strong>Address:</strong>
+                                            {store1.address}</li>
+                                        <li>
+                                            <strong>Contact:</strong>
+                                            {store1.phone_number}</li>
+                                    </ul>
                                 </div>
+                                <img className="store-image" src={store1.store_image_url} alt=""/>
                             </div>
-                            <hr className="list-hr"/>
-                            <Grocery_List groceries={store1.products}/>
-                            <h5>{this.subPrice(store1)}</h5>
                         </div>
-                        <div className="column column-4">
-                            <div className="row">
-                                <div className="store">
-                                    <div className="store-info">
-                                        <h2>{store2.name}</h2>
-                                        <ul>
-                                            <li><strong>Address:</strong> {store2.address}</li>
-                                            <li><strong>Contact:</strong> {store2.phone_number}</li>
-                                        </ul>
-                                    </div>
-                                    <img className="store-image" src={store2.store_image_url} alt=""/>
+                        <hr className="list-hr"/>
+                        <Grocery_List groceries={store1.products}/>
+                        <h5>{this.subPrice(store1)}</h5>
+                    </div>
+                    <div className="column column-4">
+                        <div className="row">
+                            <div className="store">
+                                <div className="store-info">
+                                    <h2>{store2.name}</h2>
+                                    <ul>
+                                        <li>
+                                            <strong>Address:</strong>
+                                            {store2.address}</li>
+                                        <li>
+                                            <strong>Contact:</strong>
+                                            {store2.phone_number}</li>
+                                    </ul>
                                 </div>
+                                <img className="store-image" src={store2.store_image_url} alt=""/>
                             </div>
-                            <hr className="list-hr"/>
-                            <Grocery_List groceries={store2.products}/>
-                            <h5>{this.subPrice(store2)}</h5>
                         </div>
-                        <div className="column column-4">
-                            <div className="row">
-                                <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url}></iframe>
+                        <hr className="list-hr"/>
+                        <Grocery_List groceries={store2.products}/>
+                        <h5>{this.subPrice(store2)}</h5>
+                    </div>
+                    <div className="column column-4">
+                        <div className="row">
+                            <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url}></iframe>
+                        </div>
+                        <div className="row">
+                            <div className="total">
+                                <h3>Apprice Total: {this.subPrice(store1) + this.subPrice(store2)}
+                                </h3><br/>
+                                <h4>You Save: {this.subPrice(oneStop) - (this.subPrice(store1) + this.subPrice(store2))}vs</h4><br/>
+                                <tr>
+                                    <Link onClick={this.oneStopSwitch} to="/OneStore">One Store</Link>
+                                    <p>option</p>
+                                </tr>
                             </div>
                             <div className="row">
-                                <div className="total">
-                                    <h3>Apprice Total: {this.subPrice(store1) + this.subPrice(store2)}
-                                    </h3><br/>
-                                    <h4>You Save: {this.subPrice(oneStop) - (this.subPrice(store1) + this.subPrice(store2))}vs</h4><br/>
-                                    <tr>
-                                        <Link onClick={this.oneStopSwitch} to="/OneStore">One Store</Link> <p>option</p>
-                                        </tr>
-                                </div>
-                                <div className="row">
-                                    <div className="One-Stop-Option">
-                                        <div className="store">
-                                            <div className="store-info">
-                                                <h2>{oneStop.name}</h2>
-                                                <ul>
-                                                    <li><strong>Address:</strong> {oneStop.address}</li>
-                                                    <li><strong>Contact:</strong> {oneStop.phone_number}</li>
-                                                </ul>
-                                            </div>
-                                            <img className="store-image" src={oneStop.store_image_url} alt=""/>
-                                            <h3>{this.subPrice(oneStop)}</h3>
+                                <div className="One-Stop-Option">
+                                    <div className="store">
+                                        <div className="store-info">
+                                            <h2>{oneStop.name}</h2>
+                                            <ul>
+                                                <li>
+                                                    <strong>Address:</strong>
+                                                    {oneStop.address}</li>
+                                                <li>
+                                                    <strong>Contact:</strong>
+                                                    {oneStop.phone_number}</li>
+                                            </ul>
                                         </div>
-
+                                        <img className="store-image" src={oneStop.store_image_url} alt=""/>
+                                        <h3>{this.subPrice(oneStop)}</h3>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            // </div>
+            </div>
         )
     }
 }

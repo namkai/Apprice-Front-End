@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class SearchBar extends Component {
     constructor(props) {
         super(props);
@@ -17,9 +16,9 @@ class SearchBar extends Component {
         this.setState({term: event.target.value})
     }
 
-     onFormSubmit(event) {
+    onFormSubmit(event) {
         event.preventDefault();
-        if(this.state.term.length === 0) {
+        if (this.state.term.length === 0) {
             return;
         }
 

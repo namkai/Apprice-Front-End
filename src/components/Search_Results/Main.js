@@ -24,7 +24,7 @@ class ResultsPage extends Component {
         if (data.stores === 1) {
             return (
                 <div className="container">
-                    <OneStore />
+                    <OneStore/>
                 </div>
             )
         }
@@ -46,7 +46,6 @@ class ResultsPage extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state, `I'm the mapStateToProps state on the result page`);
     return {data: state.data};
 
 }
