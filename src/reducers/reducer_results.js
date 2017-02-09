@@ -13,8 +13,8 @@ const INITIAL_STATE = {
     list: {},
     location: {
         coords: {
-            lat: 100,
-            lng: 100
+            lat: 122,
+            lng: 37
         }
     },
     user: {},

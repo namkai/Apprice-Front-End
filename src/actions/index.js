@@ -75,12 +75,12 @@ export async function storeLocation(location) {
     let lat;
     let lng;
     if(location.coords) {
-        lat = location.coords.latitude
-        lng = location.coords.latitude
+        lat = location.coords.latitude;
+        lng = location.coords.longitude;
     }
     if(location.location) {
-        lat = location.location.lat
-        lng = location.location.lng
+        lat = location.location.lat;
+        lng = location.location.lng;
     }
     console.log(`I'm the location`, location);
 

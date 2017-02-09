@@ -5,10 +5,21 @@ import {connect} from 'react-redux';
 class OneStore extends Component {
     constructor(props) {
         super(props);
+
+    this.subPrice = this.subPrice.bind(this);
+    }
+    subPrice(list) {
+        console.log(`I'm the list apparently`, list);
+
+        let total = 0;
+        list.products.forEach((item)=> {
+            total += item.price;
+        })
+        return total;
     }
     render() {
-        let {latitude, longitude} = this.props.data.location.coords;
-        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${latitude},${longitude}`
+        let {lat, lng} = this.props.data.location.coords;
+        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng}`
         if (this.props.data.oneStore.length === 0) {
             return (
                 <div>Loading...</div>
@@ -21,7 +32,6 @@ class OneStore extends Component {
                 <div className="row">
                     <div className="column column-12">
                         <div className="column column-4" id="OneStore-Picture">
-                            {/* <h2>I'm gonna be a picture Yo</h2> */}
                         </div>
                         <div className="column column-4">
                             <div className="row">
@@ -38,6 +48,7 @@ class OneStore extends Component {
                             </div>
                             <hr className="list-hr"/>
                             <Grocery_List groceries={store1.products}/>
+                            <h5>{this.subPrice(store1)}</h5>
                         </div>
                         <div className="column column-4">
                             <div className="row">

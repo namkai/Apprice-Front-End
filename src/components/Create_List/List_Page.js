@@ -91,8 +91,8 @@ class List_Page extends Component {
     }
     async submitData() {
         let {selectedFood, selectedCity, numOfStores, radius, products} = this.state;
-        let city = await getMapData(selectedCity)
-        let {lat, lng} = await city.results[0].geometry.location;
+        // let city = await getMapData(selectedCity)
+        let {lat, lng} = this.props.data.location.coords;
         let {radius: radius_poop} = this.state;
         let url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${lng}&radius=${radius_poop}`;
         let stores = await axios.get(url);
