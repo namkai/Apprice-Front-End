@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 8000;
 
 var routes = require ("./routes/index");
 
-// app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -76,7 +75,7 @@ app.use(function(err, req, res, next) {
   console.log(err);
   // render the error page
   res.status(err.status || 500);
-  res.send('error');
+  res.send('404');
 });
 
 app.listen(PORT, function(){
