@@ -4,13 +4,21 @@ import {bindActionCreators} from 'redux';
 import axios from 'axios';
 import {Link} from 'react-router'
 
-
 import ImageList from './Image_List';
 import Grocery_List from './Grocery_List';
 import SearchBar from './Search_Bar';
 import Map from './Map';
 
-import {fetchGenericFood, fetchSpecificFood, sendData, getMapData, storeData, storeLocation, numOfStores} from '../../actions/index';
+import {
+    fetchGenericFood,
+    fetchSpecificFood,
+    sendData,
+    getMapData,
+    storeData,
+    storeLocation,
+    numOfStores
+} from '../../actions/index';
+
 // 📑
 class List_Page extends Component {
     constructor(props) {
@@ -49,7 +57,7 @@ class List_Page extends Component {
         selectedFood.forEach((ele) => {
             // console.log(ele, `I'm the element`);
             // console.log(product, `I'm the product`);
-            if(ele.selectedFood === product.name) {
+            if (ele.selectedFood === product.name) {
                 throw new Error;
             }
         })
@@ -68,14 +76,15 @@ class List_Page extends Component {
         })
     }
     selectCity(city) {
-        this.setState({selectedCity: city})
+        // this.props.storeLocation(city);
+        this.setState({selectedCity: city});
     }
     numberOfStores(num) {
-        this.props.numOfStores(num)
-        this.setState({numOfStores: num})
+        this.props.numOfStores(num);
+        this.setState({numOfStores: num});
     }
     getRadius(num) {
-        this.setState({radius: num})
+        this.setState({radius: num});
     }
     async submitData() {
         let {selectedFood, selectedCity, numOfStores, radius, products} = this.state;
@@ -103,12 +112,12 @@ class List_Page extends Component {
         let {products} = this.state;
 
         let updateList = this.state.products.map(function(product, index) {
-            if(product.products.id === id) {
+            if (product.products.id === id) {
                 product = undefined;
             }
             return product;
         })
-         let filteredList = updateList.filter((ele) => {
+        let filteredList = updateList.filter((ele) => {
             return ele !== undefined;
         })
         this.setState({products: filteredList})
@@ -125,12 +134,15 @@ class List_Page extends Component {
                     <h2>Choose your groceries</h2>
                     <SearchBar foodSearch={this.specificFoodSearch}/>
                     <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
-                    <Grocery_List groceries={products} onToggle={this.handleToggle}/>
+                    <h3 id="shopping-title">Shopping List</h3>
+                    <div id="list">
+                        <Grocery_List groceries={products} onToggle={this.handleToggle}/>
+                    </div>
                 </div>
                 <div id="map-container">
                     <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} selectedCity={selectedCity} radius={radius} getRadius={this.getRadius}/>
                     <div id="apprice-btn-container">
-                    <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
+                        <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
                     </div>
                 </div>
 
@@ -140,14 +152,16 @@ class List_Page extends Component {
 }
 function mapStateToProps(state) {
     console.log(state, `I'm the map State to PROPS state on the list page!`);
-    return {
-        data: state.data
-    }
+    return {data: state.data}
 }
 
 // Which action creators does it want to receive by props?
 function mapDispatchToProps(dispatch) {
-    return  bindActionCreators({ storeData: storeData, numOfStores: numOfStores}, dispatch)
+    return bindActionCreators({
+        storeData: storeData,
+        numOfStores: numOfStores,
+        storeLocation: storeLocation
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(List_Page)

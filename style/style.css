@@ -77,11 +77,15 @@ li a:hover {
 }
 
 hr {
-    width: 65%;
+    width: 100%;
     /*border-bottom: 1px solid rgba(0,0,0,0.2);*/
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+#list-hr {
+    width: 100%;
+
 }
 
 h1 {
@@ -155,10 +159,11 @@ input {
     position: relative;
     float: left;
     display: block;
+    height: 600px;
 }
 
 .column + .column {
-    margin-left: 1.6%;
+    /*margin-left: 1.6%;*/
 }
 
 .column-1 {
@@ -234,9 +239,9 @@ input {
 .column {
     background: #eee;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #777;
-    padding: 5px;
+    /*border-radius: 4px;*/
+    /*color: #777;*/
+    /*padding: 5px;*/
     min-height: 30px;
     text-align: center;
 }

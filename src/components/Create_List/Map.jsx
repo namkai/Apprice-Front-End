@@ -67,7 +67,7 @@ class Map extends Component {
                 <div>
                     <h3>Choose your search preferences</h3><br/>
                     <h4>Whats your location?</h4>
-                    <SearchBarMap selectCity={this.props.selectCity}/><br/>
+                    <SearchBarMap selectCity={this.props.selectCity} getLocation={this.getLocation}/><br/>
                     <h4>How many stores will you visit?</h4>
                     <button className={button1} onClick={this.buttonOne}>One</button>
                     <button className={button2} onClick={this.buttonTwo}>Two</button>
@@ -82,7 +82,7 @@ class Map extends Component {
                 <div>
                     <h3>Choose your search preferences</h3><br/>
                     <h4>Whats your location?</h4>
-                    <SearchBarMap selectCity={this.props.selectCity}/><br/>
+                    <SearchBarMap selectCity={this.props.selectCity} getLocation={this.getLocation}/><br/>
                     <h4>How many stores will you visit?</h4>
                     <button className={button1} onClick={this.buttonOne}>One</button>
                     <button className={button2} onClick={this.buttonTwo}>Two</button>

@@ -7,7 +7,7 @@ export default class List extends Component {
     render() {
         let {name, key, onToggle, id} = this.props;
         return (
-            <div>
+            <div >
                 <input type="checkbox" key={key} onChange={function() {
                     onToggle(id);
                 }}/>

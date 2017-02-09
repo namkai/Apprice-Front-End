@@ -1,7 +1,7 @@
 import {STORE_DATA, STORE_LOCATION, STORE_USER, NUMBER_STORES} from '../actions/index';
 
 const INITIAL_STATE = {
-    products: {},
+    products: [],
     location: '',
     user: {},
     stores: 2

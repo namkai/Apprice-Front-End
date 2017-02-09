@@ -37,9 +37,9 @@ export async function fetchSpecificFood(food) {
 }
 export async function sendData(props) {
 
-    const request = axios.post(`https://appriceapi.herokuapp.com/api/appriceme`, props)
-
-    return request;
+    const request = await axios.post(`https://appriceapi.herokuapp.com/api/appriceme`, props)
+    const convertedRequest = await axios.post('https://appriceapi.herokuapp.com/api/appriceme/convert', request)
+    return convertedRequest;
 }
 
 export async function getData() {
@@ -71,7 +71,7 @@ export function storeData(data) {
     }
 }
 export function storeLocation(location) {
-
+    console.log(`I was hit! Here's the lcoation`, location);
     return {
         type: STORE_LOCATION,
         payload: location

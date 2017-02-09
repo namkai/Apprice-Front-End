@@ -21,8 +21,8 @@ export default class SearchBarMap extends Component {
         if(this.state.term.length === 0) {
             return;
         }
-
         this.props.selectCity(this.state.term);
+        // this.props.getLocation(this.state.term);
         this.setState({term: ''});
     }
 

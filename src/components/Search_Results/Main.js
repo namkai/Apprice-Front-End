@@ -36,30 +36,37 @@ class ResultsPage extends Component {
     //     console.log(sortedData, `I'm the sortedData YO!`);
     // }
     render() {
-        console.log(this.state.data, `I'm the state data yo!`);
+        // console.log(this.state.data, `I'm the state data yo!`);
+        console.log(this.props.data, 'im the props on the result page');
         const {data} = this.props;
         if (!data) {
             return <div>Loading...</div>
         }
-        if(data.stores === 1) {
+        if (data.stores === 1) {
             return (
                 <div className="container">
-                    <OneStore />
+                    {/* <div className="column column-12"> */}
+                        <OneStore data={data}/>
+                    {/* </div> */}
                 </div>
             )
         }
-        if(data.stores === 2) {
+        if (data.stores === 2) {
             return (
                 <div className="container">
-                    <TwoStore />
-                </div>
+                    {/* <div className="column column-12"> */}
+                        <TwoStore data={data}/>
+                    </div>
+                // </div>
             )
         }
-        if(data.stores === 3) {
+        if (data.stores === 3) {
             return (
                 <div className="container">
-                    <ThreeStore/>
-                </div>
+                    {/* <div className="column column-12"> */}
+                        <ThreeStore data={data}/>
+                    </div>
+                // </div>
             )
         }
     }
