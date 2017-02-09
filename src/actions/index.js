@@ -25,7 +25,6 @@ export async function fetchGenericFood() {
 
 export async function fetchSpecificFood(food) {
     let nameUrl = `${SPECIFIC_URL}${food}`
-    console.log(url);
     try {
         let fetched = await fetch(url);
         let data = await fetched.json();
@@ -44,7 +43,7 @@ export async function sendData(props) {
     return convertedRequest;
 }
 export function oneStore(oneStore) {
-    console.log(`I was hit and i'mt he onestore action`, oneStore);
+
     return {
         type: ONE_STORE,
         payload: oneStore
@@ -67,7 +66,6 @@ export async function getMapData(selectCity) {
     let encodedLocation = encodeURIComponent(selectCity)
     let mapData = await fetch(`${ADDRESS_TO_LAT_LONG}${encodedLocation}`)
     mapData = await mapData.json();
-    console.log(`mapData, i'm the getMapData`, mapData);
 
     return mapData
 }
@@ -82,8 +80,6 @@ export async function storeLocation(location) {
         lat = location.location.lat;
         lng = location.location.lng;
     }
-    console.log(`I'm the location`, location);
-
     let data = {
         coords: {
             lat: lat,
@@ -96,7 +92,6 @@ export async function storeLocation(location) {
     }
 }
 export function storeData(data) {
-    // console.log(`i'm the data getting passed to the action`, data.data);
     let resultData = data.data;
     return {
         type: STORE_DATA,
@@ -105,15 +100,12 @@ export function storeData(data) {
 }
 
 export function signUp(props) {
-    // console.log(`I was hit! and here are the`, props);
     const request = axios.post(`https://appriceapi.herokuapp.com/api/users/register`, props)
-    // console.log(request);
+
     return request;
 }
 export function login(props) {
-    // console.log(props);
     const request = axios.post('https://appriceapi.herokuapp.com/api/users/login', props)
-    // console.log(request);
     return {
         type: STORE_USER,
         payload: request
@@ -121,7 +113,7 @@ export function login(props) {
 }
 
 export function numOfStores(stores) {
-    console.log(stores, `I'm the stores action!`);
+    
     return {
         type: NUMBER_STORES,
         payload: stores

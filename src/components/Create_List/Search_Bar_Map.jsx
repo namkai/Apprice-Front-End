@@ -26,7 +26,6 @@ class SearchBarMap extends Component {
         }
         this.props.selectCity(this.state.term);
         let location = await getMapData(this.state.term)
-        console.log(`I'm the location getMapdata value`, location.results[0].geometry);
         this.props.storeLocation(location.results[0].geometry);
         this.setState({term: ''});
     }

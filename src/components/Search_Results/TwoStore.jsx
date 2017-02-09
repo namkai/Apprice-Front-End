@@ -13,7 +13,6 @@ class TwoStore extends Component {
         this.subPrice = this.subPrice.bind(this);
     }
     subPrice(list) {
-        console.log(`I'm the list apparently`, list);
 
         let total = 0;
         list.products.forEach((item)=> {
@@ -22,9 +21,6 @@ class TwoStore extends Component {
         return total;
     }
     render() {
-        // console.log(this.props.data, `i'm the twostore props data`);
-        // console.log(this.props.location.lat, `i'm the lat prop on page TWO`);
-        // console.log(`ITS ME PAY ATTENTION`);
         if (this.props.data.products.length === 0) {
             return (
                 <div>Loading...</div>
@@ -33,12 +29,8 @@ class TwoStore extends Component {
         if (this.props.data.products.length === 1) {
             return (<OneStore data={this.props.data}/>)
         }
-        console.log(this.props.data, `i'm the twostore props data`);
-        // console.log(this.props.location.lat, `i'm the lat prop on page TWO`);
-        console.log(`ITS ME PAY ATTENTION`);
 
         let {lat, lng} = this.props.data.location.coords;
-        // console.log(lat, lng, "i'm the location property");
         let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng}`
         let store1 = this.props.data.products[0];
         let store2 = this.props.data.products[1];
@@ -119,7 +111,6 @@ class TwoStore extends Component {
     }
 }
 function mapStateToProps(state) {
-    console.log(state, `I'm the mapStateToProps state on the TwoStore page`);
     return {data: state.data};
 
 }

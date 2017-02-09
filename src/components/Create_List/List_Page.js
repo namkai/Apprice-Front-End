@@ -91,7 +91,6 @@ class List_Page extends Component {
     }
     async submitData() {
         let {selectedFood, selectedCity, numOfStores, radius, products} = this.state;
-        // let city = await getMapData(selectedCity)
         let {lat, lng} = this.props.data.location.coords;
         let {radius: radius_poop} = this.state;
         let url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${lng}&radius=${radius_poop}`;
@@ -116,10 +115,7 @@ class List_Page extends Component {
         let resultData = await sendData(data);
         let oneStore = await sendData(oneStoreData);
         this.props.oneStore(oneStore)
-        console.log(this.props.storeData);
         this.props.storeData(resultData)
-        console.log(this.props, `I'm the store data`);
-        console.log(`I"M the result data`, resultData);
         return resultData;
 
     }
@@ -139,10 +135,7 @@ class List_Page extends Component {
     }
     render() {
         let {genericGroceries, selectedFood, lat, lng, radius, products} = this.state;
-        // console.log(this.props.data.location, `I'm the props location`);
-        // console.log(this.state.selectedCity, 'Im the selectedCity');
-        // console.log(products, `i'm all the products`);
-        // console.log(this.props, `I'm the list page component props`);
+
         return (
             <div className="container">
                 <div id="list-container">
@@ -166,7 +159,6 @@ class List_Page extends Component {
     }
 }
 function mapStateToProps(state) {
-    console.log(state, `I'm the map State to PROPS state on the list page!`);
     return {data: state.data}
 }
 

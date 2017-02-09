@@ -29,9 +29,8 @@ class Map extends Component {
         this.getLocation();
     }
      async getLocation() {
-        console.log(`i'm the get location function and I'm working!`);
         await navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position);
+
             this.props.storeLocation(position)
         })
     }
@@ -71,7 +70,6 @@ class Map extends Component {
                     <iframe id="google-map" width="350" height="300" frameBorder="0" src={yourLocation} allowFullScreen></iframe>
                 </div>
             )
-        console.log(`I'm about to be called as the lat and lng coords`, this.props.data);
     }
 }
 

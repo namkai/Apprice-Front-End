@@ -9,8 +9,6 @@ class OneStore extends Component {
     this.subPrice = this.subPrice.bind(this);
     }
     subPrice(list) {
-        console.log(`I'm the list apparently`, list);
-
         let total = 0;
         list.products.forEach((item)=> {
             total += item.price;
@@ -26,7 +24,6 @@ class OneStore extends Component {
             )
         }
         let store1 = this.props.data.oneStore[0];
-        console.log(`i'm store1`, store1);
         return (
             <div className="container">
                 <div className="row">
@@ -70,7 +67,6 @@ class OneStore extends Component {
     }
 }
 function mapStateToProps(state) {
-    console.log(state, `I'm the mapStateToProps state on the OneStore page`);
     return {data: state.data};
 
 }
