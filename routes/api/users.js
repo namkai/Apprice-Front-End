@@ -61,7 +61,7 @@ router.route("/").patch(function (req, res, next) {
         var hashed = userInfo[0].hashed_password;
         bcrypt.compare(req.body.hashed_password, hashed).then(function(){
             delete req.body.hashed_password
-            return knex('users').where('email', usersEmail).update(req.body)
+            return knex('users').where('email', usersEmail).update(req.body).returning('email', 'first_name', 'last_name', 'id')
         }).then(function(updatedUser){
             delete updatedUser.hashed_password;
             delete updatedUser.created_at;
