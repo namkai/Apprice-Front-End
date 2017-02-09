@@ -52,28 +52,44 @@ router.route("/login").post(function (req, res, next) {
         })
 });
 
-router.route("/:email").patch(function (req, res, next) {
-    var usersEmail = req.params.email;
-  knex("users")
-  .where('email', usersEmail)
-  .update(req.body)
-  .returning("*")
-  .then(function (users) {
-    res.json(users);
-  })
+router.route("/").patch(function (req, res, next) {
+    var usersEmail = req.body.email;
+    req.body.hashed_password = req.body.password
+    knex("users").where("email", usersEmail)
+    .then(function(userInfo){
+        var hashed = userInfo[0].hashed_password;
+        bcrypt.compare(req.body.password, hashed).then(function(){
+            return knex('users').where('email', usersEmail).update(req.body)
+        }).then(function(updatedUser){
+            delete updatedUser.hashed_password;
+            delete updatedUser.created_at;
+            delete updatedUser.updated_at;
+            res.json(updatedUser)
+        }).catch(bcrypt.MISMATCH_ERROR, function(){
+            res.send("That was an invalid login!");
+        })
+    })
   .catch(function (err) {
       next(new Error(err));
     });
 });
 
-router.route("/:email").delete(function (req, res, next) {
-  let usersEmail = req.params.email;
-  knex("users")
-  .where("email", "=", usersEmail)
-  .del()
-  .returning(["first_name", "last_name", "email", "id"])
-  .then(function (users) {
-    res.json(users);
+
+router.route("/").delete(function (req, res, next) {
+  let usersEmail = req.body.email;
+  knex("users").where("email", usersEmail)
+  .then(function(userInfo){
+      var hashed = userInfo[0].hashed_password;
+      bcrypt.compare(req.body.password, hashed).then(function(){
+          return knex('users').where('email', usersEmail).del()
+      }).then(function(deletedUser){
+          delete deletedUser.hashed_password;
+          delete deletedUser.created_at;
+          delete deletedUser.updated_at;
+          res.json(updatedUser)
+      }).catch(bcrypt.MISMATCH_ERROR, function(){
+          res.send("That was an invalid login!");
+      })
   })
   .catch(function (err) {
       next(new Error(err));
