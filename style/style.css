@@ -299,6 +299,11 @@ input {
 #store-radius {
     width: 230px;
 }
+#OneStore-Picture {
+    background-image: url(./OneStore.jpg);
+    background-size: cover;
+    background-position: center;
+}
 
 .store-button-inactive {
     width: 102px;
