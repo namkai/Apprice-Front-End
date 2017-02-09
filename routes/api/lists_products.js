@@ -24,17 +24,20 @@ router.route('/:id').get(function(req, res, next){
 });
 
 router.route("/").post(function (req, res, next) {
-  knex("lists_products")
-  .insert({
-    list_id: req.body.list_id,
-    stores_products_id: req.body.stores_products_id
-  })
-  .returning(["list_id", "stores_products_id", "id"])
-  .then(function (lists_products) {
-    res.json(lists_products[0]);
-  })
-  .catch(function (err) {
-      next(new Error(err));
+    console.log(req.body)
+    var listId = parseInt(req.body.listId);
+    var products = JSON.parse(req.body.products);
+    var rows = products.map(function(currentProduct){
+        return {list_id: listId, product_id: currentProduct.products.id}
+    })
+    knex("lists_products")
+    .insert(rows)
+    .returning(["list_id", "product_id", "id"])
+    .then(function (lists_productsData) {
+        res.json(lists_productsData)
+    })
+    .catch(function (err) {
+        next(new Error(err));
     });
 });
 

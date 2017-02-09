@@ -34,9 +34,9 @@ router.route("/login").post(function (req, res, next) {
             var hashed = userInfo[0].hashed_password;
             var firstname = userInfo[0].first_name;
             bcrypt.compare(req.body.password, hashed).then(function(){
-                req.session.firstname = firstname;
-                req.session.userId = userInfo[0].id;
-                req.session.email = userInfo[0].email;
+                // req.session.firstname = firstname;
+                // req.session.userId = userInfo[0].id;
+                // req.session.email = userInfo[0].email;
                 delete userInfo[0].hashed_password;
                 delete userInfo[0].created_at;
                 delete userInfo[0].updated_at;
