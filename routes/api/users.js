@@ -55,6 +55,7 @@ router.route("/login").post(function (req, res, next) {
 router.route("/").patch(function (req, res, next) {
     var usersEmail = req.body.email;
     req.body.hashed_password = req.body.password
+    delete req.body.password
     knex("users").where("email", usersEmail)
     .then(function(userInfo){
         var hashed = userInfo[0].hashed_password;
