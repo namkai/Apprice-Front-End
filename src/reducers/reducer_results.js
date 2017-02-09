@@ -11,7 +11,12 @@ import {
 const INITIAL_STATE = {
     products: [],
     list: {},
-    location: '',
+    location: {
+        coords: {
+            lat: 100,
+            lng: 100
+        }
+    },
     user: {},
     stores: 2,
     oneStore: []

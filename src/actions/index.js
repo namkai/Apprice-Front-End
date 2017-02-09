@@ -67,10 +67,34 @@ export async function getMapData(selectCity) {
     let encodedLocation = encodeURIComponent(selectCity)
     let mapData = await fetch(`${ADDRESS_TO_LAT_LONG}${encodedLocation}`)
     mapData = await mapData.json();
+    console.log(`mapData, i'm the getMapData`, mapData);
 
     return mapData
 }
+export async function storeLocation(location) {
+    let lat;
+    let lng;
+    if(location.coords) {
+        lat = location.coords.latitude
+        lng = location.coords.latitude
+    }
+    if(location.location) {
+        lat = location.location.lat
+        lng = location.location.lng
+    }
+    console.log(`I'm the location`, location);
 
+    let data = {
+        coords: {
+            lat: lat,
+            lng: lng
+        }
+    }
+    return {
+        type: STORE_LOCATION,
+        payload: data
+    }
+}
 export function storeData(data) {
     // console.log(`i'm the data getting passed to the action`, data.data);
     let resultData = data.data;
@@ -80,13 +104,6 @@ export function storeData(data) {
     }
 }
 
-export function storeLocation(location) {
-    console.log(`I was hit! Here's the lcoation`, location);
-    return {
-        type: STORE_LOCATION,
-        payload: location
-    }
-}
 export function signUp(props) {
     // console.log(`I was hit! and here are the`, props);
     const request = axios.post(`https://appriceapi.herokuapp.com/api/users/register`, props)

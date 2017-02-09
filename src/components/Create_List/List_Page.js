@@ -29,7 +29,8 @@ class List_Page extends Component {
             genericGroceries: [],
             selectedFood: [],
             products: [],
-            selectedCity: this.props.location,
+            lat: this.props.data.location.coords.lat,
+            lng: this.props.data.location.coords.lat,
             numOfStores: 2,
             radius: 5
         }
@@ -95,7 +96,10 @@ class List_Page extends Component {
         let {radius: radius_poop} = this.state;
         let url = `http://appriceapi.herokuapp.com/api/stores/search?lat=${lat}&long=${lng}&radius=${radius_poop}`;
         let stores = await axios.get(url);
-
+        this.setState({
+            lat: lat,
+            lng: lng
+        })
         let data = {
             products: products,
             filteredStores: stores,
@@ -134,7 +138,7 @@ class List_Page extends Component {
         this.setState({products: filteredList})
     }
     render() {
-        let {genericGroceries, selectedFood, selectedCity, radius, products} = this.state;
+        let {genericGroceries, selectedFood, lat, lng, radius, products} = this.state;
         // console.log(this.props.data.location, `I'm the props location`);
         // console.log(this.state.selectedCity, 'Im the selectedCity');
         // console.log(products, `i'm all the products`);
@@ -151,7 +155,7 @@ class List_Page extends Component {
                     </div>
                 </div>
                 <div id="map-container">
-                    <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} selectedCity={selectedCity} radius={radius} getRadius={this.getRadius}/>
+                    <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} stateLat={lat} stateLng={lng} radius={radius} getRadius={this.getRadius}/>
                     <div id="apprice-btn-container">
                         <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
                     </div>

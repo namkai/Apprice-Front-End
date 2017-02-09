@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {storeLocation, getMapData} from '../../actions/index';
 
-export default class SearchBarMap extends Component {
+class SearchBarMap extends Component {
     constructor(props) {
         super(props);
 
@@ -16,13 +19,15 @@ export default class SearchBarMap extends Component {
         this.setState({term: event.target.value})
     }
 
-     onFormSubmit(event) {
+    async onFormSubmit(event) {
         event.preventDefault();
         if(this.state.term.length === 0) {
             return;
         }
         this.props.selectCity(this.state.term);
-        // this.props.getLocation(this.state.term);
+        let location = await getMapData(this.state.term)
+        console.log(`I'm the location getMapdata value`, location.results[0].geometry);
+        this.props.storeLocation(location.results[0].geometry);
         this.setState({term: ''});
     }
 
@@ -37,3 +42,7 @@ export default class SearchBarMap extends Component {
         )
     }
 }
+function mapDispatchToProps(dispatch) {
+    return  bindActionCreators({ storeLocation: storeLocation, getMapData: getMapData}, dispatch)
+}
+export default connect(null, mapDispatchToProps)(SearchBarMap)

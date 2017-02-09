@@ -1,20 +1,27 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import Grocery_List from '../Create_List/Grocery_List';
 import OneStore from './OneStore';
 import {Link} from 'react-router';
 
-export default class TwoStore extends Component {
+class TwoStore extends Component {
     constructor(props) {
         super(props);
         this.state = {
             products: []
         }
+        this.subPrice = this.subPrice.bind(this);
     }
-    oneStopSwitch() {
-
+    subPrice(list) {
+        let total = 0;
+        list.forEach((item)=> {
+            total += item.price;
+        })
     }
     render() {
-        console.log(this.props.data, `i'm the twostore props data`);
+        // console.log(this.props.data, `i'm the twostore props data`);
+        // console.log(this.props.location.lat, `i'm the lat prop on page TWO`);
+        // console.log(`ITS ME PAY ATTENTION`);
         if (this.props.data.products.length === 0) {
             return (
                 <div>Loading...</div>
@@ -23,10 +30,15 @@ export default class TwoStore extends Component {
         if (this.props.data.products.length === 1) {
             return (<OneStore data={this.props.data}/>)
         }
-        let {latitude, longitude} = this.props.data.location.coords;
-        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${latitude},${longitude}`
-        let store1 = this.props.data.products[0]
-        let store2 = this.props.data.products[1]
+        console.log(this.props.data, `i'm the twostore props data`);
+        // console.log(this.props.location.lat, `i'm the lat prop on page TWO`);
+        console.log(`ITS ME PAY ATTENTION`);
+
+        let {lat, lng} = this.props.data.location.coords;
+        // console.log(lat, lng, "i'm the location property");
+        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng}`
+        let store1 = this.props.data.products[0];
+        let store2 = this.props.data.products[1];
         return (
             // <div className="container">
                 <div className="row">
@@ -46,6 +58,7 @@ export default class TwoStore extends Component {
                             </div>
                             <hr className="list-hr"/>
                             <Grocery_List groceries={store1.products}/>
+                            <h5>{this.subPrice(store1)}</h5>
                         </div>
                         <div className="column column-4">
                             <div className="row">
@@ -89,3 +102,9 @@ export default class TwoStore extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    console.log(state, `I'm the mapStateToProps state on the TwoStore page`);
+    return {data: state.data};
+
+}
+export default connect(mapStateToProps)(TwoStore);

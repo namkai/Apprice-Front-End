@@ -45,7 +45,7 @@ class ResultsPage extends Component {
         if (data.stores === 1) {
             return (
                 <div className="container">
-                    <OneStore/>
+                    <OneStore />
                 </div>
             )
         }
