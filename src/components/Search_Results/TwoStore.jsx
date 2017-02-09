@@ -13,10 +13,13 @@ class TwoStore extends Component {
         this.subPrice = this.subPrice.bind(this);
     }
     subPrice(list) {
+        console.log(`I'm the list apparently`, list);
+
         let total = 0;
-        list.forEach((item)=> {
+        list.products.forEach((item)=> {
             total += item.price;
         })
+        return total;
     }
     render() {
         // console.log(this.props.data, `i'm the twostore props data`);
@@ -75,6 +78,7 @@ class TwoStore extends Component {
                             </div>
                             <hr className="list-hr"/>
                             <Grocery_List groceries={store2.products}/>
+                            <h5>{this.subPrice(store2)}</h5>
                         </div>
                         <div className="column column-4">
                             <div className="row">
@@ -82,7 +86,7 @@ class TwoStore extends Component {
                             </div>
                             <div className="row">
                                 <div className="total">
-                                    <h3>Apprice Total:
+                                    <h3>Apprice Total: {this.subPrice(store1) + this.subPrice(store2)}
                                     </h3><br/>
                                     <h4>You Save: vs</h4><br/>
                                     <tr>
