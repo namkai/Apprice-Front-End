@@ -10,7 +10,7 @@ router.route('/').post(function(req, res, next){
     console.log(req.body)
 
     let storesInRadius = req.body.filteredStores.data;
-    let selectedProducts = req.body.products;
+    let selectedProducts = JSON.parse(req.body.products);
     let numOfStores = parseInt(req.body.numOfStores);
     var result;
 
