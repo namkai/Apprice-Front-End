@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Grocery_List from '../Create_List/Grocery_List';
 import OneStore from './OneStore';
+import ReactMap from '../Create_List/ReactMap';
 import {Link} from 'react-router';
 
 class TwoStore extends Component {
@@ -11,6 +12,7 @@ class TwoStore extends Component {
             products: []
         }
         this.subPrice = this.subPrice.bind(this);
+        // this.initMap = this.initMap.bind(this);
     }
     subPrice(list) {
 
@@ -31,10 +33,12 @@ class TwoStore extends Component {
         }
 
         let {lat, lng} = this.props.data.location.coords;
-        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng}`
         let store1 = this.props.data.products[0];
         let store2 = this.props.data.products[1];
         let oneStop = this.props.data.oneStore[0];
+        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng},location={}`
+
+        console.log(store1);
         return (
             <div className="row">
                 <div className="column column-12">
@@ -83,6 +87,7 @@ class TwoStore extends Component {
                     <div className="column column-4">
                         <div className="row">
                             <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url}></iframe>
+                            {/* <ReactMap/> */}
                         </div>
                         <div className="row">
                             <div className="total">
@@ -111,7 +116,6 @@ class TwoStore extends Component {
                                         <img className="store-image" src={oneStop.store_image_url} alt=""/>
                                         <h3>{this.subPrice(oneStop)}</h3>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

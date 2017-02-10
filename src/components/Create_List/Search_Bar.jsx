@@ -21,7 +21,7 @@ class SearchBar extends Component {
         if (this.state.term.length === 0) {
             return;
         }
-
+        console.log(`I was hit`, this.state.term);
         this.props.foodSearch(this.state.term);
         this.setState({term: ''});
     }

@@ -26,13 +26,12 @@ export async function fetchGenericFood() {
 export async function fetchSpecificFood(food) {
     let nameUrl = `${SPECIFIC_URL}${food}`
     try {
-        let fetched = await fetch(url);
+        let fetched = await fetch(nameUrl);
         let data = await fetched.json();
 
         return data;
     } catch (error) {
         console.log(error);
-        t
 
     }
 }

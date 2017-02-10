@@ -1,12 +1,113 @@
 import React, {Component} from 'react';
-
-export default class ThreeStore extends Component {
+import {connect} from 'react-redux';
+import Grocery_List from '../Create_List/Grocery_List';
+import OneStore from './OneStore';
+import TwoStore from './TwoStore';
+class ThreeStore extends Component {
     constructor(props) {
         super(props);
     }
+    subPrice(list) {
+
+        let total = 0;
+        list.products.forEach((item) => {
+            total += item.price;
+        })
+        return total;
+    }
     render() {
+        console.log(this.props.data.products, `i'm the data products LOOK AT ME`);
+        if (this.props.data.products.length === 0) {
+            return (
+                <div>Loading...</div>
+            )
+        }
+        if (this.props.data.products.length === 1) {
+            return (<OneStore data={this.props.data}/>)
+        }
+        if(this.props.data.products.length === 2) {
+            return (<TwoStore/>)
+        }
+
+        let {lat, lng} = this.props.data.location.coords;
+        let store1 = this.props.data.products[0];
+        let store2 = this.props.data.products[1];
+        let store3 = this.props.data.products[2];
+        // console.log(store3, `i'm the store3 yo`);
+        let oneStop = this.props.data.oneStore[0];
+        let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng},location={}`
         return (
-            <div>I'm store three.</div>
+            <div className="row">
+                <div className="column column-12">
+                    <div className="column column-8">
+                        <div className="row">
+                            <div className="store">
+                                <div className="store-info">
+                                    <h2>{store1.name}</h2>
+                                    <ul>
+                                        <li>
+                                            <strong>Address:</strong>
+                                            {store1.address}</li>
+                                        <li>
+                                            <strong>Contact:</strong>
+                                            {store1.phone_number}</li>
+                                    </ul>
+                                </div>
+                                <img className="store-image" src={store1.store_image_url} alt=""/>
+                            </div>
+                        </div>
+                        <div className="row item-list">
+                            <Grocery_List groceries={store1.products}/>
+                            <h5>{this.subPrice(store1)}</h5>
+                        </div>
+                        <div className="row">
+                                <div className="store">
+                                    <div className="store-info">
+                                        <h2>{store2.name}</h2>
+                                        <ul>
+                                            <li>
+                                                <strong>Address:</strong>
+                                                {store2.address}</li>
+                                            <li>
+                                                <strong>Contact:</strong>
+                                                {store2.phone_number}</li>
+                                        </ul>
+                                    </div>
+                                    <img className="store-image" src={store2.store_image_url} alt=""/>
+                                </div>
+                            <div className="row item-list">
+                                <Grocery_List groceries={store2.products}/>
+                                <h5>{this.subPrice(store2)}</h5>
+                            </div>
+                        </div>
+                        <div className="row">
+                                <div className="store">
+                                    <div className="store-info">
+                                        <h2>{store3.name}</h2>
+                                        <ul>
+                                            <li>
+                                                <strong>Address:</strong>
+                                                {store3.address}</li>
+                                            <li>
+                                                <strong>Contact:</strong>
+                                                {store3.phone_number}</li>
+                                        </ul>
+                                    </div>
+                                    <img className="store-image" src={store3.store_image_url} alt=""/>
+                                </div>
+                            <div className="row item-list">
+                                <Grocery_List groceries={store3.products}/>
+                                <h5>{this.subPrice(store3)}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 }
+function mapStateToProps(state) {
+    return {data: state.data};
+
+}
+export default connect(mapStateToProps)(ThreeStore);

@@ -3,8 +3,8 @@ import SearchBarMap from './Search_Bar_Map'
 import Range from 'react-range';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {storeLocation} from '../../actions/index'
-
+import {storeLocation} from '../../actions/index';
+import ReactMap from './ReactMap';
 const GOOGLE_MAPS_EMBED_API = `AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38`
 // 🗺
 class Map extends Component {

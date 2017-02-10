@@ -6,11 +6,11 @@ class OneStore extends Component {
     constructor(props) {
         super(props);
 
-    this.subPrice = this.subPrice.bind(this);
+        this.subPrice = this.subPrice.bind(this);
     }
     subPrice(list) {
         let total = 0;
-        list.products.forEach((item)=> {
+        list.products.forEach((item) => {
             total += item.price;
         })
         return total;
@@ -28,8 +28,7 @@ class OneStore extends Component {
             <div className="container">
                 <div className="row">
                     <div className="column column-12">
-                        <div className="column column-4" id="OneStore-Picture">
-                        </div>
+                        <div className="column column-4" id="OneStore-Picture"></div>
                         <div className="column column-4">
                             <div className="row">
                                 <div className="store">
@@ -49,7 +48,7 @@ class OneStore extends Component {
                         </div>
                         <div className="column column-4">
                             <div className="row">
-                                <iframe id="google-map" width="350" height="300" frameBorder="0" src={url} allowFullScreen></iframe>
+                                <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url} allowFullScreen></iframe>
                             </div>
                             <div className="row">
                                 <div className="total">
