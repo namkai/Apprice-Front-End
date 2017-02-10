@@ -38,7 +38,9 @@ export async function fetchSpecificFood(food) {
 export async function sendData(props) {
 
     const request = await axios.post(`https://appriceapi.herokuapp.com/api/appriceme`, props)
-    const convertedRequest = await axios.post('https://appriceapi.herokuapp.com/api/appriceme/convert', request)
+
+    const convertedRequest = await axios.post('https://appriceapi.herokuapp.com/api/appriceme/convert', request.data)
+
     return convertedRequest;
 }
 export function oneStore(oneStore) {

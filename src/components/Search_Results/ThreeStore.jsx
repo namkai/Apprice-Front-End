@@ -13,16 +13,17 @@ class ThreeStore extends Component {
         list.products.forEach((item) => {
             total += item.price;
         })
+        total = (Math.round(total * Math.pow(10, 2)) / Math.pow(10, 2))
         return total;
     }
     render() {
+        console.log(`I'm the props on ThreeStore Page!`, this.props);
         console.log(this.props.data.products, `i'm the data products LOOK AT ME`);
-        if (this.props.data.products.length === 0) {
+        if (this.props.data.products.length === 0 && this.props.data.oneStore.length === 0) {
             return (
                 <div>Loading...</div>
             )
-        }
-        if (this.props.data.products.length === 1) {
+        } else if(this.props.data.oneStore.length === 1 && this.props.data.products.length === 0) {
             return (<OneStore data={this.props.data}/>)
         }
         if(this.props.data.products.length === 2) {
@@ -58,7 +59,7 @@ class ThreeStore extends Component {
                         </div>
                         <div className="row item-list">
                             <Grocery_List groceries={store1.products}/>
-                            <h5>{this.subPrice(store1)}</h5>
+                            <h5>Subtotal: ${this.subPrice(store1)}</h5>
                         </div>
                         <div className="row">
                                 <div className="store">
@@ -77,7 +78,7 @@ class ThreeStore extends Component {
                                 </div>
                             <div className="row item-list">
                                 <Grocery_List groceries={store2.products}/>
-                                <h5>{this.subPrice(store2)}</h5>
+                                <h5>Subtotal: ${this.subPrice(store2)}</h5>
                             </div>
                         </div>
                         <div className="row">
@@ -97,7 +98,7 @@ class ThreeStore extends Component {
                                 </div>
                             <div className="row item-list">
                                 <Grocery_List groceries={store3.products}/>
-                                <h5>{this.subPrice(store3)}</h5>
+                                <h5>Subtotal: ${this.subPrice(store3)}</h5>
                             </div>
                         </div>
                     </div>

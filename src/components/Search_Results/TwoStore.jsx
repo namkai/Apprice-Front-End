@@ -20,6 +20,7 @@ class TwoStore extends Component {
         list.products.forEach((item) => {
             total += item.price;
         })
+        total = (Math.round(total * Math.pow(10, 2)) / Math.pow(10, 2))
         return total;
     }
     render() {
@@ -61,7 +62,7 @@ class TwoStore extends Component {
                         </div>
                         <hr className="list-hr"/>
                         <Grocery_List groceries={store1.products}/>
-                        <h5>{this.subPrice(store1)}</h5>
+                        <h5>Subtotal: ${this.subPrice(store1)}</h5>
                     </div>
                     <div className="column column-4">
                         <div className="row">
@@ -82,18 +83,18 @@ class TwoStore extends Component {
                         </div>
                         <hr className="list-hr"/>
                         <Grocery_List groceries={store2.products}/>
-                        <h5>{this.subPrice(store2)}</h5>
+                        <h5>Subtotal: ${this.subPrice(store2)}</h5>
                     </div>
                     <div className="column column-4">
                         <div className="row">
-                            <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url}></iframe>
-                            {/* <ReactMap/> */}
+                            {/* <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url}></iframe> */}
+                            <ReactMap/>
                         </div>
                         <div className="row">
                             <div className="total">
-                                <h3>Apprice Total: {this.subPrice(store1) + this.subPrice(store2)}
+                                <h3>Apprice Total: ${this.subPrice(store1) + this.subPrice(store2)}
                                 </h3><br/>
-                                <h4>You Save: {this.subPrice(oneStop) - (this.subPrice(store1) + this.subPrice(store2))}vs</h4><br/>
+                                <h4>You Save: ${this.subPrice(oneStop) - (this.subPrice(store1) + this.subPrice(store2))} vs</h4><br/>
                                 <tr>
                                     <Link onClick={this.oneStopSwitch} to="/OneStore">One Store</Link>
                                     <p>option</p>
@@ -114,7 +115,7 @@ class TwoStore extends Component {
                                             </ul>
                                         </div>
                                         <img className="store-image" src={oneStop.store_image_url} alt=""/>
-                                        <h3>{this.subPrice(oneStop)}</h3>
+                                        <h3>${this.subPrice(oneStop)}</h3>
                                     </div>
                                 </div>
                             </div>

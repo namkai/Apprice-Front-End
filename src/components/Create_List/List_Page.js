@@ -58,8 +58,6 @@ class List_Page extends Component {
     handleClick(product, food) {
         let {selectedFood, products} = this.state;
         selectedFood.forEach((ele) => {
-            // console.log(ele, `I'm the element`);
-            // console.log(product, `I'm the product`);
             if (ele.selectedFood === product.name) {
                 throw new Error;
             }
@@ -79,10 +77,10 @@ class List_Page extends Component {
         })
     }
     selectCity(city) {
-        // this.props.storeLocation(city);
         this.setState({selectedCity: city});
     }
     numberOfStores(num) {
+
         this.props.numOfStores(num);
         this.setState({numOfStores: num});
     }
@@ -131,6 +129,7 @@ class List_Page extends Component {
         this.setState({products: filteredList})
     }
     render() {
+        console.log(this.props.data, `i'm the props.data`);
         let {
             genericGroceries,
             selectedFood,

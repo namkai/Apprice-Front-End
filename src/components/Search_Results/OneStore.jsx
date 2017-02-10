@@ -13,6 +13,7 @@ class OneStore extends Component {
         list.products.forEach((item) => {
             total += item.price;
         })
+        total = (Math.round(total * Math.pow(10, 2)) / Math.pow(10, 2))
         return total;
     }
     render() {
@@ -44,7 +45,7 @@ class OneStore extends Component {
                             </div>
                             <hr className="list-hr"/>
                             <Grocery_List groceries={store1.products}/>
-                            <h5>{this.subPrice(store1)}</h5>
+                            <h5>Subtotal: ${this.subPrice(store1)}</h5>
                         </div>
                         <div className="column column-4">
                             <div className="row">
@@ -52,7 +53,7 @@ class OneStore extends Component {
                             </div>
                             <div className="row">
                                 <div className="total">
-                                    <h3>Apprice Total:
+                                    <h3>Apprice Total: ${this.subPrice(store1)}
                                     </h3><br/>
                                     <h4>You Save: vs</h4><br/>
 
