@@ -1,40 +1,192 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Map from 'google-maps-react'
+import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 
-class ReactMap extends Component {
-    constructor(props) {
+const coords = {
+  lat: 51.5258541,
+  lng: -0.08040660000006028
+};
+
+class ReactMap extends Component{
+    constructor(props){
         super(props);
     }
-    render() {
+
+  onMapCreated(map) {
+    map.setOptions({
+      disableDefaultUI: true
+    });
+  }
+
+  onDragEnd(e) {
+    console.log('onDragEnd', e);
+  }
+
+  onCloseClick() {
+    console.log('onCloseClick');
+  }
+
+  onClick(e) {
+    console.log('onClick', e);
+  }
+
+  render() {
+    console.log(this.props.data);
+    if(this.props.data.products.length === 1) {
+        let {coords} = this.props.data.location;
+        let store1 = this.props.data.products[0];
         return (
-            <div>
-                <Map google={this.props.google} style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'relative'
-                }} className={'map'} zoom={14}>
-                    <Marker name={'SOMA'} position={{
-                        lat: 37.778519,
-                        lng: -122.405640
-                    }}/>
-                    <Marker name={'Dolores park'} position={{
-                        lat: 37.759703,
-                        lng: -122.428093
-                    }}/>
-                    <Marker name={'Your position'} position={{
-                        lat: 37.762391,
-                        lng: -122.439192
-                    }}/>
-                </Map>
-            </div>
+            <Gmaps
+              width={'100%'}
+              height={'300px'}
+              lat={coords.lat}
+              lng={coords.lng}
+              zoom={12}
+              loadingMessage={'Be happy'}
+              params={{v: '3.exp', key: 'YOUR_API_KEY'}}
+              onMapCreated={this.onMapCreated}>
+              <Marker
+                lat={coords.lat}
+                lng={coords.lng}
+                draggable={true}
+                onDragEnd={this.onDragEnd} />
+              <InfoWindow
+                lat={coords.lat}
+                lng={coords.lng}
+                content={`You are here!`}
+                onCloseClick={this.onCloseClick} />
+              <Marker
+                lat={store1.latitude}
+                lng={store1.longitude}
+                draggable={true}
+                onDragEnd={this.onDragEnd} />
+              <InfoWindow
+                lat={store1.latitude}
+                lng={store1.longitude}
+                content={store1.name}
+                onCloseClick={this.onCloseClick} />
+                </Gmaps>
         )
     }
+    if(this.props.data.products.length === 2) {
+    let {coords} = this.props.data.location;
+    let store1 = this.props.data.products[0];
+    let store2 = this.props.data.products[1];
+
+    return (
+      <Gmaps
+        width={'100%'}
+        height={'300px'}
+        lat={coords.lat}
+        lng={coords.lng}
+        zoom={12}
+        loadingMessage={'Be happy'}
+        params={{v: '3.exp', key: 'YOUR_API_KEY'}}
+        onMapCreated={this.onMapCreated}>
+        <Marker
+          lat={coords.lat}
+          lng={coords.lng}
+          draggable={true}
+          onDragEnd={this.onDragEnd} />
+        <InfoWindow
+          lat={coords.lat}
+          lng={coords.lng}
+          content={`You are here!`}
+          onCloseClick={this.onCloseClick} />
+        <Marker
+          lat={store1.latitude}
+          lng={store1.longitude}
+          draggable={true}
+          onDragEnd={this.onDragEnd} />
+        <InfoWindow
+          lat={store1.latitude}
+          lng={store1.longitude}
+          content={store1.name}
+          onCloseClick={this.onCloseClick} />
+          <Marker
+            lat={store2.latitude}
+            lng={store2.longitude}
+            draggable={true}
+            onDragEnd={this.onDragEnd} />
+          <InfoWindow
+            lat={store2.latitude}
+            lng={store2.longitude}
+            content={store2.name}
+            onCloseClick={this.onCloseClick} />
+        {/* <Circle
+          lat={coords.lat}
+          lng={coords.lng}
+          radius={5000}
+          onClick={this.onClick} /> */}
+      </Gmaps>
+    );
+  }
+  if(this.props.data.products.length ===3) {
+      let {coords} = this.props.data.location;
+      let store1 = this.props.data.products[0];
+      let store2 = this.props.data.products[1];
+      let store3 = this.props.data.products[2];
+      return (
+          <Gmaps
+            width={'100%'}
+            height={'300px'}
+            lat={coords.lat}
+            lng={coords.lng}
+            zoom={12}
+            loadingMessage={'Be happy'}
+            params={{v: '3.exp', key: 'YOUR_API_KEY'}}
+            onMapCreated={this.onMapCreated}>
+            <Marker
+              lat={coords.lat}
+              lng={coords.lng}
+              draggable={true}
+              onDragEnd={this.onDragEnd} />
+            <InfoWindow
+              lat={coords.lat}
+              lng={coords.lng}
+              content={`You are here!`}
+              onCloseClick={this.onCloseClick} />
+            <Marker
+              lat={store1.latitude}
+              lng={store1.longitude}
+              draggable={true}
+              onDragEnd={this.onDragEnd} />
+            <InfoWindow
+              lat={store1.latitude}
+              lng={store1.longitude}
+              content={store1.name}
+              onCloseClick={this.onCloseClick} />
+              <Marker
+                lat={store2.latitude}
+                lng={store2.longitude}
+                draggable={true}
+                onDragEnd={this.onDragEnd} />
+              <InfoWindow
+                lat={store2.latitude}
+                lng={store2.longitude}
+                content={store2.name}
+                onCloseClick={this.onCloseClick} />
+                <Marker
+                  lat={store3.latitude}
+                  lng={store3.longitude}
+                  draggable={true}
+                  onDragEnd={this.onDragEnd} />
+                <InfoWindow
+                  lat={store3.latitude}
+                  lng={store3.longitude}
+                  content={store3.name}
+                  onCloseClick={this.onCloseClick} />
+            {/* <Circle
+              lat={coords.lat}
+              lng={coords.lng}
+              radius={5000}
+              onClick={this.onClick} /> */}
+          </Gmaps>
+      )
+  }
+  }
 }
-
-function mapStateToProps(state) {
-    return {data: state.data};
-
+function mapStateToProps(state){
+    return {data: state.data}
 }
-
-export default connect(mapStateToProps)(ReactMap);
+export default connect(mapStateToProps)(ReactMap)

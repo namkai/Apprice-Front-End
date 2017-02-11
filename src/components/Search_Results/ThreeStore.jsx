@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import Grocery_List from '../Create_List/Grocery_List';
 import OneStore from './OneStore';
 import TwoStore from './TwoStore';
+import ReactMap from '../Create_List/ReactMap';
+
 class ThreeStore extends Component {
     constructor(props) {
         super(props);
@@ -99,6 +101,20 @@ class ThreeStore extends Component {
                             <div className="row item-list">
                                 <Grocery_List groceries={store3.products}/>
                                 <h5>Subtotal: ${this.subPrice(store3)}</h5>
+                            </div>
+                            <div className="column column-4">
+                                <div className="row">
+                                    {/* <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url} allowFullScreen></iframe> */}
+                                    <ReactMap/>
+                                </div>
+                                <div className="row">
+                                    <div className="total">
+                                        <h3>Apprice Total: ${this.subPrice(store1)}
+                                        </h3><br/>
+                                        <h4>You Save: vs</h4><br/>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

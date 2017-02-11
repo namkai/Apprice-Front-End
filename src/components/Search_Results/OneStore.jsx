@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Grocery_List from '../Create_List/Grocery_List';
 import {connect} from 'react-redux';
-
+import ReactMap from '../Create_List/ReactMap';
 class OneStore extends Component {
     constructor(props) {
         super(props);
@@ -49,7 +49,8 @@ class OneStore extends Component {
                         </div>
                         <div className="column column-4">
                             <div className="row">
-                                <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url} allowFullScreen></iframe>
+                                {/* <iframe id="google-map" width="100%" height="300" frameBorder="0" src={url} allowFullScreen></iframe> */}
+                                <ReactMap/>
                             </div>
                             <div className="row">
                                 <div className="total">
