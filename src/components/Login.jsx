@@ -21,17 +21,33 @@ export default class Login extends Component {
     render() {
         console.log(this.state);
         return (
-            <div className="container">
-            <div className="signup-form">
-                <form onSubmit={this.handleSubmit}>
-                    <input type="email" placeholder="Enter your email." value={this.state.email}
-                    onChange={event => this.setState({email: event.target.value})}/>
-                    <br/>
-                    <input type="password" placeholder="Enter your password." value={this.state.password}
-                    onChange={event => this.setState({password: event.target.value})}/>
-                    <Link to="/List_Page">Sign Up!</Link>
-                </form>
-            </div>
+            <div id="login-background">
+                <div className="login-form">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="user-info">
+                            <h4 className="sign-title">Username</h4>
+                            <input className="sign" type="email" value={this.state.email} onChange={event => this.setState({email: event.target.value})}/>
+                            <br/>
+                            <h4 className="sign-title">Password</h4>
+                            <input className="sign" type="password" value={this.state.password} onChange={event => this.setState({password: event.target.value})}/><br/>
+                            <Link className="sign-link" to="/List_Page">Log In</Link><br/>
+                            <br/>
+                            <Link to="/signup">Forgot Password?</Link>
+                        </div>
+                        <br/>
+                        <fieldset className="title">
+                            <legend>or Log In with</legend>
+                        </fieldset>
+                        <div className="auth-container">
+                            <button className="auth">
+                                <i className="fa fa-facebook-square"
+                                    aria-hidden="true"></i>  Facebook</button>
+                            <button className="auth" id="google">
+                                <i className="fa fa-google"
+                                    aria-hidden="true"></i> Google</button><br/>
+                        </div>
+                    </form>
+                </div>
             </div>
         )
     }

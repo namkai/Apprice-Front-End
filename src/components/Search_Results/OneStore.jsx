@@ -21,7 +21,7 @@ class OneStore extends Component {
         let url = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGn70hACTBdMyntztMhqiTbH0w5Uzw38&q=${lat},${lng}`
         if (this.props.data.oneStore.length === 0) {
             return (
-                <div>Loading...</div>
+                <div className="loading">Loading...</div>
             )
         }
         let store1 = this.props.data.oneStore[0];

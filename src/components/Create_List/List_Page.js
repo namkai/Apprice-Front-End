@@ -141,22 +141,23 @@ class List_Page extends Component {
 
         return (
             <div className="container">
-                <div id="list-container">
-                    <h2>Choose your groceries</h2>
-                    <SearchBar foodSearch={this.specificFoodSearch}/>
-                    <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
-                    <h3 id="shopping-title">Shopping List</h3>
-                    <div id="list">
-                        <Grocery_List groceries={products} onToggle={this.handleToggle}/>
+                <div className="content-container">
+                    <div id="list-container">
+                        <h2>Choose your groceries</h2>
+                        <SearchBar foodSearch={this.specificFoodSearch}/>
+                        <ImageList handleClick={this.handleClick} groceries={genericGroceries}/>
+                        <h3 id="shopping-title">Shopping List</h3>
+                        <div id="list">
+                            <Grocery_List groceries={products} onToggle={this.handleToggle}/>
+                        </div>
+                    </div>
+                    <div id="map-container">
+                        <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} stateLat={lat} stateLng={lng} radius={radius} getRadius={this.getRadius}/>
+                        <div id="apprice-btn-container">
+                            <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
+                        </div>
                     </div>
                 </div>
-                <div id="map-container">
-                    <Map numOfStores={this.numberOfStores} selectCity={this.selectCity} stateLat={lat} stateLng={lng} radius={radius} getRadius={this.getRadius}/>
-                    <div id="apprice-btn-container">
-                        <Link id="Apprice-me" to="/result" onClick={this.submitData}>Apprice Me</Link>
-                    </div>
-                </div>
-
             </div>
         )
     }

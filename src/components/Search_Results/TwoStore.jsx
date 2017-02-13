@@ -26,7 +26,7 @@ class TwoStore extends Component {
     render() {
         if (this.props.data.products.length === 0) {
             return (
-                <div>Loading...</div>
+                <div className="loading">Loading...</div>
             )
         }
         if (this.props.data.products.length === 1) {

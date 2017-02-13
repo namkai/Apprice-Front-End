@@ -23,7 +23,7 @@ class ThreeStore extends Component {
         console.log(this.props.data.products, `i'm the data products LOOK AT ME`);
         if (this.props.data.products.length === 0 && this.props.data.oneStore.length === 0) {
             return (
-                <div>Loading...</div>
+                <div className="loading">Loading...</div>
             )
         } else if(this.props.data.oneStore.length === 1 && this.props.data.products.length === 0) {
             return (<OneStore data={this.props.data}/>)
