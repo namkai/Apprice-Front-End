@@ -18,6 +18,7 @@ class ResultsPage extends Component {
     }
     render() {
         const {data} = this.props;
+        console.log(`i'm the main data on the result page`, data);
         if (!data) {
             return <div>Loading...</div>
         }

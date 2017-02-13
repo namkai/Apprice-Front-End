@@ -5,7 +5,8 @@ import {
     NUMBER_STORES,
     SAVE_LIST,
     SWITCH_STORE,
-    ONE_STORE
+    ONE_STORE,
+    TWO_STORE
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -19,7 +20,8 @@ const INITIAL_STATE = {
     },
     user: {},
     stores: 2,
-    oneStore: []
+    oneStore: [],
+    twoStore: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -54,6 +56,11 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 oneStore: action.payload.data
+            }
+        case TWO_STORE:
+            return {
+                ...state,
+                twoStore: action.payload.data
             }
         default:
             return state;

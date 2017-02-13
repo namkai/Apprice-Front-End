@@ -10,7 +10,8 @@ export const STORE_LOCATION = 'STORE_LOCATION';
 export const STORE_USER = 'STORE_USER';
 export const NUMBER_STORES = 'NUMBER_STORES';
 export const SAVE_LIST = 'SAVE_LIST';
-export const ONE_STORE = 'SWITCH_STORE';
+export const ONE_STORE = 'ONE_STORE';
+export const TWO_STORE = 'TWO_STORE';
 
 export async function fetchGenericFood() {
     let url = `${ROOT_URL}`
@@ -46,6 +47,10 @@ export async function sendData(props) {
 export function oneStore(oneStore) {
 
     return {type: ONE_STORE, payload: oneStore}
+}
+export function twoStore(TwoStore) {
+
+    return {type: TWO_STORE, payload: TwoStore}
 }
 
 export async function getData() {

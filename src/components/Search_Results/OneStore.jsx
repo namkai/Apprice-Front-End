@@ -10,6 +10,7 @@ class OneStore extends Component {
     }
     subPrice(list) {
         let total = 0;
+        console.log(`i'm the list in the subPrice func`, list);
         list.products.forEach((item) => {
             total += item.price;
         })
@@ -25,6 +26,14 @@ class OneStore extends Component {
             )
         }
         let store1 = this.props.data.oneStore[0];
+        let twoStop = this.props.data.twoStore;
+        let store1Price = this.subPrice(store1)
+        console.log(`i'm the twoStop[0]`, twoStop[0]);
+        let store2FirstStop = this.subPrice(twoStop[0]);
+        let store2SecondStop = this.subPrice(twoStop[1]);
+        let store2Total = store2FirstStop + store2SecondStop;
+        console.log(`i'm the twoStop`, twoStop);
+        console.log(`i'm the store2Price`, store2Total);
         return (
             <div className="container">
                 <div className="row">
@@ -56,7 +65,7 @@ class OneStore extends Component {
                                 <div className="total">
                                     <h3>Apprice Total: ${this.subPrice(store1)}
                                     </h3><br/>
-                                    <h4>You Save: vs</h4><br/>
+                                    <h4>You Pay ${store1Price - store2Total} more than</h4><br/>
 
                                 </div>
                             </div>

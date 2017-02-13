@@ -32,9 +32,9 @@ class ReactMap extends Component{
 
   render() {
     console.log(this.props.data);
-    if(this.props.data.products.length === 1) {
+    if(this.props.data.stores === 1) {
         let {coords} = this.props.data.location;
-        let store1 = this.props.data.products[0];
+        let store1 = this.props.data.oneStore[0];
         return (
             <Gmaps
               width={'100%'}
@@ -68,7 +68,7 @@ class ReactMap extends Component{
                 </Gmaps>
         )
     }
-    if(this.props.data.products.length === 2) {
+    if(this.props.data.stores === 2) {
     let {coords} = this.props.data.location;
     let store1 = this.props.data.products[0];
     let store2 = this.props.data.products[1];
@@ -121,7 +121,7 @@ class ReactMap extends Component{
       </Gmaps>
     );
   }
-  if(this.props.data.products.length ===3) {
+  if(this.props.data.stores ===3) {
       let {coords} = this.props.data.location;
       let store1 = this.props.data.products[0];
       let store2 = this.props.data.products[1];

@@ -18,7 +18,8 @@ import {
     storeLocation,
     numOfStores,
     saveList,
-    oneStore
+    oneStore,
+    twoStore
 } from '../../actions/index';
 
 // 📑
@@ -106,9 +107,17 @@ class List_Page extends Component {
             numOfStores: 1,
             radius: radius
         }
+        let twoStoreData = {
+            products: products,
+            filteredStores: stores,
+            numOfStores: 2,
+            radius: radius
+        }
         this.props.saveList(data)
         let resultData = await sendData(data);
         let oneStore = await sendData(oneStoreData);
+        let twoStore = await sendData(twoStoreData)
+        this.props.twoStore(twoStore)
         this.props.oneStore(oneStore)
         this.props.storeData(resultData)
         return resultData;
@@ -129,6 +138,7 @@ class List_Page extends Component {
         this.setState({products: filteredList})
     }
     render() {
+        console.log(this.props, `i'm the props! on the list page`);
         console.log(this.props.data, `i'm the props.data`);
         let {
             genericGroceries,
@@ -173,7 +183,8 @@ function mapDispatchToProps(dispatch) {
         numOfStores: numOfStores,
         storeLocation: storeLocation,
         saveList: saveList,
-        oneStore: oneStore
+        oneStore: oneStore,
+        twoStore: twoStore
     }, dispatch)
 }
 
