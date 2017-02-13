@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Grocery_List from '../Create_List/Grocery_List';
 import {connect} from 'react-redux';
 import ReactMap from '../Create_List/ReactMap';
+import {bindActionCreators} from 'redux';
+import {numOfStores} from '../../actions/index';
 class OneStore extends Component {
     constructor(props) {
         super(props);
@@ -45,8 +47,8 @@ class OneStore extends Component {
                                     <div className="store-info">
                                         <h2>{store1.name}</h2>
                                         <ul>
-                                            <li>{store1.address}</li>
-                                            <li>{store1.phone_number}</li>
+                                            <li><strong>Address: </strong>{store1.address}</li><br/>
+                                            <li><strong>Contact: </strong>{store1.phone_number}</li>
                                         </ul>
                                     </div>
                                     <img className="store-image" src={store1.store_image_url} alt=""/>
@@ -54,6 +56,7 @@ class OneStore extends Component {
                             </div>
                             <hr className="list-hr"/>
                             <Grocery_List groceries={store1.products}/>
+                            <br/>
                             <h5>Subtotal: ${this.subPrice(store1)}</h5>
                         </div>
                         <div className="column column-4">
@@ -66,7 +69,10 @@ class OneStore extends Component {
                                     <h3>Apprice Total: ${this.subPrice(store1)}
                                     </h3><br/>
                                     <h4>You Pay ${store1Price - store2Total} more than</h4><br/>
+                                    <tr>
 
+                                        <p>option</p>
+                                    </tr>
                                 </div>
                             </div>
                         </div>
@@ -80,4 +86,9 @@ function mapStateToProps(state) {
     return {data: state.data};
 
 }
-export default connect(mapStateToProps)(OneStore);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        numOfStores: numOfStores
+    }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(OneStore);

@@ -62,6 +62,7 @@ class TwoStore extends Component {
                         </div>
                         <hr className="list-hr"/>
                         <Grocery_List groceries={store1.products}/>
+                        <br/>
                         <h5>Subtotal: ${this.subPrice(store1)}</h5>
                     </div>
                     <div className="column column-4">
@@ -83,6 +84,7 @@ class TwoStore extends Component {
                         </div>
                         <hr className="list-hr"/>
                         <Grocery_List groceries={store2.products}/>
+                        <br/>
                         <h5>Subtotal: ${this.subPrice(store2)}</h5>
                     </div>
                     <div className="column column-4">
@@ -96,7 +98,7 @@ class TwoStore extends Component {
                                 </h3><br/>
                                 <h4>You Save: ${this.subPrice(oneStop) - (this.subPrice(store1) + this.subPrice(store2))} vs</h4><br/>
                                 <tr>
-                                    <Link onClick={this.oneStopSwitch} to="/OneStore">One Store</Link>
+                                    <Link to="/OneStore">One Store</Link>
                                     <p>option</p>
                                 </tr>
                             </div>
@@ -128,6 +130,6 @@ class TwoStore extends Component {
 }
 function mapStateToProps(state) {
     return {data: state.data};
-
 }
+
 export default connect(mapStateToProps)(TwoStore);

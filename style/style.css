@@ -7,7 +7,6 @@ body {
     margin-top: 0;
     padding: 0;
     font-family: 'Raleway', sans-serif;
-
 }
 
 
@@ -66,7 +65,7 @@ li {
 li a {
     text-align: right;
     display: block;
-    color: #dabb61;
+    color: white;
     /*text-align: center;*/
 
     padding: 14px 16px;
@@ -295,7 +294,10 @@ p {
     height: 140px;
 }
 .store-image {
-    width: 150px
+    width: 150px;
+    /*float: right;*/
+    /* margin-bottom: 10px; */
+    margin: 10px;
 }
 
 /*#zero {
@@ -366,7 +368,7 @@ p {
     height: 80%;
     background-color: rgba(255, 255, 255, .9);
     border-radius: 20px;
-    padding: 30px 0;
+    padding: 40px 20px;
 }
 #shopping-title {
     margin: 0;
@@ -524,7 +526,7 @@ p {
     float: right;
     margin-top: 12%;
     margin-right: 15%;
-    background: rgba(255, 255, 255, .5);
+    background: rgba(255, 255, 255, .7);
     padding: 3%;
     border-radius: 5px;
     text-align: center;
@@ -533,7 +535,7 @@ p {
     float: left;
     margin-top: 8%;
     margin-left: 12%;
-    background: rgba(255, 255, 255, .5);
+    background: rgba(255, 255, 255, .7);
     padding: 3%;
     border-radius: 5px;
     text-align: center;
@@ -575,6 +577,11 @@ p {
 .loading {
     color: white;
     font-size: 50px;
+}
+.store-info {
+    float: left;
+    height: 100%;
+    width: 48%;
 }
 
 /*.hr-div {

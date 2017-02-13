@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
+import {bindActionCreators} from 'redux';
 import OneStore from './OneStore';
 import TwoStore from './TwoStore';
 import ThreeStore from './ThreeStore';

@@ -4,7 +4,6 @@ import {
     STORE_USER,
     NUMBER_STORES,
     SAVE_LIST,
-    SWITCH_STORE,
     ONE_STORE,
     TWO_STORE
 } from '../actions/index';
