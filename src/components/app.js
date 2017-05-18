@@ -7,11 +7,10 @@ export default class App extends Component {
   render() {
     return (
       <div id="zero">
-        <Nav/>
-            {/* <div className="container"> */}
-                {this.props.children}
-            {/* </div> */}
+        <Nav />
+        {this.props.children}
       </div>
     );
   }
 }
+

@@ -1,19 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class List extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        let {name, key, onToggle, id} = this.props;
-        return (
-            <div >
-                <input type="checkbox" key={key} onChange={function() {
-                    onToggle(id);
-                }}/>
-                <label htmlFor={key}>{name}</label>
-            </div>
+const List = ({ name, key, onToggle, id }) => (
+  <div >
+    <input
+      type="checkbox" key={key} onChange={() => onToggle(id)}
+    />
+    <label htmlFor={key}>{name}</label>
+  </div>
 
-        )
-    }
-}
+);
+
+export default List;
